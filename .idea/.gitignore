@@ -8,5 +8,3 @@
 /dataSources.local.xml
 # Zeppelin ignored files
 /ZeppelinRemoteNotebooks/
-# target folder
-*/target/**
