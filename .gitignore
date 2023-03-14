@@ -1,4 +1,4 @@
 # target folder
-target/
+/target/
 # macOS file
 .DS_Store
