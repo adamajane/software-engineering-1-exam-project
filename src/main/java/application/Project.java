@@ -5,17 +5,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Project {
-    private String id;
-    private String name;
+    public int ID;
+    public static int nextID = 1;
     private Employee projectManager;
     private LocalDate startDate;
     private LocalDate endDate;
     private List<Activity> activities;
 
     // med projectmanager i constructor
-    public Project(String id, String name, Employee projectManager, LocalDate startDate, LocalDate endDate) {
-        this.id = id;
-        this.name = name;
+    public Project(Employee projectManager, LocalDate startDate, LocalDate endDate) {
+        ID = (this.nextID++) + 23000;
         this.projectManager = projectManager;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -23,21 +22,16 @@ public class Project {
     }
 
     // uden projectmanager constructor, så man kan lave project, hvor der ikke er udvalgt projectmanager endnu
-    public Project(String id, String name, LocalDate startDate, LocalDate endDate) {
-        this.id = id;
-        this.name = name;
+    public Project(LocalDate startDate, LocalDate endDate) {
+        ID = (this.nextID++) + 23000;
         this.startDate = startDate;
         this.endDate = endDate;
         this.activities = new ArrayList<>();
     }
 
 
-    public String getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
+    public int getID() {
+        return ID;
     }
 
     public Employee getProjectManager() {
