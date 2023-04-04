@@ -11,7 +11,7 @@ public class Activity {
     private int budgetedHours;
     private LocalDate startDate;
     private LocalDate endDate;
-    private List<TimeEntry> timeEntries;
+    private List<TimeRegistration> timeEntries;
 
     public Activity(String name, int budgetedHours) {
         this.name = name;
@@ -43,7 +43,7 @@ public class Activity {
 
     public void removeEmployee(Employee employee) {
         assignedEmployees.remove(employee);
-        employee.removeActivity(this);
+        //employee.removeActivity(this);
     }
 
     public int getBudgetedHours() {
@@ -66,17 +66,17 @@ public class Activity {
         this.endDate = endDate;
     }
 
-    public List<TimeEntry> getTimeEntries() {
+    public List<TimeRegistration> getTimeEntries() {
         return timeEntries;
     }
 
-    public void addTimeEntry(TimeEntry timeEntry) {
+    public void addTimeEntry(TimeRegistration timeEntry) {
         timeEntries.add(timeEntry);
     }
 
     public int getSpentHours() {
         int totalSpentHours = 0;
-        for (TimeEntry timeEntry : timeEntries) {
+        for (TimeRegistration timeEntry : timeEntries) {
             totalSpentHours += timeEntry.getHours();
         }
         return totalSpentHours;
@@ -88,7 +88,7 @@ public class Activity {
 
     public double getTotalActualHours() {
         double totalActualHours = 0.0;
-        for (TimeEntry timeEntry : timeEntries) {
+        for (TimeRegistration timeEntry : timeEntries) {
             totalActualHours += timeEntry.getHours();
         }
         return totalActualHours;
