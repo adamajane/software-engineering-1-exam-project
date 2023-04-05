@@ -1,6 +1,5 @@
 package application;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,27 +7,30 @@ public class Project {
     public int ID;
     public static int nextID = 1;
     private Employee projectManager;
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private int startYear;
+    private int startWeek;
+    private int endYear;
+    private int endWeek;
     private List<Activity> activities;
 
-    // med projectmanager i constructor
-    public Project(Employee projectManager, LocalDate startDate, LocalDate endDate) {
+    public Project(Employee projectManager, int startYear, int startWeek, int endYear, int endWeek) {
         ID = (this.nextID++) + 23000;
         this.projectManager = projectManager;
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.startYear = startYear;
+        this.startWeek = startWeek;
+        this.endYear = endYear;
+        this.endWeek = endWeek;
         this.activities = new ArrayList<>();
     }
 
-    // uden projectmanager constructor, så man kan lave project, hvor der ikke er udvalgt projectmanager endnu
-    public Project(LocalDate startDate, LocalDate endDate) {
+    public Project(int startYear, int startWeek, int endYear, int endWeek) {
         ID = (this.nextID++) + 23000;
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.startYear = startYear;
+        this.startWeek = startWeek;
+        this.endYear = endYear;
+        this.endWeek = endWeek;
         this.activities = new ArrayList<>();
     }
-
 
     public int getID() {
         return ID;
@@ -38,12 +40,20 @@ public class Project {
         return projectManager;
     }
 
-    public LocalDate getStartDate() {
-        return startDate;
+    public int getStartYear() {
+        return startYear;
     }
 
-    public LocalDate getEndDate() {
-        return endDate;
+    public int getStartWeek() {
+        return startWeek;
+    }
+
+    public int getEndYear() {
+        return endYear;
+    }
+
+    public int getEndWeek() {
+        return endWeek;
     }
 
     public List<Activity> getActivities() {
