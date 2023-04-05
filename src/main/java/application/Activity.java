@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Activity {
-    private String name;
-    private Employee projectManager;
+    private String activityName;
+    private Employee projectLeader;
     private List<Employee> assignedEmployees;
     private int budgetedHours;
     private int startYear;
@@ -14,23 +14,23 @@ public class Activity {
     private int endWeek;
     private List<TimeRegistration> timeEntries;
 
-    public Activity(String name, int budgetedHours) {
-        this.name = name;
+    public Activity(String activityName, int budgetedHours) {
+        this.activityName = activityName;
         this.budgetedHours = budgetedHours;
         assignedEmployees = new ArrayList<>();
         timeEntries = new ArrayList<>();
     }
 
-    public String getName() {
-        return name;
+    public String getActivityNameName() {
+        return activityName;
     }
 
-    public Employee getProjectManager() {
-        return projectManager;
+    public Employee getProjectLeader() {
+        return projectLeader;
     }
 
-    public void setProjectManager(Employee projectManager) {
-        this.projectManager = projectManager;
+    public void setProjectLeader(Employee projectLeader) {
+        this.projectLeader = projectLeader;
     }
 
     public List<Employee> getAssignedEmployees() {
