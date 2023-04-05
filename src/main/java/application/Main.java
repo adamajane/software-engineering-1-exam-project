@@ -8,6 +8,7 @@ public class Main {
         System.out.println("Hello, World!");
 
         while(true){
+            boolean running = true;
             System.out.println("Time Management App");
             System.out.println("1. Add Employee");
             System.out.println("2. Show employees");
@@ -46,9 +47,9 @@ public class Main {
                 //case 8:
                 //    showAllEmployees();
                 //    break;
-                //case 9:
-                //    running = false;
-                //    break;
+                case 9:
+                    running = false;
+                    break;
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }

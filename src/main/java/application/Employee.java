@@ -13,7 +13,7 @@ public abstract class Employee {
 
     public Employee(String employeeID) {
         try {
-            if (employeeID.length() != 4) {
+            if (employeeID.length() > 4) {
                 throw new IllegalArgumentException("Employee ID must be 4 characters long");
             }
             this.employeeID = employeeID;
