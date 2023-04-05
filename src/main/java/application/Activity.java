@@ -6,92 +6,40 @@ import java.util.List;
 
 public class Activity {
     private String name;
-    private Employee projectManager;
-    private List<Employee> assignedEmployees;
-    private int budgetedHours;
-    private LocalDate startDate;
-    private LocalDate endDate;
-    private List<TimeRegistration> timeEntries;
+    private double expectedWorkingHours;
+    private LocalDate startTime;
+    private LocalDate endTime;
+    private List<TimeRegistration> timeRegistrations;
 
-    public Activity(String name, int budgetedHours) {
+    public Activity(String name, double expectedWorkingHours, LocalDate startTime, LocalDate endTime) {
         this.name = name;
-        this.budgetedHours = budgetedHours;
-        assignedEmployees = new ArrayList<>();
-        timeEntries = new ArrayList<>();
+        this.expectedWorkingHours = expectedWorkingHours;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.timeRegistrations = new ArrayList();
+    }
+
+    public void updateExpectedWorkingHours(double newExpectedWorkingHours) {
+        this.expectedWorkingHours = newExpectedWorkingHours;
+    }
+
+    public void updateStartTime(LocalDate newStartTime) {
+        this.startTime = newStartTime;
+    }
+
+    public void updateEndTime(LocalDate newEndTime) {
+        this.endTime = newEndTime;
+    }
+
+    public void addTimeRegistration(TimeRegistration timeRegistration) {
+        this.timeRegistrations.add(timeRegistration);
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
-    public Employee getProjectManager() {
-        return projectManager;
+    public List<TimeRegistration> getTimeRegistrations() {
+        return this.timeRegistrations;
     }
-
-    public void setProjectManager(Employee projectManager) {
-        this.projectManager = projectManager;
-    }
-
-    public List<Employee> getAssignedEmployees() {
-        return assignedEmployees;
-    }
-
-    public void assignEmployee(Employee employee) {
-        assignedEmployees.add(employee);
-        employee.addActivity(this);
-    }
-
-    public void removeEmployee(Employee employee) {
-        assignedEmployees.remove(employee);
-        //employee.removeActivity(this);
-    }
-
-    public int getBudgetedHours() {
-        return budgetedHours;
-    }
-
-    public LocalDate getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
-    }
-
-    public LocalDate getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(LocalDate endDate) {
-        this.endDate = endDate;
-    }
-
-    public List<TimeRegistration> getTimeEntries() {
-        return timeEntries;
-    }
-
-    public void addTimeEntry(TimeRegistration timeEntry) {
-        timeEntries.add(timeEntry);
-    }
-
-    public int getSpentHours() {
-        int totalSpentHours = 0;
-        for (TimeRegistration timeEntry : timeEntries) {
-            totalSpentHours += timeEntry.getHours();
-        }
-        return totalSpentHours;
-    }
-
-    public int getRemainingHours() {
-        return budgetedHours - getSpentHours();
-    }
-
-    public double getTotalActualHours() {
-        double totalActualHours = 0.0;
-        for (TimeRegistration timeEntry : timeEntries) {
-            totalActualHours += timeEntry.getHours();
-        }
-        return totalActualHours;
-    }
-
 }
