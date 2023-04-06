@@ -11,13 +11,17 @@ public class Activity {
     private int startWeek;
     private int endYear;
     private int endWeek;
-    private List<TimeRegistration> timeEntries;
+    private List<TimeRegistration> timeRegistrations;
 
-    public Activity(String activityName, int budgetedHours) {
+    public Activity(String activityName, int budgetedHours, int startYear, int startWeek, int endYear, int endWeek) {
         this.activityName = activityName;
         this.budgetedHours = budgetedHours;
+        this.startYear = startYear;
+        this.startWeek = startWeek;
+        this.endYear = endYear;
+        this.endWeek = endWeek;
         assignedEmployees = new ArrayList<>();
-        timeEntries = new ArrayList<>();
+        this.timeRegistrations = new ArrayList<>();
     }
 
     public String getActivityNameName() {
@@ -74,17 +78,13 @@ public class Activity {
         this.endWeek = endWeek;
     }
 
-    public List<TimeRegistration> getTimeEntries() {
-        return timeEntries;
-    }
-
-    public void addTimeEntry(TimeRegistration timeEntry) {
-        timeEntries.add(timeEntry);
+    public void addTimeRegistration(TimeRegistration timeRegistration) {
+        timeRegistrations.add(timeRegistration);
     }
 
     public int getSpentHours() {
         int totalSpentHours = 0;
-        for (TimeRegistration timeEntry : timeEntries) {
+        for (TimeRegistration timeEntry : timeRegistrations) {
             totalSpentHours += timeEntry.getHours();
         }
         return totalSpentHours;
@@ -96,7 +96,7 @@ public class Activity {
 
     public double getTotalActualHours() {
         double totalActualHours = 0.0;
-        for (TimeRegistration timeEntry : timeEntries) {
+        for (TimeRegistration timeEntry : timeRegistrations) {
             totalActualHours += timeEntry.getHours();
         }
         return totalActualHours;
@@ -104,5 +104,13 @@ public class Activity {
 
     public String getActivityName() {
         return activityName;
+    }
+
+    public List<TimeRegistration> getTimeRegistrations() {
+        return timeRegistrations;
+    }
+
+    public double getExpectedWorkingHours() {
+        return budgetedHours;
     }
 }

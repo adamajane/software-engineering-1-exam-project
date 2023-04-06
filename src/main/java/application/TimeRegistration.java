@@ -8,7 +8,7 @@ public class TimeRegistration {
     private LocalDate date;
     private double hours;
 
-    public TimeRegistration(Employee employee, Activity activity, LocalDate date, int hours) {
+    public TimeRegistration(Employee employee, Activity activity, LocalDate date, double hours) {
         this.employee = employee;
         this.activity = activity;
         this.date = date;

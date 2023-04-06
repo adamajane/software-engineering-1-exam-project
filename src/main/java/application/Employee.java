@@ -2,22 +2,19 @@ package application;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public abstract class Employee {
     private String employeeID;
     private static ArrayList<Employee> employees = new ArrayList<Employee>();
     private ArrayList<Activity> activities;
+    private Map<LocalDate, Map<Activity, Double>> timeRegistrations;
 
     public Employee(String employeeID) {
-        try {
-            if (employeeID.length() > 4) {
-                throw new IllegalArgumentException("Employee ID must be 4 characters long");
-            }
-            this.employeeID = employeeID;
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        }
+        this.employeeID = employeeID;
+        this.timeRegistrations = new HashMap<>();
         activities = new ArrayList<Activity>();
     }
 
@@ -59,13 +56,8 @@ public abstract class Employee {
 
     public abstract String getRole();
 
-    public void registerTime(Activity activity, int time) {
-        TimeRegistration timeRegistration = new TimeRegistration(this, activity, LocalDate.now(), time);
-        activity.addTimeEntry(timeRegistration);
-    }
-
-    public Activity createActivity(String activityName, int budgetedHours) {
-        return new Activity(activityName, budgetedHours);
+    public Activity createActivity(String activityName, int budgetedHours, int startYear, int startWeek, int endYear, int endWeek) {
+        return new Activity(activityName, budgetedHours, startYear, startWeek, endYear, endWeek);
     }
 
     public void addActivity(Activity activity) {
@@ -78,6 +70,25 @@ public abstract class Employee {
     //}
     public void changeRegisteredData(Activity activity, int time) {
 
+    }
+
+
+    public void registerTime(Activity activity, double hours) {
+        LocalDate currentDate = LocalDate.now();
+        timeRegistrations.putIfAbsent(currentDate, new HashMap<>());
+        Map<Activity, Double> dailyRegistrations = timeRegistrations.get(currentDate);
+        dailyRegistrations.put(activity, dailyRegistrations.getOrDefault(activity, 0.0) + hours);
+
+        // Create a TimeRegistration object and add it to the activity.
+        TimeRegistration timeRegistration = new TimeRegistration(this, activity, currentDate, hours);
+        activity.addTimeRegistration(timeRegistration);
+    }
+
+    public double getRegisteredHours(LocalDate date) {
+        if (timeRegistrations.containsKey(date)) {
+            return timeRegistrations.get(date).values().stream().mapToDouble(Double::doubleValue).sum();
+        }
+        return 0.0;
     }
 
 
