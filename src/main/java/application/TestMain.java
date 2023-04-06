@@ -27,9 +27,13 @@ public class TestMain {
                     Employee.addEmployee();
                     break;
                 case 2:
-                    Employee.getEmployees();
+                    Employee.printEmployees();
                     break;
                 case 3:
+                    if (Employee.getEmployees().isEmpty()) {
+                        System.out.println("No employees found. Please add employees first.");
+                        break;
+                    }
                     ProjectLeader.createProject();
                     break;
                 case 4:

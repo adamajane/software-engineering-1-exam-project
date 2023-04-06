@@ -23,6 +23,7 @@ public class ProjectLeader extends Employee {
         String projectName = input.nextLine();
         Project project = new Project(projectName);
         System.out.println(projectName + " has been created." + " with ID: " + Project.getProjectID());
+        projects.add(project);
 
     }
 

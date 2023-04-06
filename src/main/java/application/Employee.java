@@ -37,17 +37,21 @@ public abstract class Employee {
 
         System.out.println("Employee ID: " + employee.getEmployeeID());
 
-        if (employees == null) {
-            employees = new ArrayList<Employee>();
-        }
         employees.add(employee);
     }
 
-    public static ArrayList<Employee> getEmployees() {
+    public static void printEmployees() {
+        if (employees.isEmpty()) {
+            System.out.println("No employees have been added yet.");
+            return;
+        }
         for (Employee employee : employees) {
             System.out.println("Employee ID: " + employee.getEmployeeID() + ", Role: " + employee.getRole());
         }
-        return null;
+    }
+
+    public static ArrayList<Employee> getEmployees() {
+        return employees;
     }
 
     public String getEmployeeID() {
