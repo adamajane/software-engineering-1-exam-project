@@ -2,8 +2,6 @@ package application;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Scanner;
 
 public abstract class Employee {
@@ -48,10 +46,11 @@ public abstract class Employee {
         employees.add(employee);
     }
 
-    public static void getEmployees() {
+    public static ArrayList<Employee> getEmployees() {
         for (Employee employee : employees) {
             System.out.println("Employee ID: " + employee.getEmployeeID() + ", Role: " + employee.getRole());
         }
+        return null;
     }
 
     public String getEmployeeID() {
@@ -65,7 +64,12 @@ public abstract class Employee {
         activity.addTimeEntry(timeRegistration);
     }
 
+    public Activity createActivity(String activityName, int budgetedHours) {
+        return new Activity(activityName, budgetedHours);
+    }
+
     public void addActivity(Activity activity) {
+        activities.add(activity);
     }
 
     //public ArrayList<Activity> getActivities() {

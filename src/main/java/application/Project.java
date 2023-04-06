@@ -1,90 +1,55 @@
 package application;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class Project {
-    public int ID;
-    public static int nextID = 1;
-    private Employee projectManager;
-    private int startYear;
-    private int startWeek;
-    private int endYear;
-    private int endWeek;
+    private static int projectCounter = 0;
+    private int projectNumber;
+    private String name;
+    private Employee projectLeader;
+    private List<Employee> employees;
     private List<Activity> activities;
 
-    public Project(Employee projectManager, int startYear, int startWeek, int endYear, int endWeek) {
-        ID = (this.nextID++) + 23000;
-        this.projectManager = projectManager;
-        this.startYear = startYear;
-        this.startWeek = startWeek;
-        this.endYear = endYear;
-        this.endWeek = endWeek;
-        this.activities = new ArrayList<>();
+    public Project(String name) {
+        this.name = name;
+        this.projectNumber = this.generateProjectNumber();
+        this.employees = new ArrayList();
+        this.activities = new ArrayList();
     }
 
-    public Project(int startYear, int startWeek, int endYear, int endWeek) {
-        ID = (this.nextID++) + 23000;
-        this.startYear = startYear;
-        this.startWeek = startWeek;
-        this.endYear = endYear;
-        this.endWeek = endWeek;
-        this.activities = new ArrayList<>();
+    private int generateProjectNumber() {
+        ++projectCounter;
+        int year = LocalDate.now().getYear() % 100;
+        return Integer.parseInt(String.format("%d%03d", year, projectCounter));
     }
 
-    public int getID() {
-        return ID;
+    public void addEmployee(Employee employee) {
+        this.employees.add(employee);
     }
 
-    public Employee getProjectManager() {
-        return projectManager;
+    public void assignProjectManager(Employee projectLeader) {
+        this.projectLeader = projectLeader;
     }
 
-    public int getStartYear() {
-        return startYear;
+    public Activity findActivityByName(String activityName) {
+        Iterator var2 = this.activities.iterator();
+
+        Activity activity;
+        do {
+            if (!var2.hasNext()) {
+                return null;
+            }
+
+            activity = (Activity) var2.next();
+        } while (!activity.getActivityName().equals(activityName));
+
+        return activity;
     }
 
-    public int getStartWeek() {
-        return startWeek;
-    }
-
-    public int getEndYear() {
-        return endYear;
-    }
-
-    public int getEndWeek() {
-        return endWeek;
-    }
-
-    public List<Activity> getActivities() {
-        return activities;
-    }
-
-    public void addActivity(Activity activity) {
-        activities.add(activity);
-    }
-
-    public void removeActivity(Activity activity) {
-        activities.remove(activity);
-    }
-
-    public double getTotalBudgetedHours() {
-        double totalBudgetedHours = 0.0;
-        for (Activity activity : activities) {
-            totalBudgetedHours += activity.getBudgetedHours();
-        }
-        return totalBudgetedHours;
-    }
-
-    public double getTotalActualHours() {
-        double totalActualHours = 0.0;
-        for (Activity activity : activities) {
-            totalActualHours += activity.getTotalActualHours();
-        }
-        return totalActualHours;
-    }
-
-    public double getRemainingBudgetedHours() {
-        return getTotalBudgetedHours() - getTotalActualHours();
+    public int getProjectNumber() {
+        return this.projectNumber;
     }
 }

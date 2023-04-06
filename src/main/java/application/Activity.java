@@ -5,7 +5,6 @@ import java.util.List;
 
 public class Activity {
     private String activityName;
-    private Employee projectLeader;
     private List<Employee> assignedEmployees;
     private int budgetedHours;
     private int startYear;
@@ -23,14 +22,6 @@ public class Activity {
 
     public String getActivityNameName() {
         return activityName;
-    }
-
-    public Employee getProjectLeader() {
-        return projectLeader;
-    }
-
-    public void setProjectLeader(Employee projectLeader) {
-        this.projectLeader = projectLeader;
     }
 
     public List<Employee> getAssignedEmployees() {
@@ -109,5 +100,9 @@ public class Activity {
             totalActualHours += timeEntry.getHours();
         }
         return totalActualHours;
+    }
+
+    public String getActivityName() {
+        return activityName;
     }
 }
