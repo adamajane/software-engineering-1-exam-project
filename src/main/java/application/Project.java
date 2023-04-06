@@ -8,7 +8,7 @@ public class Project {
     private static int projectCounter = 0;
     private int projectNumber;
     private String name;
-    private Employee projectManager;
+    private Employee projectLeader;
     private List<Employee> employees;
     private List<Activity> activities;
 
@@ -29,8 +29,13 @@ public class Project {
         this.employees.add(employee);
     }
 
-    public void assignProjectManager(Employee projectManager) {
-        this.projectManager = projectManager;
+    public void assignProjectLeader(Employee projectLeader) {
+        this.projectLeader = projectLeader;
+    }
+
+    public List<Activity> getProjectActivities() {
+        return activities;
+
     }
 
     public Activity findActivityByName(String activityName) {

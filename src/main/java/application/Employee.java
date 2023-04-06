@@ -64,10 +64,6 @@ public abstract class Employee {
         activities.add(activity);
     }
 
-    //public ArrayList<Activity> getActivities() {
-    //    return new ArrayList<Activity>(activities.values());
-
-    //}
     public void changeRegisteredData(Activity activity, int time) {
 
     }
