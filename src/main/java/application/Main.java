@@ -15,7 +15,7 @@ public class Main {
             System.out.println("Time Management App");
             System.out.println("1. Add Employee");
             System.out.println("2. Create Project");
-            System.out.println("3. Add Employee to Project");
+            System.out.println("3. Add Employee to Activity");
             System.out.println("4. Assign Project Manager");
             System.out.println("5. Create Activity for Project");
             System.out.println("6. Register Time");
@@ -25,6 +25,7 @@ public class Main {
             System.out.println("0. Exit");
             System.out.print("Enter your choice (0-9): ");
             choice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline from previous input
 
             switch (choice) {
                 case 1:
@@ -34,7 +35,7 @@ public class Main {
                     createProject(scanner);
                     break;
                 case 3:
-                    addEmployeeToProject(scanner);
+                    addEmployeeToActivity(scanner);
                     break;
                 case 4:
                     assignProjectManager(scanner);
@@ -73,28 +74,37 @@ public class Main {
         System.out.println("Project created with ID: " + project.getProjectID() + " and name: " + projectName);
     }
 
-    private static void addEmployeeToProject(Scanner scanner) {
-        System.out.print("Enter Employee ID: ");
-        String employeeId = scanner.next().toUpperCase();
-
+    private static void addEmployeeToActivity(Scanner scanner) {
+        System.out.println("Enter the employee ID:");
+        String employeeId = scanner.nextLine();
         Employee employee = findEmployeeById(employeeId);
-        if (employee == null) {
-            System.out.println("Employee not found.");
+
+        System.out.println("Enter the activity name:");
+        String activityName = scanner.nextLine();
+        Activity activity = null;
+        for (Project p : projects) {
+            activity = p.findActivityByName(activityName);
+            if (activity != null) {
+                break;
+            }
+        }
+
+        if (activity == null) {
+            System.out.println("Activity not found.");
             return;
         }
 
-        System.out.print("Enter Project Number: ");
-        int projectNumber = scanner.nextInt();
-
-        Project project = findProjectByID(projectNumber);
-        if (project == null) {
-            System.out.println("Project not found.");
-            return;
+        if (employee.getActivitiesInWeek(activity.getStartYear(), activity.getStartWeek()) < 20) {
+            activity.assignEmployee(employee);
+            System.out.println("Employee " + employeeId + " has been assigned to the activity " + activityName);
+        } else {
+            System.out.println("Employee " + employeeId + " cannot be assigned to more than 20 activities in a week.");
         }
-
-        project.addEmployee(employee);
-        System.out.println("Employee added to the project successfully.");
     }
+
+
+
+
 
     private static void assignProjectManager(Scanner scanner) {
         System.out.print("Enter the project ID: ");
@@ -119,40 +129,38 @@ public class Main {
     }
 
     private static void createActivityForProject(Scanner scanner) {
-        System.out.print("Enter Project Number: ");
-        int projectNumber = scanner.nextInt();
+        System.out.println("Enter the project ID:");
+        int projectId = Integer.parseInt(scanner.nextLine());
+        Project project = findProjectByID(projectId);
 
-        Project project = findProjectByID(projectNumber);
         if (project == null) {
             System.out.println("Project not found.");
             return;
         }
-        System.out.print("Enter Activity Name: ");
-        String activityName = scanner.next();
 
-        System.out.print("Enter Budgeted Hours: ");
-        int budgetedHours = scanner.nextInt();
-
-        System.out.print("Enter Start Year: ");
-        int startYear = scanner.nextInt();
-
-        System.out.print("Enter Start Week: ");
-        int startWeek = scanner.nextInt();
-
-        System.out.print("Enter End Year: ");
-        int endYear = scanner.nextInt();
-
-        System.out.print("Enter End Week: ");
-        int endWeek = scanner.nextInt();
+        System.out.println("Enter the activity name:");
+        String activityName = scanner.nextLine();
+        System.out.println("Enter the budgeted hours:");
+        int budgetedHours = Integer.parseInt(scanner.nextLine());
+        System.out.println("Enter the start year:");
+        int startYear = Integer.parseInt(scanner.nextLine());
+        System.out.println("Enter the start week:");
+        int startWeek = Integer.parseInt(scanner.nextLine());
+        System.out.println("Enter the end year:");
+        int endYear = Integer.parseInt(scanner.nextLine());
+        System.out.println("Enter the end week:");
+        int endWeek = Integer.parseInt(scanner.nextLine());
 
         Activity activity = new Activity(activityName, budgetedHours, startYear, startWeek, endYear, endWeek);
-        project.getActivities().add(activity);
-        System.out.println("Activity created successfully.");
+        project.getActivities().add(activity); // Add the activity to the project's activity list
+        System.out.println("Activity created.");
     }
+
 
     private static void registerTimeForEmployee(Scanner scanner) {
         System.out.print("Enter Employee ID: ");
         String employeeId = scanner.next().toUpperCase();
+        scanner.nextLine(); // Consume newline from previous input
 
         Employee employee = findEmployeeById(employeeId);
         if (employee == null) {
@@ -186,6 +194,8 @@ public class Main {
     private static void getTimeConsumptionReport(Scanner scanner) {
         System.out.print("Enter the project ID: ");
         int projectID = scanner.nextInt();
+        scanner.nextLine(); // Consume newline from previous input
+
         scanner.nextLine();
         Project project = findProjectByID(projectID);
 
@@ -200,6 +210,7 @@ public class Main {
     private static void checkDailyHoursRegistration(Scanner scanner) {
         System.out.print("Enter Employee ID: ");
         String employeeId = scanner.next().toUpperCase();
+        scanner.nextLine(); // Consume newline from previous input
 
         Employee employee = findEmployeeById(employeeId);
         if (employee == null) {

@@ -74,6 +74,12 @@ public abstract class Employee {
 
 
     public void registerTime(Activity activity, double hours) {
+        // if you are not assigned to the activity already, you cannot register time for it
+        if (!activity.getAssignedEmployees().contains(this)) {
+            System.out.println("Error: You cannot register time for an activity you are not assigned to.");
+            return;
+        }
+
         LocalDate currentDate = LocalDate.now();
         timeRegistrations.putIfAbsent(currentDate, new HashMap<>());
         Map<Activity, Double> dailyRegistrations = timeRegistrations.get(currentDate);
@@ -84,11 +90,22 @@ public abstract class Employee {
         activity.addTimeRegistration(timeRegistration);
     }
 
+
     public double getRegisteredHours(LocalDate date) {
         if (timeRegistrations.containsKey(date)) {
             return timeRegistrations.get(date).values().stream().mapToDouble(Double::doubleValue).sum();
         }
         return 0.0;
+    }
+
+    public int getActivitiesInWeek(int year, int week) {
+        int count = 0;
+        for (Activity activity : activities) {
+            if (activity.getStartYear() == year && activity.getStartWeek() == week) {
+                count++;
+            }
+        }
+        return count;
     }
 
 
