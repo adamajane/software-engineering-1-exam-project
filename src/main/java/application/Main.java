@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
-    private static ArrayList<Project> projects = new ArrayList<>();
+
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -32,7 +32,7 @@ public class Main {
                     Employee.addEmployee();
                     break;
                 case 2:
-                    createProject(scanner);
+                    ProjectLeader.createProject(scanner);
                     break;
                 case 3:
                     addEmployeeToActivity(scanner);
@@ -66,13 +66,7 @@ public class Main {
         }
     }
 
-    private static void createProject(Scanner scanner) {
-        System.out.print("Enter Project Name: ");
-        String projectName = scanner.next();
-        Project project = new Project(projectName);
-        projects.add(project);
-        System.out.println("Project created with ID: " + project.getProjectID() + " and name: " + projectName);
-    }
+
 
     private static void addEmployeeToActivity(Scanner scanner) {
         System.out.println("Enter the employee ID:");
@@ -82,7 +76,7 @@ public class Main {
         System.out.println("Enter the activity name:");
         String activityName = scanner.nextLine();
         Activity activity = null;
-        for (Project p : projects) {
+        for (Project p : ProjectLeader.getProjects()) {
             activity = p.findActivityByName(activityName);
             if (activity != null) {
                 break;
@@ -172,7 +166,7 @@ public class Main {
         String activityName = scanner.next();
 
         Activity activity = null;
-        for (Project project : projects) {
+        for (Project project : ProjectLeader.getProjects()) {
             activity = project.findActivityByName(activityName);
             if (activity != null) {
                 break;
@@ -243,7 +237,7 @@ public class Main {
 
 
     private static Project findProjectByID(int projectID) {
-        for (Project project : projects) {
+        for (Project project : ProjectLeader.getProjects()) {
             if (project.getProjectID() == projectID) {
                 return project;
             }

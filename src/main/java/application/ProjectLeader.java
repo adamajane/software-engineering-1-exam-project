@@ -17,21 +17,23 @@ public class ProjectLeader extends Employee {
         return "Project Leader";
     }
 
-    public static void createProject() {
-        Scanner input = new Scanner(System.in);
-        System.out.println("Enter project name: ");
-        String projectName = input.nextLine();
+    public static void createProject(Scanner scanner) {
+        System.out.print("Enter Project Name: ");
+        String projectName = scanner.next();
         Project project = new Project(projectName);
-        System.out.println(projectName + " has been created." + " with ID: " + Project.getProjectID());
         projects.add(project);
-
+        System.out.println("Project created with ID: " + project.getProjectID() + " and name: " + projectName);
     }
 
     // Get overview of all projects
-    public static void getProjects() {
+    public static void printProjects() {
         for (Project project : projects) {
             System.out.println("Project ID: " + Project.getProjectID() + ", Project Name: " + project.getProjectName());
         }
+    }
+
+    public static ArrayList<Project> getProjects() {
+        return projects;
     }
 
     public void assignProjectLeader() {
@@ -49,5 +51,6 @@ public class ProjectLeader extends Employee {
     public void checkEmployeeActivities() {
 
     }
+
 
 }

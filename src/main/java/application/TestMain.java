@@ -34,10 +34,10 @@ public class TestMain {
                         System.out.println("No employees found. Please add employees first.");
                         break;
                     }
-                    ProjectLeader.createProject();
+                    ProjectLeader.createProject(scanner);
                     break;
                 case 4:
-                    ProjectLeader.getProjects();
+                    ProjectLeader.printProjects();
                     break;
                 //case 5:
                 //    createActivity();
