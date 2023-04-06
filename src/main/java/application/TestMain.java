@@ -2,18 +2,18 @@ package application;
 
 import java.util.Scanner;
 
-public class Main {
+public class TestMain {
 
     public static void main(String[] args) {
         System.out.println("Hello, World!");
 
-        while(true){
+        while (true) {
             boolean running = true;
             System.out.println("Time Management App");
             System.out.println("1. Add Employee");
             System.out.println("2. Show employees");
-            System.out.println("3. Get employee by ID");
-            System.out.println("5. Create activity");
+            System.out.println("3. Create Project");
+            System.out.println("4. Get Project overview");
             //System.out.println("5. Create Activity for Project");
             //System.out.println("6. Register Time");
             //System.out.println("7. Get Time Consumption Report");
@@ -30,11 +30,11 @@ public class Main {
                     Employee.getEmployees();
                     break;
                 case 3:
-                //    addEmployeeToProject();
-                //    break;
-                //case 4:
-                //    assignProjectManager();
-                //    break;
+                    ProjectLeader.createProject();
+                    break;
+                case 4:
+                    ProjectLeader.getProjects();
+                    break;
                 //case 5:
                 //    createActivity();
                 //    break;

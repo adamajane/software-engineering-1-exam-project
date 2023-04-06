@@ -32,6 +32,7 @@ public class Activity {
         return assignedEmployees;
     }
 
+    // Skal projekt ledere kunne tildele sig selv til en aktivitet?
     public void assignEmployee(Employee employee) {
         assignedEmployees.add(employee);
         employee.addActivity(this);

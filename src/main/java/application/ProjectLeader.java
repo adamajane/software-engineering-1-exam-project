@@ -1,8 +1,12 @@
 package application;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class ProjectLeader extends Employee {
+
+    // list of projects
+    private static ArrayList<Project> projects = new ArrayList<Project>();
 
     public ProjectLeader(String employeeId) {
         super(employeeId);
@@ -13,12 +17,20 @@ public class ProjectLeader extends Employee {
         return "Project Leader";
     }
 
-    public void createProject() {
+    public static void createProject() {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter project name: ");
+        String projectName = input.nextLine();
+        Project project = new Project(projectName);
+        System.out.println(projectName + " has been created." + " with ID: " + Project.getProjectID());
 
     }
 
-    public void getProjectOverview() {
-
+    // Get overview of all projects
+    public static void getProjects() {
+        for (Project project : projects) {
+            System.out.println("Project ID: " + Project.getProjectID() + ", Project Name: " + project.getProjectName());
+        }
     }
 
     public void assignProjectLeader() {

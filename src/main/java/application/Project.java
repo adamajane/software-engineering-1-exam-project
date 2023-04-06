@@ -6,15 +6,15 @@ import java.util.List;
 
 public class Project {
     private static int projectCounter = 0;
-    private int projectNumber;
-    private String name;
+    private static int projectID;
+    private String projectName;
     private Employee projectLeader;
     private List<Employee> employees;
     private List<Activity> activities;
 
-    public Project(String name) {
-        this.name = name;
-        this.projectNumber = generateProjectNumber();
+    public Project(String projectName) {
+        this.projectName = projectName;
+        this.projectID = generateProjectNumber();
         this.employees = new ArrayList<>();
         this.activities = new ArrayList<>();
     }
@@ -47,8 +47,8 @@ public class Project {
         return null;
     }
 
-    public int getProjectNumber() {
-        return projectNumber;
+    public static int getProjectID() {
+        return projectID;
     }
 
     public String getTimeConsumptionReport() {
@@ -56,7 +56,7 @@ public class Project {
         double totalTime = 0;
         double totalExpectedWorkingHours = 0;
 
-        report.append("Time Consumption Report for Project: ").append(projectNumber).append(" - ").append(name).append("\n");
+        report.append("Time Consumption Report for Project: ").append(projectID).append(" - ").append(projectName).append("\n");
         report.append("-------------------------------------------------\n");
 
         for (Activity activity : activities) {
@@ -78,5 +78,20 @@ public class Project {
         return report.toString();
     }
 
+    public List<Employee> getEmployees() {
+        return employees;
+    }
+
+    public Employee getProjectLeader() {
+        return projectLeader;
+    }
+
+    public List<Activity> getActivities() {
+        return activities;
+    }
+
+    public String getProjectName() {
+        return projectName;
+    }
 
 }
