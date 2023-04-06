@@ -53,6 +53,43 @@ public abstract class Employee {
     public static ArrayList<Employee> getEmployees() {
         return employees;
     }
+    public static Employee findEmployeeById(String employeeId) {
+        ArrayList<Employee> employees = Employee.getEmployees();
+        for (Employee employee : employees) {
+            if (employee.getEmployeeID().equalsIgnoreCase(employeeId)) {
+                return employee;
+            }
+        }
+        return null;
+    }
+
+    public static void addEmployeeToActivity(Scanner scanner) {
+        System.out.println("Enter the employee ID:");
+        String employeeId = scanner.nextLine();
+        Employee employee = Employee.findEmployeeById(employeeId);
+
+        System.out.println("Enter the activity name:");
+        String activityName = scanner.nextLine();
+        Activity activity = null;
+        for (Project p : ProjectLeader.getProjects()) {
+            activity = p.findActivityByName(activityName);
+            if (activity != null) {
+                break;
+            }
+        }
+
+        if (activity == null) {
+            System.out.println("Activity not found.");
+            return;
+        }
+
+        if (employee.getActivitiesInWeek(activity.getStartYear(), activity.getStartWeek()) < 20) {
+            activity.assignEmployee(employee);
+            System.out.println("Employee " + employeeId + " has been assigned to the activity " + activityName);
+        } else {
+            System.out.println("Employee " + employeeId + " cannot be assigned to more than 20 activities in a week.");
+        }
+    }
 
     public String getEmployeeID() {
         return employeeID;
@@ -60,8 +97,32 @@ public abstract class Employee {
 
     public abstract String getRole();
 
-    public Activity createActivity(String activityName, int budgetedHours, int startYear, int startWeek, int endYear, int endWeek) {
-        return new Activity(activityName, budgetedHours, startYear, startWeek, endYear, endWeek);
+    public static void createActivity(Scanner scanner) {
+        System.out.println("Enter the project ID:");
+        int projectId = Integer.parseInt(scanner.nextLine());
+        Project project = Project.findProjectByID(projectId);
+
+        if (project == null) {
+            System.out.println("Project not found.");
+            return;
+        }
+
+        System.out.println("Enter the activity name:");
+        String activityName = scanner.nextLine();
+        System.out.println("Enter the budgeted hours:");
+        int budgetedHours = Integer.parseInt(scanner.nextLine());
+        System.out.println("Enter the start year:");
+        int startYear = Integer.parseInt(scanner.nextLine());
+        System.out.println("Enter the start week:");
+        int startWeek = Integer.parseInt(scanner.nextLine());
+        System.out.println("Enter the end year:");
+        int endYear = Integer.parseInt(scanner.nextLine());
+        System.out.println("Enter the end week:");
+        int endWeek = Integer.parseInt(scanner.nextLine());
+
+        Activity activity = new Activity(activityName, budgetedHours, startYear, startWeek, endYear, endWeek);
+        project.getActivities().add(activity); // Add the activity to the project's activity list
+        System.out.println("Activity created.");
     }
 
     public void addActivity(Activity activity) {
@@ -72,6 +133,21 @@ public abstract class Employee {
 
     }
 
+    public static void checkDailyHoursRegistration(Scanner scanner) {
+        System.out.print("Enter Employee ID: ");
+        String employeeId = scanner.next().toUpperCase();
+        scanner.nextLine(); // Consume newline from previous input
+
+        Employee employee = Employee.findEmployeeById(employeeId);
+        if (employee == null) {
+            System.out.println("Employee not found.");
+            return;
+        }
+
+        LocalDate currentDate = LocalDate.now();
+        double dailyHours = employee.getRegisteredHours(currentDate);
+        System.out.println("Total Registered Hours for Today: " + dailyHours);
+    }
 
     public void registerTime(Activity activity, double hours) {
         // if you are not assigned to the activity already, you cannot register time for it

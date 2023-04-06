@@ -3,6 +3,7 @@ package application;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Project {
     private static int projectCounter = 0;
@@ -51,7 +52,7 @@ public class Project {
         return projectID;
     }
 
-    public String getTimeConsumptionReport() {
+    public String makeTimeConsumptionReport() {
         StringBuilder report = new StringBuilder();
         double totalTime = 0;
         double totalExpectedWorkingHours = 0;
@@ -78,6 +79,29 @@ public class Project {
         return report.toString();
     }
 
+    public static void getTimeConsumptionReport(Scanner scanner) {
+        System.out.print("Enter the project ID: ");
+        int projectID = scanner.nextInt();
+        scanner.nextLine(); // Consume newline from previous input
+
+        Project project = Project.findProjectByID(projectID);
+
+        if (project != null) {
+            String report = project.makeTimeConsumptionReport();
+            System.out.println(report);
+        } else {
+            System.out.println("Project not found.");
+        }
+    }
+
+    public static Project findProjectByID(int projectID) {
+        for (Project project : ProjectLeader.getProjects()) {
+            if (project.getProjectID() == projectID) {
+                return project;
+            }
+        }
+        return null;
+    }
     public List<Employee> getEmployees() {
         return employees;
     }
