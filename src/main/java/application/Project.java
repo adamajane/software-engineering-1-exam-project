@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Project {
+    private ProjectType projectType;
     private static int projectCounter = 0;
     private static int projectID;
     private String projectName;
@@ -13,11 +14,12 @@ public class Project {
     private List<Employee> employees;
     private List<Activity> activities;
 
-    public Project(String projectName) {
+    public Project(String projectName, ProjectType projectType) {
         this.projectName = projectName;
         this.projectID = generateProjectNumber();
         this.employees = new ArrayList<>();
         this.activities = new ArrayList<>();
+        this.projectType = projectType;
     }
 
     private int generateProjectNumber() {
@@ -116,6 +118,10 @@ public class Project {
 
     public String getProjectName() {
         return projectName;
+    }
+
+    public ProjectType getProjectType() {
+        return projectType;
     }
 
 }

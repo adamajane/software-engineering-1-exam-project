@@ -20,10 +20,20 @@ public class ProjectLeader extends Employee {
     public static void createProject(Scanner scanner) {
         System.out.print("Enter Project Name: ");
         String projectName = scanner.next();
-        Project project = new Project(projectName);
+
+        System.out.print("Choose Project Type (INTERNAL/CUSTOMER): ");
+        String projectTypeInput = scanner.next().toUpperCase();
+        while (!projectTypeInput.equals("INTERNAL") && !projectTypeInput.equals("CUSTOMER")) {
+            System.out.print("Invalid input. Choose Project Type (INTERNAL/CUSTOMER): ");
+            projectTypeInput = scanner.next().toUpperCase();
+        }
+        ProjectType projectType = ProjectType.valueOf(projectTypeInput);
+
+        Project project = new Project(projectName, projectType);
         projects.add(project);
-        System.out.println("Project created with ID: " + Project.getProjectID() + " and name: " + projectName);
+        System.out.println("Project created with ID: " + Project.getProjectID() + ", name: " + projectName + ", and type: " + projectType);
     }
+
 
     // Get overview of all projects
     public static void printProjects() {
