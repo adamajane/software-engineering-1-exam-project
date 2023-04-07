@@ -24,9 +24,6 @@ public class Activity {
         this.timeRegistrations = new ArrayList<>();
     }
 
-    public String getActivityNameName() {
-        return activityName;
-    }
 
     public List<Employee> getAssignedEmployees() {
         return assignedEmployees;
@@ -114,4 +111,9 @@ public class Activity {
     public double getExpectedWorkingHours() {
         return budgetedHours;
     }
+
+    public void setActivityName(String activityName) {
+        this.activityName = activityName;
+    }
+
 }

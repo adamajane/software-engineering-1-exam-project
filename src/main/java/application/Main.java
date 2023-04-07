@@ -55,6 +55,18 @@ public class Main {
                 case 9:
                     Employee.checkDailyHoursRegistration(scanner);
                     break;
+                case 10:
+                    Employee.updateActivityName(scanner);
+                    break;
+                case 11:
+                    Employee.updateTimeRegistration(scanner);
+                    break;
+                case 12:
+                    ProjectLeader.updateProjectName(scanner);
+                    break;
+                case 13:
+                    Employee.updateActivityDate(scanner);
+                    break;
                 case 0:
                     System.out.println("Exiting the Time Management App...");
                     scanner.close();

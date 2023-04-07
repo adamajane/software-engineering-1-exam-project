@@ -217,5 +217,22 @@ public abstract class Employee {
     }
 
 
+    public static void updateActivityName(Scanner scanner) {
+        // Implementation here
+    }
+
+    public static void updateTimeRegistration(Scanner scanner) {
+        // Implementation here
+    }
+
+    public static void updateActivityDate(Scanner scanner) {
+        // Implementation here
+    }
+
+    public static void updateProjectName(Scanner scanner) {
+        // Implementation here
+    }
+
+
 }
 
