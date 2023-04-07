@@ -22,8 +22,11 @@ public class Main {
             System.out.println("7. Get Time Consumption Report");
             System.out.println("8. Show All Employees");
             System.out.println("9. Check Daily Hours Registration");
+            System.out.println("10. Update Activity Name");
+            System.out.println("11. Update Project Name");
+            System.out.println("12. Update Activity Dates");
+
             System.out.println("0. Exit");
-            System.out.print("Enter your choice (0-9): ");
             choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline from previous input
 
@@ -59,12 +62,9 @@ public class Main {
                     Employee.updateActivityName(scanner);
                     break;
                 case 11:
-                    Employee.updateTimeRegistration(scanner);
-                    break;
-                case 12:
                     ProjectLeader.updateProjectName(scanner);
                     break;
-                case 13:
+                case 12:
                     Employee.updateActivityDate(scanner);
                     break;
                 case 0:

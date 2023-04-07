@@ -217,20 +217,62 @@ public abstract class Employee {
     }
 
 
-    public static void updateActivityName(Scanner scanner) {
-        // Implementation here
-    }
-
-    public static void updateTimeRegistration(Scanner scanner) {
-        // Implementation here
-    }
-
-    public static void updateActivityDate(Scanner scanner) {
-        // Implementation here
-    }
-
     public static void updateProjectName(Scanner scanner) {
         // Implementation here
+    }
+
+    public static void updateActivityName(Scanner scanner) {
+        System.out.print("Enter the current activity name: ");
+        String currentActivityName = scanner.nextLine();
+        Activity activity = findActivityByName(currentActivityName);
+
+        if (activity != null) {
+            System.out.print("Enter the new activity name: ");
+            String newActivityName = scanner.nextLine();
+            activity.setActivityName(newActivityName);
+            System.out.println("Activity name updated successfully.");
+        } else {
+            System.out.println("Activity not found.");
+        }
+    }
+
+
+    public static void updateActivityDate(Scanner scanner) {
+        System.out.print("Enter the activity name: ");
+        String activityName = scanner.nextLine();
+        Activity activity = findActivityByName(activityName);
+
+        if (activity != null) {
+            System.out.print("Enter the new start year: ");
+            int newStartYear = scanner.nextInt();
+
+            System.out.print("Enter the new start week: ");
+            int newStartWeek = scanner.nextInt();
+
+            System.out.print("Enter the new end year: ");
+            int newEndYear = scanner.nextInt();
+
+            System.out.print("Enter the new end week: ");
+            int newEndWeek = scanner.nextInt();
+
+            activity.setStartYear(newStartYear);
+            activity.setStartWeek(newStartWeek);
+            activity.setEndYear(newEndYear);
+            activity.setEndWeek(newEndWeek);
+            System.out.println("Activity dates updated successfully.");
+        } else {
+            System.out.println("Activity not found.");
+        }
+    }
+
+    public static Activity findActivityByName(String activityName) {
+        for (Project project : ProjectLeader.getProjects()) {
+            Activity activity = project.findActivityByName(activityName);
+            if (activity != null) {
+                return activity;
+            }
+        }
+        return null;
     }
 
 

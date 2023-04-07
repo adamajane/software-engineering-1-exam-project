@@ -64,14 +64,29 @@ public class Project {
 
         for (Activity activity : activities) {
             double activityTime = 0;
+
+            report.append("Activity: ").append(activity.getActivityName()).append("\n");
+            report.append("Budgeted Hours: ").append(activity.getBudgetedHours()).append(" hours\n");
+            report.append("Start Year: ").append(activity.getStartYear()).append("\n");
+            report.append("Start Week: ").append(activity.getStartWeek()).append("\n");
+            report.append("End Year: ").append(activity.getEndYear()).append("\n");
+            report.append("End Week: ").append(activity.getEndWeek()).append("\n");
+            report.append("Employee Time Spent: ");
+
+            // Iterate over time registrations for each activity
             for (TimeRegistration timeRegistration : activity.getTimeRegistrations()) {
-                activityTime += timeRegistration.getHours();
+                double hours = timeRegistration.getHours();
+                activityTime += hours;
+                Employee employee = timeRegistration.getEmployee();
+
+                // Append employee details and hours to the report
+                report.append("[Employee ID: ").append(employee.getEmployeeID()).append(", Time: ").append(hours).append(" hours] ");
             }
+
             totalTime += activityTime;
             totalExpectedWorkingHours += activity.getExpectedWorkingHours(); // Add expected working hours of the activity
 
-            report.append("Activity: ").append(activity.getActivityName()).append("\n");
-            report.append("Time Spent: ").append(activityTime).append(" hours\n");
+            report.append("\nTotal Time Spent on Activity: ").append(activityTime).append(" hours\n");
             report.append("-------------------------------------------------\n");
         }
 
@@ -80,6 +95,9 @@ public class Project {
         report.append("Expected Remaining Working Hours on Project: ").append(remainingWorkingHours).append(" hours\n");
         return report.toString();
     }
+
+
+
 
     public static void getTimeConsumptionReport(Scanner scanner) {
         System.out.print("Enter the project ID: ");

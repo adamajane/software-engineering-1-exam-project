@@ -88,5 +88,23 @@ public class ProjectLeader extends Employee {
 
     }
 
+    public static void updateProjectName(Scanner scanner) {
+        System.out.print("Enter the project ID: ");
+        int projectID = scanner.nextInt();
+        scanner.nextLine(); // Consume newline from previous input
+        Project project = Project.findProjectByID(projectID);
+
+        if (project != null) {
+            System.out.print("Enter the new project name: ");
+            String newProjectName = scanner.nextLine();
+            project.setProjectName(newProjectName);
+            System.out.println("Project name updated successfully.");
+        } else {
+            System.out.println("Project not found.");
+        }
+    }
+
+
+
 
 }
