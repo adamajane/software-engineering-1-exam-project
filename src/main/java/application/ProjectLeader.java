@@ -19,7 +19,7 @@ public class ProjectLeader extends Employee {
 
     public static void createProject(Scanner scanner) {
         System.out.print("Enter Project Name: ");
-        String projectName = scanner.next();
+        String projectName = scanner.nextLine();
 
         System.out.print("Choose Project Type (INTERNAL/CUSTOMER): ");
         String projectTypeInput = scanner.next().toUpperCase();

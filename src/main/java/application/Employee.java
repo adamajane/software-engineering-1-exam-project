@@ -69,10 +69,10 @@ public abstract class Employee {
         Employee employee = Employee.findEmployeeById(employeeId);
 
         System.out.println("Enter the activity name:");
-        String activityName = scanner.nextLine();
+        String activityName = scanner.nextLine(); // TODO: This has to be case insensitive
         Activity activity = null;
-        for (Project p : ProjectLeader.getProjects()) {
-            activity = p.findActivityByName(activityName);
+        for (Project projects : ProjectLeader.getProjects()) {
+            activity = projects.findActivityByName(activityName);
             if (activity != null) {
                 break;
             }
