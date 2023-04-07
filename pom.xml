@@ -7,8 +7,8 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>dtu</groupId>
-	<artifactId>Hello_JavaFX</artifactId>
-	<name>Hello_JavaFX</name>
+	<artifactId>software-engineering-1-exam-project</artifactId>
+	<name>software-engineering-1-exam-project</name>
 	<version>SNAPSHOT 0.0.1</version>
 
 	<properties>
@@ -95,6 +95,12 @@
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-graphics</artifactId>
             <version>19-ea+8</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>

@@ -1,41 +1,38 @@
 package application;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Activity {
-    private String name;
-    private Employee projectManager;
+    private String activityName;
     private List<Employee> assignedEmployees;
     private int budgetedHours;
-    private LocalDate startDate;
-    private LocalDate endDate;
-    private List<TimeEntry> timeEntries;
+    private int startYear;
+    private int startWeek;
+    private int endYear;
+    private int endWeek;
+    private List<TimeRegistration> timeRegistrations;
 
-    public Activity(String name, int budgetedHours) {
-        this.name = name;
+    public Activity(String activityName, int budgetedHours, int startYear, int startWeek, int endYear, int endWeek) {
+        this.activityName = activityName;
         this.budgetedHours = budgetedHours;
+        this.startYear = startYear;
+        this.startWeek = startWeek;
+        this.endYear = endYear;
+        this.endWeek = endWeek;
         assignedEmployees = new ArrayList<>();
-        timeEntries = new ArrayList<>();
+        this.timeRegistrations = new ArrayList<>();
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public Employee getProjectManager() {
-        return projectManager;
-    }
-
-    public void setProjectManager(Employee projectManager) {
-        this.projectManager = projectManager;
+    public String getActivityNameName() {
+        return activityName;
     }
 
     public List<Employee> getAssignedEmployees() {
         return assignedEmployees;
     }
 
+    // Skal projekt ledere kunne tildele sig selv til en aktivitet?
     public void assignEmployee(Employee employee) {
         assignedEmployees.add(employee);
         employee.addActivity(this);
@@ -43,40 +40,52 @@ public class Activity {
 
     public void removeEmployee(Employee employee) {
         assignedEmployees.remove(employee);
-        employee.removeActivity(this);
+        //employee.removeActivity(this);
     }
 
     public int getBudgetedHours() {
         return budgetedHours;
     }
 
-    public LocalDate getStartDate() {
-        return startDate;
+    public int getStartYear() {
+        return startYear;
     }
 
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
+    public void setStartYear(int startYear) {
+        this.startYear = startYear;
     }
 
-    public LocalDate getEndDate() {
-        return endDate;
+    public int getStartWeek() {
+        return startWeek;
     }
 
-    public void setEndDate(LocalDate endDate) {
-        this.endDate = endDate;
+    public void setStartWeek(int startWeek) {
+        this.startWeek = startWeek;
     }
 
-    public List<TimeEntry> getTimeEntries() {
-        return timeEntries;
+    public int getEndYear() {
+        return endYear;
     }
 
-    public void addTimeEntry(TimeEntry timeEntry) {
-        timeEntries.add(timeEntry);
+    public void setEndYear(int endYear) {
+        this.endYear = endYear;
+    }
+
+    public int getEndWeek() {
+        return endWeek;
+    }
+
+    public void setEndWeek(int endWeek) {
+        this.endWeek = endWeek;
+    }
+
+    public void addTimeRegistration(TimeRegistration timeRegistration) {
+        timeRegistrations.add(timeRegistration);
     }
 
     public int getSpentHours() {
         int totalSpentHours = 0;
-        for (TimeEntry timeEntry : timeEntries) {
+        for (TimeRegistration timeEntry : timeRegistrations) {
             totalSpentHours += timeEntry.getHours();
         }
         return totalSpentHours;
@@ -88,10 +97,21 @@ public class Activity {
 
     public double getTotalActualHours() {
         double totalActualHours = 0.0;
-        for (TimeEntry timeEntry : timeEntries) {
+        for (TimeRegistration timeEntry : timeRegistrations) {
             totalActualHours += timeEntry.getHours();
         }
         return totalActualHours;
     }
 
+    public String getActivityName() {
+        return activityName;
+    }
+
+    public List<TimeRegistration> getTimeRegistrations() {
+        return timeRegistrations;
+    }
+
+    public double getExpectedWorkingHours() {
+        return budgetedHours;
+    }
 }
