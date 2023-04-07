@@ -53,6 +53,7 @@ public abstract class Employee {
     public static ArrayList<Employee> getEmployees() {
         return employees;
     }
+
     public static Employee findEmployeeById(String employeeId) {
         ArrayList<Employee> employees = Employee.getEmployees();
         for (Employee employee : employees) {
@@ -64,6 +65,16 @@ public abstract class Employee {
     }
 
     public static void addEmployeeToActivity(Scanner scanner) {
+        if (employees.isEmpty()) {
+            System.out.println("No employees have been added yet. Please add employees before assigning them to an activity.");
+            return;
+        }
+
+        if (ProjectLeader.getProjects().isEmpty()) {
+            System.out.println("No projects have been added yet. Please add projects before assigning employees to an activity.");
+            return;
+        }
+
         System.out.println("Enter the employee ID:");
         String employeeId = scanner.nextLine();
         Employee employee = Employee.findEmployeeById(employeeId);

@@ -18,6 +18,10 @@ public class ProjectLeader extends Employee {
     }
 
     public static void createProject(Scanner scanner) {
+        if (Employee.getEmployees().isEmpty()) {
+            System.out.println("No employees have been added yet. Please add employees before creating a project.");
+            return;
+        }
         System.out.print("Enter Project Name: ");
         String projectName = scanner.nextLine();
 
