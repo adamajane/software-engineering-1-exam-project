@@ -6,11 +6,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Hello_JavaFX" />
+        <module name="software-engineering-1-exam-project" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="put_your_project_name_here" target="11" />
+      <module name="Hello_JavaFX" target="11" />
+      <module name="Software Engineering 1 - Exam Project" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>
