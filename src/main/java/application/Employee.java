@@ -80,7 +80,7 @@ public abstract class Employee {
         Employee employee = Employee.findEmployeeById(employeeId);
 
         System.out.println("Enter the activity name:");
-        String activityName = scanner.nextLine(); // TODO: This has to be case insensitive
+        String activityName = scanner.nextLine();
         Activity activity = null;
         for (Project projects : ProjectLeader.getProjects()) {
             activity = projects.findActivityByName(activityName);
@@ -109,6 +109,17 @@ public abstract class Employee {
     public abstract String getRole();
 
     public static void createActivity(Scanner scanner) {
+
+        if (employees.isEmpty()) {
+            System.out.println("No employees have been added yet. Please add employees before creating an activity.");
+            return;
+        }
+
+        if (ProjectLeader.getProjects().isEmpty()) {
+            System.out.println("No projects have been added yet. Please add projects before creating an activity.");
+            return;
+        }
+
         System.out.println("Enter the project ID:");
         int projectId = Integer.parseInt(scanner.nextLine());
         Project project = Project.findProjectByID(projectId);
@@ -145,6 +156,12 @@ public abstract class Employee {
     }
 
     public static void checkDailyHoursRegistration(Scanner scanner) {
+
+        if (employees.isEmpty()) {
+            System.out.println("No employees have been added yet. Please add employees before assigning them to an activity.");
+            return;
+        }
+
         System.out.print("Enter Employee ID: ");
         String employeeId = scanner.next().toUpperCase();
         scanner.nextLine(); // Consume newline from previous input
@@ -222,6 +239,13 @@ public abstract class Employee {
     }
 
     public static void updateActivityName(Scanner scanner) {
+
+        // Can't update activity name if there are no activities
+        if (Project.getActivities() == null) {
+            System.out.println("No activities have been added yet. Please add activities before updating an activity.");
+            return;
+        }
+
         System.out.print("Enter the current activity name: ");
         String currentActivityName = scanner.nextLine();
         Activity activity = findActivityByName(currentActivityName);
@@ -238,6 +262,12 @@ public abstract class Employee {
 
 
     public static void updateActivityDate(Scanner scanner) {
+
+        if (Project.getActivities() == null) {
+            System.out.println("No activities have been added yet. Please add activities before updating an activity.");
+            return;
+        }
+
         System.out.print("Enter the activity name: ");
         String activityName = scanner.nextLine();
         Activity activity = findActivityByName(activityName);

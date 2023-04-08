@@ -12,7 +12,7 @@ public class Project {
     private String projectName;
     private Employee projectLeader;
     private List<Employee> employees;
-    private List<Activity> activities;
+    private static List<Activity> activities;
 
     public Project(String projectName, ProjectType projectType) {
         this.projectName = projectName;
@@ -97,9 +97,18 @@ public class Project {
     }
 
 
-
-
     public static void getTimeConsumptionReport(Scanner scanner) {
+
+        if (Employee.getEmployees().isEmpty()) {
+            System.out.println("No employees have been added yet. Please add employees before assigning them to an activity.");
+            return;
+        }
+
+        if (ProjectLeader.getProjects().isEmpty()) {
+            System.out.println("No projects have been added yet. Please add projects before assigning employees to an activity.");
+            return;
+        }
+
         System.out.print("Enter the project ID: ");
         int projectID = scanner.nextInt();
         scanner.nextLine(); // Consume newline from previous input
@@ -116,12 +125,13 @@ public class Project {
 
     public static Project findProjectByID(int projectID) {
         for (Project project : ProjectLeader.getProjects()) {
-            if (project.getProjectID() == projectID) {
+            if (getProjectID() == projectID) {
                 return project;
             }
         }
         return null;
     }
+
     public List<Employee> getEmployees() {
         return employees;
     }
@@ -130,7 +140,7 @@ public class Project {
         return projectLeader;
     }
 
-    public List<Activity> getActivities() {
+    public static List<Activity> getActivities() {
         return activities;
     }
 

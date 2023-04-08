@@ -17,6 +17,12 @@ public class TimeRegistration {
     }
 
     public static void registerTimeForEmployee(Scanner scanner) {
+
+        if (Employee.getEmployees().isEmpty()) {
+            System.out.println("No employees have been added yet. Please add an employee before registering time.");
+            return;
+        }
+
         System.out.print("Enter Employee ID: ");
         String employeeId = scanner.next().toUpperCase();
         scanner.nextLine(); // Consume newline from previous input

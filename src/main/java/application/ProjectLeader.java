@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class ProjectLeader extends Employee {
 
-    // list of projects
+    // List of all projects
     private static ArrayList<Project> projects = new ArrayList<Project>();
 
     public ProjectLeader(String employeeId) {
@@ -51,6 +51,17 @@ public class ProjectLeader extends Employee {
     }
 
     public static void assignProjectManager(Scanner scanner) {
+
+        if (Employee.getEmployees().isEmpty()) {
+            System.out.println("No employees have been added yet. Please add employees before assigning them to an activity.");
+            return;
+        }
+
+        if (ProjectLeader.getProjects().isEmpty()) {
+            System.out.println("No projects have been added yet. Please add projects before assigning employees to an activity.");
+            return;
+        }
+
         System.out.print("Enter the project ID: ");
         int projectID = scanner.nextInt();
         scanner.nextLine();
@@ -89,6 +100,12 @@ public class ProjectLeader extends Employee {
     }
 
     public static void updateProjectName(Scanner scanner) {
+
+        if (ProjectLeader.getProjects().isEmpty()) {
+            System.out.println("No projects have been added yet. Please add projects before assigning employees to an activity.");
+            return;
+        }
+
         System.out.print("Enter the project ID: ");
         int projectID = scanner.nextInt();
         scanner.nextLine(); // Consume newline from previous input
@@ -103,8 +120,6 @@ public class ProjectLeader extends Employee {
             System.out.println("Project not found.");
         }
     }
-
-
 
 
 }
