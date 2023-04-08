@@ -143,7 +143,7 @@ public abstract class Employee {
         int endWeek = Integer.parseInt(scanner.nextLine());
 
         Activity activity = new Activity(activityName, budgetedHours, startYear, startWeek, endYear, endWeek);
-        project.getActivities().add(activity); // Add the activity to the project's activity list
+        Project.getActivities().add(activity); // Add the activity to the project's activity list
         System.out.println("Activity created.");
     }
 

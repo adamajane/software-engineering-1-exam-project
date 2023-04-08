@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Activity {
-    private String activityName;
+    private static String activityName;
     private List<Employee> assignedEmployees;
     private int budgetedHours;
     private int startYear;
@@ -100,7 +100,7 @@ public class Activity {
         return totalActualHours;
     }
 
-    public String getActivityName() {
+    public static String getActivityName() {
         return activityName;
     }
 

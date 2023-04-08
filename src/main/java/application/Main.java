@@ -41,7 +41,7 @@ public class Main {
                     Employee.addEmployeeToActivity(scanner);
                     break;
                 case 4:
-                    ProjectLeader.assignProjectManager(scanner);
+                    ProjectLeader.assignProjectLeader(scanner);
                     break;
                 case 5:
                     Employee.createActivity(scanner);

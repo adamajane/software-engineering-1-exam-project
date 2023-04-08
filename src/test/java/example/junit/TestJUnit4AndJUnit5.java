@@ -1,4 +1,4 @@
-package example.junit;
+// package example.junit;
 
 /**
  * A test class to check which tests are run with which framework.
@@ -7,6 +7,7 @@ package example.junit;
  *
  * Remove the tests in your own projects.
  */
+/*
 public class TestJUnit4AndJUnit5 {
 	
 	@org.junit.Before // Junit 4
@@ -27,3 +28,4 @@ public class TestJUnit4AndJUnit5 {
 	}
 
 }
+*/

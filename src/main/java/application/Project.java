@@ -124,13 +124,15 @@ public class Project {
     }
 
     public static Project findProjectByID(int projectID) {
-        for (Project project : ProjectLeader.getProjects()) {
-            if (getProjectID() == projectID) {
+        ArrayList<Project> projects = ProjectLeader.getProjects();
+        for (Project project : projects) {
+            if (project.getProjectID() == projectID) {
                 return project;
             }
         }
         return null;
     }
+
 
     public List<Employee> getEmployees() {
         return employees;
@@ -150,6 +152,10 @@ public class Project {
 
     public void setProjectName(String projectName) {
         this.projectName = projectName;
+    }
+
+    public void setProjectID(int projectID) {
+        this.projectID = projectID;
     }
 
     public ProjectType getProjectType() {

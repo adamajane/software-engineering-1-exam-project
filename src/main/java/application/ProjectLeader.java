@@ -50,7 +50,7 @@ public class ProjectLeader extends Employee {
         return projects;
     }
 
-    public static void assignProjectManager(Scanner scanner) {
+    public static void assignProjectLeader(Scanner scanner) {
 
         if (Employee.getEmployees().isEmpty()) {
             System.out.println("No employees have been added yet. Please add employees before assigning them to an activity.");

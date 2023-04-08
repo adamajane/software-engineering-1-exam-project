@@ -1,4 +1,4 @@
-package example.cucumber;
+/*package example.cucumber;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -16,3 +16,4 @@ public class StepDefinitions {
 		assertTrue(true);
 	}
 }
+*/
