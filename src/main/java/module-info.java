@@ -3,5 +3,5 @@ module software.engineering.exam.project {
     requires javafx.fxml;
     requires javafx.graphics;
 
-    exports application;
+    exports gui;
 }
