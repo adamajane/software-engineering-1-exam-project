@@ -17,6 +17,7 @@ public class EmployeeSteps {
     private String employeeID;
     private String role;
     private Employee employee;
+    private String errorMessage;
 
     @Given("I have entered an employee ID {string}")
     public void iHaveEnteredAnEmployeeID(String employeeID) {
@@ -46,4 +47,42 @@ public class EmployeeSteps {
         assertEquals(role, foundEmployee.getRole());
     }
 
+    @When("I attempt to add the employee to the system")
+    public void iAttemptToAddTheEmployeeToTheSystem() {
+        try {
+            if (!employeeID.matches("^[a-zA-Z]+$")) {
+                throw new IllegalArgumentException("Employee ID must only contain letters. Try again.");
+            }
+
+            Employee foundEmployee = Employee.findEmployeeById(employeeID);
+            if (foundEmployee != null) {
+                throw new IllegalArgumentException("Employee with ID " + employeeID + " already exists. Try again.");
+            }
+
+            if ("Project Leader".equalsIgnoreCase(role)) {
+                employee = new ProjectLeader(employeeID);
+            } else {
+                employee = new Developer(employeeID);
+            }
+            Employee.getEmployees().add(employee);
+        } catch (IllegalArgumentException e) {
+            errorMessage = e.getMessage();
+        }
+    }
+
+    @Then("I should receive an error message stating that the employee ID must only contain letters")
+    public void iShouldReceiveAnErrorMessageStatingThatTheEmployeeIDMustOnlyContainLetters() {
+        assertEquals("Employee ID must only contain letters. Try again.", errorMessage);
+    }
+
+    @Given("an employee with ID {string} already exists in the system")
+    public void anEmployeeWithIDAlreadyExistsInTheSystem(String existingEmployeeId) {
+        Employee existingEmployee = new Developer(existingEmployeeId);
+        Employee.getEmployees().add(existingEmployee);
+    }
+
+    @Then("I should receive an error message stating that the employee with ID {string} already exists")
+    public void iShouldReceiveAnErrorMessageStatingThatTheEmployeeWithIDAlreadyExists(String existingEmployeeId) {
+        assertEquals("Employee with ID " + existingEmployeeId + " already exists. Try again.", errorMessage);
+    }
 }

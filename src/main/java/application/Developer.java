@@ -7,12 +7,6 @@ public class Developer extends Employee {
 
     }
 
-    // Hvad gør vores Edit metode i use case diagram????
-
-    // Hvad skal denne metode?
-    public void requestColleagueHelp() {
-    }
-
     @Override
     public String getRole() {
         return "Developer";

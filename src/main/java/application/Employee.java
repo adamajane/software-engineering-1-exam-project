@@ -21,8 +21,22 @@ public abstract class Employee {
     public static void addEmployee() {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Enter employee ID: ");
-        String employeeID = scanner.nextLine().toUpperCase();
+        String employeeID;
+
+        while (true) {
+            System.out.println("Enter employee ID: ");
+            employeeID = scanner.nextLine().toUpperCase();
+
+            if (findEmployeeById(employeeID) != null) {
+                System.out.println("Employee with ID " + employeeID + " already exists. Try again.");
+            } else if (employeeID.length() != 4) {
+                System.out.println("Employee ID must be 4 characters long. Try again.");
+            } else if (!employeeID.matches("[A-Z]+")) {
+                System.out.println("Employee ID must only contain letters. Try again.");
+            } else {
+                break;
+            }
+        }
 
         System.out.println("Is this employee a project leader? (Yes/No): ");
         String isLeader = scanner.nextLine();
@@ -212,7 +226,7 @@ public abstract class Employee {
         return count;
     }
 
-
+    // TODO: Implement these method
     public void registerFutureActivity(Activity activity, LocalDate starDate, LocalDate endDate) {
     }
 

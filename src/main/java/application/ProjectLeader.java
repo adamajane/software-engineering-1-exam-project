@@ -22,8 +22,18 @@ public class ProjectLeader extends Employee {
             System.out.println("No employees have been added yet. Please add employees before creating a project.");
             return;
         }
-        System.out.print("Enter Project Name: ");
-        String projectName = scanner.nextLine();
+
+        String projectName;
+
+        while (true) {
+            System.out.print("Enter Project Name: ");
+            projectName = scanner.nextLine();
+            if (projectName.isEmpty()) {
+                System.out.println("Project name cannot be empty.");
+            } else {
+                break;
+            }
+        }
 
         System.out.print("Choose Project Type (INTERNAL/CUSTOMER): ");
         String projectTypeInput = scanner.next().toUpperCase();
@@ -68,7 +78,7 @@ public class ProjectLeader extends Employee {
         Project project = Project.findProjectByID(projectID);
 
         if (project != null) {
-            System.out.print("Enter the Employee ID of the new project manager: ");
+            System.out.print("Enter the Employee ID of the new project leader: ");
             String employeeId = scanner.nextLine().toUpperCase();
             Employee employee = Employee.findEmployeeById(employeeId);
 
@@ -76,15 +86,11 @@ public class ProjectLeader extends Employee {
                 project.assignProjectLeader(employee);
                 System.out.println("Project manager assigned successfully.");
             } else {
-                System.out.println("The employee is not a Project Leader. Operation failed.");
+                System.out.println("The employee is not a project leader. Try again.");
             }
         } else {
             System.out.println("Project not found.");
         }
-    }
-
-    public void assignProjectLeader() {
-
     }
 
     public void assignEmployees() {
