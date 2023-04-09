@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 public class ProjectLeader extends Employee {
 
-    // List of all projects
     private static ArrayList<Project> projects = new ArrayList<Project>();
 
     public ProjectLeader(String employeeId) {
