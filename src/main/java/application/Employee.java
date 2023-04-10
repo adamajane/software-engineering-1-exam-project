@@ -29,8 +29,8 @@ public abstract class Employee {
 
             if (findEmployeeById(employeeID) != null) {
                 System.out.println("Employee with ID " + employeeID + " already exists. Try again.");
-            } else if (employeeID.length() != 4) {
-                System.out.println("Employee ID must be 4 characters long. Try again.");
+            } else if (employeeID.length() > 4) {
+                System.out.println("Employee ID must be no longer than 4 characters long. Try again.");
             } else if (!employeeID.matches("[A-Z]+")) {
                 System.out.println("Employee ID must only contain letters. Try again.");
             } else {
@@ -252,7 +252,7 @@ public abstract class Employee {
         // Implementation here
     }
 
-    public static void updateActivityName(Scanner scanner) {
+    public static void updateActivityName(String currName, String newName) {
 
         // Can't update activity name if there are no activities
         if (Project.getActivities() == null) {
@@ -260,13 +260,11 @@ public abstract class Employee {
             return;
         }
 
-        System.out.print("Enter the current activity name: ");
-        String currentActivityName = scanner.nextLine();
+        String currentActivityName = currName;
         Activity activity = findActivityByName(currentActivityName);
 
         if (activity != null) {
-            System.out.print("Enter the new activity name: ");
-            String newActivityName = scanner.nextLine();
+            String newActivityName = newName;
             activity.setActivityName(newActivityName);
             System.out.println("Activity name updated successfully.");
         } else {

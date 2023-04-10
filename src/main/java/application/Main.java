@@ -59,10 +59,19 @@ public class Main {
                     Employee.checkDailyHoursRegistration(scanner);
                     break;
                 case 10:
-                    Employee.updateActivityName(scanner);
+                    System.out.print("Enter the current activity name: ");
+                    String currName = scanner.nextLine();
+                    System.out.print("Enter the new activity name: ");
+                    String newName = scanner.nextLine();
+                    Employee.updateActivityName(currName, newName);
                     break;
                 case 11:
-                    ProjectLeader.updateProjectName(scanner);
+                    System.out.print("Enter the project ID: ");
+                    int projID = scanner.nextInt();
+                    scanner.nextLine();
+                    System.out.print("Enter the new project name: ");
+                    String newProjName = scanner.nextLine();
+                    ProjectLeader.updateProjectName(projID, newProjName );
                     break;
                 case 12:
                     Employee.updateActivityDate(scanner);

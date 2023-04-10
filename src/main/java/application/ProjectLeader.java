@@ -104,21 +104,20 @@ public class ProjectLeader extends Employee {
 
     }
 
-    public static void updateProjectName(Scanner scanner) {
+    public static void updateProjectName(int currProjID, String newProjName) {
 
         if (ProjectLeader.getProjects().isEmpty()) {
             System.out.println("No projects have been added yet. Please add projects before assigning employees to an activity.");
             return;
         }
 
-        System.out.print("Enter the project ID: ");
-        int projectID = scanner.nextInt();
-        scanner.nextLine(); // Consume newline from previous input
+
+        int projectID = currProjID;
         Project project = Project.findProjectByID(projectID);
 
         if (project != null) {
-            System.out.print("Enter the new project name: ");
-            String newProjectName = scanner.nextLine();
+
+            String newProjectName = newProjName;
             project.setProjectName(newProjectName);
             System.out.println("Project name updated successfully.");
         } else {
