@@ -10,5 +10,5 @@ Feature: Add Project
   Scenario: Assign a project leader to a project
     Given I am logged in as a project leader with ID "AVAJ"
     And there is a project with ID 23001 and name "Project Alpha"
-    When I assign the project leader with ID "PL002" to the project with ID 23001
-    Then the project with ID 23001 should have the project leader with ID "PL002"
+    When I assign the project leader with ID "OBO" to the project with ID 23001
+    Then the project with ID 23001 should have the project leader with ID "OBO"

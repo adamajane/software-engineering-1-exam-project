@@ -146,6 +146,10 @@ public class Project {
         return activities;
     }
 
+    public void clearActivities() {
+        activities.clear();
+    }
+
     public String getProjectName() {
         return projectName;
     }
