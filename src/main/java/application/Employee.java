@@ -9,7 +9,7 @@ import java.util.Scanner;
 public abstract class Employee {
     private String employeeID;
     private static ArrayList<Employee> employees = new ArrayList<Employee>();
-    private ArrayList<Activity> activities;
+    private static ArrayList<Activity> activities;
     private Map<LocalDate, Map<Activity, Double>> timeRegistrations;
 
     public Employee(String employeeID) {
@@ -161,7 +161,7 @@ public abstract class Employee {
         System.out.println("Activity created.");
     }
 
-    public void addActivity(Activity activity) {
+    public static void addActivity(Activity activity) {
         activities.add(activity);
     }
 
@@ -272,36 +272,14 @@ public abstract class Employee {
         }
     }
 
+    public static void updateActivityDate(int newStartYear, int newStartWeek, int newEndYear, int newEndWeek, String activityName) {
 
-    public static void updateActivityDate(Scanner scanner) {
-
-        if (Project.getActivities() == null) {
-            System.out.println("No activities have been added yet. Please add activities before updating an activity.");
-            return;
-        }
-
-        System.out.print("Enter the activity name: ");
-        String activityName = scanner.nextLine();
         Activity activity = findActivityByName(activityName);
-
         if (activity != null) {
-            System.out.print("Enter the new start year: ");
-            int newStartYear = scanner.nextInt();
-
-            System.out.print("Enter the new start week: ");
-            int newStartWeek = scanner.nextInt();
-
-            System.out.print("Enter the new end year: ");
-            int newEndYear = scanner.nextInt();
-
-            System.out.print("Enter the new end week: ");
-            int newEndWeek = scanner.nextInt();
-
             activity.setStartYear(newStartYear);
             activity.setStartWeek(newStartWeek);
             activity.setEndYear(newEndYear);
             activity.setEndWeek(newEndWeek);
-            System.out.println("Activity dates updated successfully.");
         } else {
             System.out.println("Activity not found.");
         }

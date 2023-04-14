@@ -5,7 +5,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import static org.junit.Assert.assertEquals;
 
-public class UpdateActivityNameSteps {
+public class UpdateActivitySteps {
 
     private Employee employee;
     private Project project;
@@ -42,5 +42,22 @@ public class UpdateActivityNameSteps {
     @Then("the activity name should be updated to {string}")
     public void theActivityNameShouldBeUpdatedTo(String newActivityName) {
         assertEquals(newActivityName, activity.getActivityName());
+    }
+
+    @When("the employee with ID {string} updates the date of the activity with name {string}")
+    public void theEmployeeWithIDUpdatesTheDateOfTheActivityWithName(String employeeId, String activityName) {
+        int newStartYear = 2024;
+        int newStartWeek = 10;
+        int newEndYear = 2024;
+        int newEndWeek = 40;
+        employee.updateActivityDate(newStartYear, newStartWeek, newEndYear, newEndWeek, activityName);
+    }
+
+    @Then("the activity date is updated")
+    public void theActivityDateIsUpdated() {
+        assertEquals(2024, activity.getStartYear());
+        assertEquals(10, activity.getStartWeek());
+        assertEquals(2024, activity.getEndYear());
+        assertEquals(40, activity.getEndWeek());
     }
 }

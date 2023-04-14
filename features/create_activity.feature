@@ -1,5 +1,5 @@
-Feature: Add activity
-  Description: An activity is added to a project
+Feature: Create and add activity
+  Description: An activity is created and added to a project
   Actor: Project Leader or Developer
 
   Scenario: Create a new activity

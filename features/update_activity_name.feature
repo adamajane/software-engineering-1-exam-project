@@ -1,8 +1,6 @@
-Feature: Update Activity Name
-
-  As an employee
-  I want to update the name of an activity
-  So that the activity name reflects its current purpose
+Feature: Update activity name
+  Description: An activity is updated with a new name
+  Actor: Project Leader or Developer
 
   Scenario: Update the name of an existing activity
     Given an employee with ID "OBO"

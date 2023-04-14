@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static application.Employee.findActivityByName;
+
 public class Main {
 
 
@@ -71,10 +73,41 @@ public class Main {
                     scanner.nextLine();
                     System.out.print("Enter the new project name: ");
                     String newProjName = scanner.nextLine();
-                    ProjectLeader.updateProjectName(projID, newProjName );
+                    ProjectLeader.updateProjectName(projID, newProjName);
                     break;
                 case 12:
-                    Employee.updateActivityDate(scanner);
+                    if (ProjectLeader.getProjects().isEmpty()) {
+                        System.out.println("No projects have been added yet. Please add projects before updating an activity.");
+                        break;
+                    }
+
+                    if (Project.getActivities().isEmpty()) {
+                        System.out.println("No activities have been added yet. Please add activities before updating an activity.");
+                        break;
+                    }
+
+                    System.out.print("Enter the activity name: ");
+                    String activityName = scanner.nextLine();
+                    Activity activity = findActivityByName(activityName);
+
+                    if (activity != null) {
+                        System.out.print("Enter the new start year: ");
+                        int newStartYear = scanner.nextInt();
+
+                        System.out.print("Enter the new start week: ");
+                        int newStartWeek = scanner.nextInt();
+
+                        System.out.print("Enter the new end year: ");
+                        int newEndYear = scanner.nextInt();
+
+                        System.out.print("Enter the new end week: ");
+                        int newEndWeek = scanner.nextInt();
+                        scanner.nextLine();
+                        Employee.updateActivityDate(newStartYear, newStartWeek, newEndYear, newEndWeek, activityName);
+                        System.out.println("Activity dates updated successfully.");
+                    } else {
+                        System.out.println("Activity not found.");
+                    }
                     break;
                 case 0:
                     System.out.println("Exiting the Time Management App...");

@@ -1,18 +1,15 @@
 package example.cucumber;
 
-import application.Employee;
 import application.Project;
 import application.ProjectLeader;
 import application.ProjectType;
-import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
-import static application.ProjectType.INTERNAL;
 import static org.junit.Assert.assertEquals;
 
-public class UpdateProjectNameSteps {
+public class UpdateProjectSteps {
 
     private ProjectLeader projectLeader;
     private Project project;
