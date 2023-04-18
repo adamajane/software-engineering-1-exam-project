@@ -122,43 +122,8 @@ public abstract class Employee {
 
     public abstract String getRole();
 
-    public static void createActivity(Scanner scanner) {
-
-        if (employees.isEmpty()) {
-            System.out.println("No employees have been added yet. Please add employees before creating an activity.");
-            return;
-        }
-
-        if (ProjectLeader.getProjects().isEmpty()) {
-            System.out.println("No projects have been added yet. Please add projects before creating an activity.");
-            return;
-        }
-
-        System.out.println("Enter the project ID:");
-        int projectId = Integer.parseInt(scanner.nextLine());
-        Project project = Project.findProjectByID(projectId);
-
-        if (project == null) {
-            System.out.println("Project not found.");
-            return;
-        }
-
-        System.out.println("Enter the activity name:");
-        String activityName = scanner.nextLine();
-        System.out.println("Enter the budgeted hours:");
-        int budgetedHours = Integer.parseInt(scanner.nextLine());
-        System.out.println("Enter the start year:");
-        int startYear = Integer.parseInt(scanner.nextLine());
-        System.out.println("Enter the start week:");
-        int startWeek = Integer.parseInt(scanner.nextLine());
-        System.out.println("Enter the end year:");
-        int endYear = Integer.parseInt(scanner.nextLine());
-        System.out.println("Enter the end week:");
-        int endWeek = Integer.parseInt(scanner.nextLine());
-
-        Activity activity = new Activity(activityName, budgetedHours, startYear, startWeek, endYear, endWeek);
-        Project.getActivities().add(activity); // Add the activity to the project's activity list
-        System.out.println("Activity created.");
+    public static Activity createActivity(String activityName, int budgetedHours, int startYear, int startWeek, int endYear, int endWeek) {
+        return new Activity(activityName, budgetedHours, startYear, startWeek, endYear, endWeek);
     }
 
     public static void addActivity(Activity activity) {
@@ -272,7 +237,7 @@ public abstract class Employee {
         }
     }
 
-    public static void updateActivityDate(int newStartYear, int newStartWeek, int newEndYear, int newEndWeek, String activityName) {
+    public static void updateActivityDate(String activityName, int newStartYear, int newStartWeek, int newEndYear, int newEndWeek) {
 
         Activity activity = findActivityByName(activityName);
         if (activity != null) {

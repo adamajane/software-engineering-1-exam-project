@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+//import static application.Employee.employees;
 import static application.Employee.findActivityByName;
 
 public class Main {
@@ -46,9 +47,42 @@ public class Main {
                     ProjectLeader.assignProjectLeader(scanner);
                     break;
                 case 5:
-                    Employee.createActivity(scanner);
+                    if (Employee.getEmployees().isEmpty()) {
+                        System.out.println("No employees have been added yet. Please add employees before creating an activity.");
+                        break;
+                    }
+// Fix this
+                    if (ProjectLeader.getProjects().isEmpty()) {
+                        System.out.println("No projects have been added yet. Please add projects before creating an activity.");
+                        break;
+                    }
+
+                    System.out.println("Enter the project ID:");
+                    int projectId = Integer.parseInt(scanner.nextLine());
+                    Project project = Project.findProjectByID(projectId);
+
+                    if (project != null) {
+                        System.out.println("Enter the activity name:");
+                        String activityName = scanner.nextLine();
+                        System.out.println("Enter the budgeted hours:");
+                        int budgetedHours = Integer.parseInt(scanner.nextLine());
+                        System.out.println("Enter the start year:");
+                        int startYear = Integer.parseInt(scanner.nextLine());
+                        System.out.println("Enter the start week:");
+                        int startWeek = Integer.parseInt(scanner.nextLine());
+                        System.out.println("Enter the end year:");
+                        int endYear = Integer.parseInt(scanner.nextLine());
+                        System.out.println("Enter the end week:");
+                        int endWeek = Integer.parseInt(scanner.nextLine());
+
+                        Activity activity = new Activity(activityName, budgetedHours, startYear, startWeek, endYear, endWeek);
+                        project.getActivities().add(activity);
+                        System.out.println("Activity created.");
+                    } else {
+                        System.out.println("Project not found.");
+                    }
                     break;
-                case 6:
+                case 6: // TODO: Check this out. Jeg fik en InputMismatchException fejl her (Adam)
                     TimeRegistration.registerTimeForEmployee(scanner);
                     break;
                 case 7:
@@ -103,7 +137,7 @@ public class Main {
                         System.out.print("Enter the new end week: ");
                         int newEndWeek = scanner.nextInt();
                         scanner.nextLine();
-                        Employee.updateActivityDate(newStartYear, newStartWeek, newEndYear, newEndWeek, activityName);
+                        Employee.updateActivityDate(activityName, newStartYear, newStartWeek, newEndYear, newEndWeek);
                         System.out.println("Activity dates updated successfully.");
                     } else {
                         System.out.println("Activity not found.");

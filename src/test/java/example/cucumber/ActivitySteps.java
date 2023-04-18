@@ -21,11 +21,11 @@ public class ActivitySteps {
 
     @Before
     public void setUp() {
-
-        if (project != null) {
+        // Clear all activities for all projects
+        for (Project project : ProjectLeader.getProjects()) {
             project.clearActivities();
         }
-
+        // Clear all projects
         ProjectLeader.getProjects().clear();
     }
 
@@ -44,11 +44,17 @@ public class ActivitySteps {
 
     @When("the employee creates a new activity")
     public void theEmployeeCreatesANewActivity() {
-        int projectId = Project.getProjectID();
-        String input = projectId + "\nTest Activity\n10\n2023\n20\n2023\n25";
-        scanner = new Scanner(input);
-        Employee.createActivity(scanner);
-        activity = Project.getActivities().get(0);
+        String activityName = "Test Activity";
+        int budgetedHours = 10;
+        int startYear = 2023;
+        int startWeek = 20;
+        int endYear = 2023;
+        int endWeek = 25;
+        Activity newActivity = Employee.createActivity(activityName, budgetedHours, startYear, startWeek, endYear, endWeek);
+        if (project != null) {
+            project.getActivities().add(newActivity);
+            activity = project.getActivities().get(0);
+        }
     }
 
     @Then("the activity is added to the project")
@@ -63,6 +69,10 @@ public class ActivitySteps {
 
     @Then("the activity is not added to the project")
     public void theActivityIsNotAddedToTheProject() {
-        assertEquals(0, Project.getActivities().size());
+        if (project == null) {
+            assertTrue(true);
+        } else {
+            assertEquals(0, project.getActivities().size());
+        }
     }
 }

@@ -50,7 +50,7 @@ public class UpdateActivitySteps {
         int newStartWeek = 10;
         int newEndYear = 2024;
         int newEndWeek = 40;
-        employee.updateActivityDate(newStartYear, newStartWeek, newEndYear, newEndWeek, activityName);
+        employee.updateActivityDate(activityName, newStartYear, newStartWeek, newEndYear, newEndWeek);
     }
 
     @Then("the activity date is updated")
