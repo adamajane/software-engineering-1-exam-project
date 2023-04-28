@@ -38,7 +38,30 @@ public class Main {
                     Employee.addEmployee();
                     break;
                 case 2:
-                    ProjectLeader.createProject(scanner);
+                    if (Employee.getEmployees().isEmpty()) {
+                        System.out.println("No employees have been added yet. Please add employees before creating a project.");
+                        break;
+                    }
+
+                    String projectName;
+
+                    while (true) {
+                        System.out.print("Enter Project Name: ");
+                        projectName = scanner.nextLine();
+                        if (projectName.isEmpty()) {
+                            System.out.println("Project name cannot be empty.");
+                            return;
+                        } else {
+                            System.out.print("Choose Project Type (INTERNAL/CUSTOMER): ");
+                            String projectTypeInput = scanner.next().toUpperCase();
+                            while (!projectTypeInput.equals("INTERNAL") && !projectTypeInput.equals("CUSTOMER")) {
+                                System.out.print("Invalid input. Choose Project Type (INTERNAL/CUSTOMER): ");
+                                projectTypeInput = scanner.next().toUpperCase();
+                            }
+                            ProjectLeader.createProject(projectName, projectTypeInput);
+                        }
+                        break;
+                    }
                     break;
                 case 3:
                     Employee.addEmployeeToActivity(scanner);

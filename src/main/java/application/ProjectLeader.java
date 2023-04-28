@@ -16,30 +16,8 @@ public class ProjectLeader extends Employee {
         return "Project Leader";
     }
 
-    public static void createProject(Scanner scanner) {
-        if (Employee.getEmployees().isEmpty()) {
-            System.out.println("No employees have been added yet. Please add employees before creating a project.");
-            return;
-        }
+    public static void createProject(String projectName, String projectTypeInput) {
 
-        String projectName;
-
-        while (true) {
-            System.out.print("Enter Project Name: ");
-            projectName = scanner.nextLine();
-            if (projectName.isEmpty()) {
-                System.out.println("Project name cannot be empty.");
-            } else {
-                break;
-            }
-        }
-
-        System.out.print("Choose Project Type (INTERNAL/CUSTOMER): ");
-        String projectTypeInput = scanner.next().toUpperCase();
-        while (!projectTypeInput.equals("INTERNAL") && !projectTypeInput.equals("CUSTOMER")) {
-            System.out.print("Invalid input. Choose Project Type (INTERNAL/CUSTOMER): ");
-            projectTypeInput = scanner.next().toUpperCase();
-        }
         ProjectType projectType = ProjectType.valueOf(projectTypeInput);
 
         Project project = new Project(projectName, projectType);
