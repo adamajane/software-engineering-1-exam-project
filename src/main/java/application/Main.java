@@ -116,7 +116,16 @@ public class Main {
                         System.out.println("No projects have been added yet. Please add projects before assigning employees to an activity.");
                         break;
                     }
-                    ProjectLeader.assignProjectLeader(scanner);
+
+
+                    System.out.print("Enter the project ID: ");
+                    int projectIDAssign = scanner.nextInt();
+                    scanner.nextLine();
+
+                    System.out.print("Enter the Employee ID of the new project leader: ");
+                    String employeeIDAssign = scanner.nextLine().toUpperCase();
+
+                    ProjectLeader.assignProjectLeader(projectIDAssign, employeeIDAssign);
                     break;
                 case 5:
                     if (Employee.getEmployees().isEmpty()) {

@@ -37,27 +37,11 @@ public class ProjectLeader extends Employee {
         return projects;
     }
 
-    public static void assignProjectLeader(Scanner scanner) {
-
-        if (Employee.getEmployees().isEmpty()) {
-            System.out.println("No employees have been added yet. Please add employees before assigning them to an activity.");
-            return;
-        }
-
-        if (ProjectLeader.getProjects().isEmpty()) {
-            System.out.println("No projects have been added yet. Please add projects before assigning employees to an activity.");
-            return;
-        }
-
-        System.out.print("Enter the project ID: ");
-        int projectID = scanner.nextInt();
-        scanner.nextLine();
+    public static void assignProjectLeader(int projectID, String employeeID) {
         Project project = Project.findProjectByID(projectID);
 
         if (project != null) {
-            System.out.print("Enter the Employee ID of the new project leader: ");
-            String employeeId = scanner.nextLine().toUpperCase();
-            Employee employee = Employee.findEmployeeById(employeeId);
+            Employee employee = Employee.findEmployeeById(employeeID);
 
             if (employee instanceof ProjectLeader) {
                 project.assignProjectLeader(employee);
