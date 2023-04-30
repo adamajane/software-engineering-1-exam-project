@@ -78,24 +78,10 @@ public abstract class Employee {
         return null;
     }
 
-    public static void addEmployeeToActivity(Scanner scanner) {
-        if (employees.isEmpty()) {
-            System.out.println("No employees have been added yet. Please add employees before assigning them to an activity.");
-            return;
-        }
-
-        if (ProjectLeader.getProjects().isEmpty()) {
-            System.out.println("No projects have been added yet. Please add projects before assigning employees to an activity.");
-            return;
-        }
-
-        System.out.println("Enter the employee ID:");
-        String employeeId = scanner.nextLine();
+    public static void addEmployeeToActivity(String employeeId, String activityName) {
         Employee employee = Employee.findEmployeeById(employeeId);
-
-        System.out.println("Enter the activity name:");
-        String activityName = scanner.nextLine();
         Activity activity = null;
+
         for (Project projects : ProjectLeader.getProjects()) {
             activity = projects.findActivityByName(activityName);
             if (activity != null) {
@@ -259,6 +245,20 @@ public abstract class Employee {
         }
         return null;
     }
+
+    // Show all activities assigned to an employee
+    //public static void showActivitiesAssignedToEmployee(String employeeId) {
+    //    Employee employee = Employee.findEmployeeById(employeeId);
+    //    if (employee == null) {
+    //        System.out.println("Employee not found.");
+    //        return;
+    //    }
+
+    //    System.out.println("Activities assigned to employee " + employeeId + ":");
+    //    for (Activity activity : Project.getActivities()) {
+    //        System.out.println(activity.getActivityName());
+    //    }
+    //}
 
 
 }

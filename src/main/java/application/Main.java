@@ -18,9 +18,9 @@ public class Main {
             System.out.println("Time Management App");
             System.out.println("1. Add Employee");
             System.out.println("2. Create Project");
-            System.out.println("3. Add Employee to Activity");
-            System.out.println("4. Assign Project Manager");
-            System.out.println("5. Create Activity");
+            System.out.println("3. Create Activity");
+            System.out.println("4. Assign Project Leader");
+            System.out.println("5. Add Employee to Activity");
             System.out.println("6. Register Time");
             System.out.println("7. Get Time Consumption Report");
             System.out.println("8. Show All Employees");
@@ -28,8 +28,8 @@ public class Main {
             System.out.println("10. Update Activity Name");
             System.out.println("11. Update Project Name");
             System.out.println("12. Update Activity Dates");
-
             System.out.println("0. Exit");
+            System.out.print("Enter choice: ");
             choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline from previous input
 
@@ -64,29 +64,23 @@ public class Main {
                     }
                     break;
                 case 3:
-                    Employee.addEmployeeToActivity(scanner);
-                    break;
-                case 4:
-                    ProjectLeader.assignProjectLeader(scanner);
-                    break;
-                case 5:
                     if (Employee.getEmployees().isEmpty()) {
                         System.out.println("No employees have been added yet. Please add employees before creating an activity.");
                         break;
                     }
-// Fix this
+
                     if (ProjectLeader.getProjects().isEmpty()) {
                         System.out.println("No projects have been added yet. Please add projects before creating an activity.");
                         break;
                     }
 
                     System.out.println("Enter the project ID:");
-                    int projectId = Integer.parseInt(scanner.nextLine());
-                    Project project = Project.findProjectByID(projectId);
+                    int projectID = Integer.parseInt(scanner.nextLine());
+                    Project project = Project.findProjectByID(projectID);
 
                     if (project != null) {
                         System.out.println("Enter the activity name:");
-                        String activityName = scanner.nextLine();
+                        String activityNameCreate = scanner.nextLine();
                         System.out.println("Enter the budgeted hours:");
                         int budgetedHours = Integer.parseInt(scanner.nextLine());
                         System.out.println("Enter the start year:");
@@ -98,17 +92,65 @@ public class Main {
                         System.out.println("Enter the end week:");
                         int endWeek = Integer.parseInt(scanner.nextLine());
 
-                        Activity activity = new Activity(activityName, budgetedHours, startYear, startWeek, endYear, endWeek);
+                        Activity activity = new Activity(activityNameCreate, budgetedHours, startYear, startWeek, endYear, endWeek);
                         project.getActivities().add(activity);
                         System.out.println("Activity created.");
+                        System.out.println();
+
+                        // Prints all activities in project
+                        System.out.println("Activities in project:");
+                        for (Activity a : project.getActivities()) {
+                            System.out.println(a.getActivityName());
+                        }
                     } else {
                         System.out.println("Project not found.");
                     }
+                    break;
+                case 4:
+                    if (Employee.getEmployees().isEmpty()) {
+                        System.out.println("No employees have been added yet. Please add employees before assigning them to an activity.");
+                        break;
+                    }
+
+                    if (ProjectLeader.getProjects().isEmpty()) {
+                        System.out.println("No projects have been added yet. Please add projects before assigning employees to an activity.");
+                        break;
+                    }
+                    ProjectLeader.assignProjectLeader(scanner);
+                    break;
+                case 5:
+                    if (Employee.getEmployees().isEmpty()) {
+                        System.out.println("No employees have been added yet. Please add employees before assigning them to an activity.");
+                        break;
+                    }
+
+                    if (ProjectLeader.getProjects().isEmpty()) {
+                        System.out.println("No projects have been added yet. Please add projects before assigning employees to an activity.");
+                        break;
+                    }
+
+                    System.out.println("Enter the employee ID:");
+                    String employeeID = scanner.nextLine();
+
+                    System.out.println("Enter the activity name:");
+                    String activityNameAdd = scanner.nextLine();
+
+                    Employee.addEmployeeToActivity(employeeID, activityNameAdd);
                     break;
                 case 6: // TODO: Check this out. Jeg fik en InputMismatchException fejl her (Adam)
                     TimeRegistration.registerTimeForEmployee(scanner);
                     break;
                 case 7:
+                    if (Employee.getEmployees().isEmpty()) {
+                        System.out.println("No employees have been added yet. Please add employees before assigning them to an activity.");
+                        return;
+                    }
+
+                    if (ProjectLeader.getProjects().isEmpty()) {
+                        System.out.println("No projects have been added yet. Please add projects before assigning employees to an activity.");
+                        return;
+                    }
+
                     Project.getTimeConsumptionReport(scanner);
                     break;
                 case 8:

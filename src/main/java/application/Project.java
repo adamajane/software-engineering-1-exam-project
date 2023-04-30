@@ -99,16 +99,6 @@ public class Project {
 
     public static void getTimeConsumptionReport(Scanner scanner) {
 
-        if (Employee.getEmployees().isEmpty()) {
-            System.out.println("No employees have been added yet. Please add employees before assigning them to an activity.");
-            return;
-        }
-
-        if (ProjectLeader.getProjects().isEmpty()) {
-            System.out.println("No projects have been added yet. Please add projects before assigning employees to an activity.");
-            return;
-        }
-
         System.out.print("Enter the project ID: ");
         int projectID = scanner.nextInt();
         scanner.nextLine(); // Consume newline from previous input
