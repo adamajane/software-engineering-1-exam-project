@@ -97,12 +97,7 @@ public class Project {
     }
 
 
-    public static void getTimeConsumptionReport(Scanner scanner) {
-
-        System.out.print("Enter the project ID: ");
-        int projectID = scanner.nextInt();
-        scanner.nextLine(); // Consume newline from previous input
-
+    public static void getTimeConsumptionReport(int projectID) {
         Project project = Project.findProjectByID(projectID);
 
         if (project != null) {

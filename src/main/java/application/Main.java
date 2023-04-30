@@ -149,7 +149,7 @@ public class Main {
                 case 6: // TODO: Check this out. Jeg fik en InputMismatchException fejl her (Adam)
                     if (Employee.getEmployees().isEmpty()) {
                         System.out.println("No employees have been added yet. Please add an employee before registering time.");
-                        return;
+                        break;
                     }
 
                     System.out.print("Enter Employee ID: ");
@@ -167,15 +167,19 @@ public class Main {
                 case 7:
                     if (Employee.getEmployees().isEmpty()) {
                         System.out.println("No employees have been added yet. Please add employees before assigning them to an activity.");
-                        return;
+                        break;
                     }
 
                     if (ProjectLeader.getProjects().isEmpty()) {
                         System.out.println("No projects have been added yet. Please add projects before assigning employees to an activity.");
-                        return;
+                        break;
                     }
 
-                    Project.getTimeConsumptionReport(scanner);
+                    System.out.print("Enter the project ID: ");
+                    int projectIDReport = scanner.nextInt();
+                    scanner.nextLine();
+
+                    Project.getTimeConsumptionReport(projectIDReport);
                     break;
                 case 8:
                     Employee.printEmployees();
