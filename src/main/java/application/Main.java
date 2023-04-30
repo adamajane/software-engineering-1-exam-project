@@ -147,7 +147,22 @@ public class Main {
                     Employee.addEmployeeToActivity(employeeID, activityNameAdd);
                     break;
                 case 6: // TODO: Check this out. Jeg fik en InputMismatchException fejl her (Adam)
-                    TimeRegistration.registerTimeForEmployee(scanner);
+                    if (Employee.getEmployees().isEmpty()) {
+                        System.out.println("No employees have been added yet. Please add an employee before registering time.");
+                        return;
+                    }
+
+                    System.out.print("Enter Employee ID: ");
+                    String employeeIDRegister = scanner.next().toUpperCase();
+                    scanner.nextLine();
+
+                    System.out.print("Enter Activity Name: ");
+                    String activityNameRegister = scanner.next();
+
+                    System.out.print("Enter Hours: ");
+                    double hours = scanner.nextDouble();
+
+                    TimeRegistration.registerTimeForEmployee(employeeIDRegister, activityNameRegister, hours);
                     break;
                 case 7:
                     if (Employee.getEmployees().isEmpty()) {

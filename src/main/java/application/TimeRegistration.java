@@ -16,25 +16,13 @@ public class TimeRegistration {
         this.hours = hours;
     }
 
-    public static void registerTimeForEmployee(Scanner scanner) {
+    public static void registerTimeForEmployee(String employeeID, String activityName, double hours) {
 
-        if (Employee.getEmployees().isEmpty()) {
-            System.out.println("No employees have been added yet. Please add an employee before registering time.");
-            return;
-        }
-
-        System.out.print("Enter Employee ID: ");
-        String employeeId = scanner.next().toUpperCase();
-        scanner.nextLine(); // Consume newline from previous input
-
-        Employee employee = Employee.findEmployeeById(employeeId);
+        Employee employee = Employee.findEmployeeById(employeeID);
         if (employee == null) {
             System.out.println("Employee not found.");
             return;
         }
-
-        System.out.print("Enter Activity Name: ");
-        String activityName = scanner.next();
 
         Activity activity = null;
         for (Project project : ProjectLeader.getProjects()) {
@@ -48,9 +36,6 @@ public class TimeRegistration {
             System.out.println("Activity not found.");
             return;
         }
-
-        System.out.print("Enter Hours: ");
-        double hours = scanner.nextDouble();
 
         employee.registerTime(activity, hours);
         System.out.println("Time registered successfully.");
