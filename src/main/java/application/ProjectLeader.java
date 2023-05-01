@@ -41,7 +41,7 @@ public class ProjectLeader extends Employee {
         Project project = Project.findProjectByID(projectID);
 
         if (project != null) {
-            Employee employee = Employee.findEmployeeById(employeeID);
+            Employee employee = Employee.findEmployeeByID(employeeID);
 
             if (employee instanceof ProjectLeader) {
                 project.assignProjectLeader(employee);

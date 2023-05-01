@@ -17,7 +17,7 @@ public class TimeRegistration {
     }
 
     public static void registerTimeForEmployee(String employeeID, String activityName, double hours) {
-        Employee employee = Employee.findEmployeeById(employeeID);
+        Employee employee = Employee.findEmployeeByID(employeeID);
         if (employee == null) {
             System.out.println("Employee not found.");
             return;

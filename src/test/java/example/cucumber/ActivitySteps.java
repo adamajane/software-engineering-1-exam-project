@@ -36,8 +36,8 @@ public class ActivitySteps {
         project = ProjectLeader.getProjects().get(0);
     }
 
-    @Given("there is an employee in the system")
-    public void thereIsAnEmployeeInTheSystem() {
+    @Given("that there is an employee in the system")
+    public void thatThereIsAnEmployeeInTheSystem() {
         employee = new Developer("OBO");
         Employee.getEmployees().add(employee);
     }
@@ -75,4 +75,32 @@ public class ActivitySteps {
             assertEquals(0, project.getActivities().size());
         }
     }
+
+    @Given("that there is an activity in the system")
+    public void thatThereIsAnActivityInTheSystem() {
+        String activityName = "Test Activity";
+        int budgetedHours = 10;
+        int startYear = 2023;
+        int startWeek = 20;
+        int endYear = 2023;
+        int endWeek = 25;
+        Activity newActivity = Employee.createActivity(activityName, budgetedHours, startYear, startWeek, endYear, endWeek);
+        if (project != null) {
+            project.getActivities().add(newActivity);
+            activity = project.getActivities().get(0);
+        }
+    }
+
+    @When("the admin adds the employee to the activity")
+    public void theAdminAddsTheEmployeeToTheActivity() {
+        if (activity != null && employee != null) {
+            Employee.addEmployeeToActivity(employee.getEmployeeID(), activity.getActivityName());
+        }
+    }
+
+    @Then("the employee is added to the activity")
+    public void theEmployeeIsAddedToTheActivity() {
+        assertTrue(activity.getAssignedEmployees().contains(employee));
+    }
+
 }

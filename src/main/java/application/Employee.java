@@ -21,29 +21,7 @@ public abstract class Employee {
         this.available = true;
     }
 
-    public static void addEmployee() {
-        Scanner scanner = new Scanner(System.in);
-
-        String employeeID;
-
-        while (true) {
-            System.out.println("Enter employee ID: ");
-            employeeID = scanner.nextLine().toUpperCase();
-
-            if (findEmployeeById(employeeID) != null) {
-                System.out.println("Employee with ID " + employeeID + " already exists. Try again.");
-            } else if (employeeID.length() > 4) {
-                System.out.println("Employee ID must be no longer than 4 characters long. Try again.");
-            } else if (!employeeID.matches("[A-Z]+")) {
-                System.out.println("Employee ID must only contain letters. Try again.");
-            } else {
-                break;
-            }
-        }
-
-        System.out.println("Is this employee a project leader? (Yes/No): ");
-        String isLeader = scanner.nextLine();
-
+    public static void addEmployee(String employeeID, String isLeader) {
         Employee employee;
 
         if (isLeader.equalsIgnoreCase("Yes")) {
@@ -55,6 +33,21 @@ public abstract class Employee {
         System.out.println("Employee ID: " + employee.getEmployeeID());
 
         employees.add(employee);
+    }
+
+    public static boolean isValidEmployeeID(String employeeID) {
+        if (findEmployeeByID(employeeID) != null) {
+            System.out.println("Employee with ID " + employeeID + " already exists. Try again.");
+            return false;
+        } else if (employeeID.length() > 4) {
+            System.out.println("Employee ID must be no longer than 4 characters long. Try again.");
+            return false;
+        } else if (!employeeID.matches("[A-Z]+")) {
+            System.out.println("Employee ID must only contain letters. Try again.");
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public static void printEmployees() {
@@ -71,7 +64,7 @@ public abstract class Employee {
         return employees;
     }
 
-    public static Employee findEmployeeById(String employeeId) {
+    public static Employee findEmployeeByID(String employeeId) {
         ArrayList<Employee> employees = Employee.getEmployees();
         for (Employee employee : employees) {
             if (employee.getEmployeeID().equalsIgnoreCase(employeeId)) {
@@ -82,7 +75,7 @@ public abstract class Employee {
     }
 
     public static void addEmployeeToActivity(String employeeId, String activityName) {
-        Employee employee = Employee.findEmployeeById(employeeId);
+        Employee employee = Employee.findEmployeeByID(employeeId);
         Activity activity = null;
 
         for (Project projects : ProjectLeader.getProjects()) {
@@ -140,7 +133,7 @@ public abstract class Employee {
         String employeeId = scanner.next().toUpperCase();
         scanner.nextLine(); // Consume newline from previous input
 
-        Employee employee = Employee.findEmployeeById(employeeId);
+        Employee employee = Employee.findEmployeeByID(employeeId);
         if (employee == null) {
             System.out.println("Employee not found.");
             return;
@@ -175,7 +168,6 @@ public abstract class Employee {
 
         return true;
     }
-
 
 
     public double getRegisteredHours(LocalDate date) {
@@ -281,19 +273,27 @@ public abstract class Employee {
     }
 
     // Show all activities assigned to an employee
-    //public static void showActivitiesAssignedToEmployee(String employeeId) {
-    //    Employee employee = Employee.findEmployeeById(employeeId);
-    //    if (employee == null) {
-    //        System.out.println("Employee not found.");
-    //        return;
-    //    }
+    public ArrayList<Activity> getActivities() {
+        ArrayList<Activity> assignedActivities = new ArrayList<>();
+        for (Activity activity : Project.getActivities()) {
+            if (activity.getAssignedEmployees().contains(this)) {
+                assignedActivities.add(activity);
+            }
+        }
+        return assignedActivities;
+    }
 
-    //    System.out.println("Activities assigned to employee " + employeeId + ":");
-    //    for (Activity activity : Project.getActivities()) {
-    //        System.out.println(activity.getActivityName());
-    //    }
-    //}
+    public static void showActivitiesAssignedToEmployee(String employeeID) {
+        Employee employee = Employee.findEmployeeByID(employeeID);
+        if (employee == null) {
+            System.out.println("Employee not found.");
+            return;
+        }
 
-
+        System.out.println("Activities assigned to employee " + employeeID + ":");
+        for (Activity activity : employee.getActivities()) {
+            System.out.println(activity.getActivityName());
+        }
+    }
 }
 

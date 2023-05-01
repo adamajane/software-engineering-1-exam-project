@@ -29,6 +29,7 @@ public class Main {
             System.out.println("11. Update Project Name");
             System.out.println("12. Update Activity Dates");
             System.out.println("13. Change employee availability");
+            System.out.println("14. Show employee's activities");
             System.out.println("0. Exit");
             System.out.print("Enter choice: ");
             choice = scanner.nextInt();
@@ -36,7 +37,22 @@ public class Main {
 
             switch (choice) {
                 case 1:
-                    Employee.addEmployee();
+                    String employeeIDCreate;
+                    String isLeader;
+
+                    while (true) {
+                        System.out.println("Enter employee ID: ");
+                        employeeIDCreate = scanner.nextLine().toUpperCase();
+
+                        System.out.println("Is this employee a project leader? (Yes/No): ");
+                        isLeader = scanner.nextLine();
+
+                        if (Employee.isValidEmployeeID(employeeIDCreate)) {
+                            break;
+                        }
+                    }
+
+                    Employee.addEmployee(employeeIDCreate, isLeader);
                     break;
                 case 2:
                     if (Employee.getEmployees().isEmpty()) {
@@ -76,7 +92,13 @@ public class Main {
                     }
 
                     System.out.println("Enter the project ID:");
-                    int projectID = Integer.parseInt(scanner.nextLine());
+                    int projectID;
+                    try {
+                        projectID = Integer.parseInt(scanner.nextLine());
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid input. Please enter a number.");
+                        break;
+                    }
                     Project project = Project.findProjectByID(projectID);
 
                     if (project != null) {
@@ -140,12 +162,18 @@ public class Main {
                     }
 
                     System.out.println("Enter the employee ID:");
-                    String employeeID = scanner.nextLine();
+                    String employeeID = scanner.nextLine().toUpperCase();
+
+                    if (Employee.findEmployeeByID(employeeID) == null) {
+                        System.out.println("Employee not found.");
+                        break;
+                    }
 
                     System.out.println("Enter the activity name:");
                     String activityNameAdd = scanner.nextLine();
 
                     Employee.addEmployeeToActivity(employeeID, activityNameAdd);
+                    Employee.showActivitiesAssignedToEmployee(employeeID);
                     break;
                 case 6: // TODO: Check this out. Jeg fik en InputMismatchException fejl her (Adam)
                     if (Employee.getEmployees().isEmpty()) {
@@ -241,7 +269,7 @@ public class Main {
                     System.out.print("Enter Employee ID: ");
                     String employeeIDAvailability = scanner.next().toUpperCase();
                     scanner.nextLine();
-                    Employee employeeAvailability = Employee.findEmployeeById(employeeIDAvailability);
+                    Employee employeeAvailability = Employee.findEmployeeByID(employeeIDAvailability);
                     if (employeeAvailability != null) {
                         // Print current availability status
                         System.out.println("Current availability status: " + (employeeAvailability.isAvailable() ? "Available" : "Unavailable"));
@@ -258,6 +286,22 @@ public class Main {
                     } else {
                         System.out.println("Employee not found.");
                     }
+                    break;
+                case 14:
+                    if (Employee.getEmployees().isEmpty()) {
+                        System.out.println("No employees have been added yet. Please add employees before assigning them to an activity.");
+                        break;
+                    }
+
+                    if (ProjectLeader.getProjects().isEmpty()) {
+                        System.out.println("No projects have been added yet. Please add projects before assigning employees to an activity.");
+                        break;
+                    }
+
+                    System.out.println("Enter the employee ID:");
+                    String employeeIDShow = scanner.nextLine().toUpperCase();
+
+                    Employee.showActivitiesAssignedToEmployee(employeeIDShow);
                     break;
                 case 0:
                     System.out.println("Exiting the Time Management App...");

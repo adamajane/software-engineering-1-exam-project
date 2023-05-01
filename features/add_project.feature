@@ -1,4 +1,4 @@
-Feature: Add Project
+Feature: Create and add project
   Description: A project is added to the system
   Actor: Project Leader
 

@@ -31,17 +31,26 @@ public class EmployeeSteps {
 
     @When("I add the employee to the system")
     public void iAddTheEmployeeToTheSystem() {
+        if (!Employee.isValidEmployeeID(employeeID)) {
+            throw new IllegalArgumentException("Invalid employee ID. Try again.");
+        }
+
+        if (Employee.findEmployeeByID(employeeID) != null) {
+            throw new IllegalArgumentException("Employee with ID " + employeeID + " already exists. Try again.");
+        }
+
         if ("Project Leader".equalsIgnoreCase(role)) {
             employee = new ProjectLeader(employeeID);
         } else {
             employee = new Developer(employeeID);
         }
+
         Employee.getEmployees().add(employee);
     }
 
     @Then("the new employee should be added with the specified ID and role")
     public void theNewEmployeeShouldBeAddedWithTheSpecifiedIDAndRole() {
-        Employee foundEmployee = Employee.findEmployeeById(employeeID);
+        Employee foundEmployee = Employee.findEmployeeByID(employeeID);
         assertNotNull(foundEmployee);
         assertEquals(employeeID, foundEmployee.getEmployeeID());
         assertEquals(role, foundEmployee.getRole());
@@ -50,12 +59,11 @@ public class EmployeeSteps {
     @When("I attempt to add the employee to the system")
     public void iAttemptToAddTheEmployeeToTheSystem() {
         try {
-            if (!employeeID.matches("^[a-zA-Z]+$")) {
-                throw new IllegalArgumentException("Employee ID must only contain letters. Try again.");
+            if (!Employee.isValidEmployeeID(employeeID)) {
+                throw new IllegalArgumentException("Invalid employee ID. Try again.");
             }
 
-            Employee foundEmployee = Employee.findEmployeeById(employeeID);
-            if (foundEmployee != null) {
+            if (Employee.findEmployeeByID(employeeID) != null) {
                 throw new IllegalArgumentException("Employee with ID " + employeeID + " already exists. Try again.");
             }
 
@@ -72,17 +80,22 @@ public class EmployeeSteps {
 
     @Then("I should receive an error message stating that the employee ID must only contain letters")
     public void iShouldReceiveAnErrorMessageStatingThatTheEmployeeIDMustOnlyContainLetters() {
-        assertEquals("Employee ID must only contain letters. Try again.", errorMessage);
+        assertEquals("Invalid employee ID. Try again.", errorMessage);
     }
 
     @Given("an employee with ID {string} already exists in the system")
-    public void anEmployeeWithIDAlreadyExistsInTheSystem(String existingEmployeeId) {
-        Employee existingEmployee = new Developer(existingEmployeeId);
+    public void anEmployeeWithIDAlreadyExistsInTheSystem(String existingEmployeeID) {
+        Employee existingEmployee = new Developer(existingEmployeeID);
         Employee.getEmployees().add(existingEmployee);
     }
 
     @Then("I should receive an error message stating that the employee with ID {string} already exists")
-    public void iShouldReceiveAnErrorMessageStatingThatTheEmployeeWithIDAlreadyExists(String existingEmployeeId) {
-        assertEquals("Employee with ID " + existingEmployeeId + " already exists. Try again.", errorMessage);
+    public void iShouldReceiveAnErrorMessageStatingThatTheEmployeeWithIDAlreadyExists(String existingEmployeeID) {
+        assertEquals("Invalid employee ID. Try again.", errorMessage);
+    }
+
+    @Then("I should receive an error message stating that the employee ID can't be longer than {int} characters")
+    public void iShouldReceiveAnErrorMessageStatingThatTheEmployeeIDCantBeLongerThanCharacters(Integer maxLength) {
+        assertEquals("Invalid employee ID. Try again.", errorMessage);
     }
 }
