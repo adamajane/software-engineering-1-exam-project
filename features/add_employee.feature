@@ -21,8 +21,8 @@ Feature: Create and add employee
     When I attempt to add the employee to the system
     Then I should receive an error message stating that the employee ID must only contain letters
 
-    Scenario: Add an employee with an invalid ID length
-      Given I have entered an employee ID "AVAAJ"
-      And I have specified the employee's role as "Developer"
-      When I attempt to add the employee to the system
-      Then I should receive an error message stating that the employee ID can't be longer than 4 characters
+  Scenario: Add an employee with an invalid ID length
+    Given I have entered an employee ID "AVAAJ"
+    And I have specified the employee's role as "Developer"
+    When I attempt to add the employee to the system
+    Then I should receive an error message stating that the employee ID can't be longer than 4 characters
