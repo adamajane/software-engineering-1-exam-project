@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public abstract class Employee {
+
+    private boolean available;
     private String employeeID;
     private static ArrayList<Employee> employees = new ArrayList<Employee>();
     private static ArrayList<Activity> activities;
@@ -16,6 +18,7 @@ public abstract class Employee {
         this.employeeID = employeeID;
         this.timeRegistrations = new HashMap<>();
         activities = new ArrayList<Activity>();
+        this.available = true;
     }
 
     public static void addEmployee() {
@@ -94,6 +97,11 @@ public abstract class Employee {
             return;
         }
 
+        if (!employee.isAvailable()) {
+            System.out.println("Cannot add employee to the activity as they are currently unavailable.");
+            return;
+        }
+
         if (employee.getActivitiesInWeek(activity.getStartYear(), activity.getStartWeek()) < 20) {
             activity.assignEmployee(employee);
             System.out.println("Employee " + employeeId + " has been assigned to the activity " + activityName);
@@ -101,6 +109,7 @@ public abstract class Employee {
             System.out.println("Employee " + employeeId + " cannot be assigned to more than 20 activities in a week.");
         }
     }
+
 
     public String getEmployeeID() {
         return employeeID;
@@ -142,11 +151,17 @@ public abstract class Employee {
         System.out.println("Total Registered Hours for Today: " + dailyHours);
     }
 
-    public void registerTime(Activity activity, double hours) {
-        // if you are not assigned to the activity already, you cannot register time for it
+    public boolean registerTime(Activity activity, double hours) {
+        // If the employee is unavailable, they cannot register time for any activity
+        if (!isAvailable()) {
+            System.out.println("Error: You cannot register time for an activity while you are unavailable.");
+            return false;
+        }
+
+        // If you are not assigned to the activity already, you cannot register time for it
         if (!activity.getAssignedEmployees().contains(this)) {
             System.out.println("Error: You cannot register time for an activity you are not assigned to.");
-            return;
+            return false;
         }
 
         LocalDate currentDate = LocalDate.now();
@@ -157,7 +172,10 @@ public abstract class Employee {
         // Create a TimeRegistration object and add it to the activity.
         TimeRegistration timeRegistration = new TimeRegistration(this, activity, currentDate, hours);
         activity.addTimeRegistration(timeRegistration);
+
+        return true;
     }
+
 
 
     public double getRegisteredHours(LocalDate date) {
@@ -244,6 +262,22 @@ public abstract class Employee {
             }
         }
         return null;
+    }
+
+    public void markAsAvailable() {
+        setAvailable(true);
+    }
+
+    public void markAsUnavailable() {
+        setAvailable(false);
+    }
+
+    public boolean isAvailable() {
+        return available;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
     }
 
     // Show all activities assigned to an employee

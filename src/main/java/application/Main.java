@@ -28,6 +28,7 @@ public class Main {
             System.out.println("10. Update Activity Name");
             System.out.println("11. Update Project Name");
             System.out.println("12. Update Activity Dates");
+            System.out.println("13. Change employee availability");
             System.out.println("0. Exit");
             System.out.print("Enter choice: ");
             choice = scanner.nextInt();
@@ -234,6 +235,28 @@ public class Main {
                         System.out.println("Activity dates updated successfully.");
                     } else {
                         System.out.println("Activity not found.");
+                    }
+                    break;
+                case 13: // Change employee availability
+                    System.out.print("Enter Employee ID: ");
+                    String employeeIDAvailability = scanner.next().toUpperCase();
+                    scanner.nextLine();
+                    Employee employeeAvailability = Employee.findEmployeeById(employeeIDAvailability);
+                    if (employeeAvailability != null) {
+                        // Print current availability status
+                        System.out.println("Current availability status: " + (employeeAvailability.isAvailable() ? "Available" : "Unavailable"));
+
+                        // Ask the user to change the availability status
+                        System.out.print("Do you want to change the availability status? (yes/no): ");
+                        String changeAvailability = scanner.nextLine().toLowerCase();
+                        if ("yes".equals(changeAvailability)) {
+                            employeeAvailability.setAvailable(!employeeAvailability.isAvailable());
+                            System.out.println("Availability status changed to: " + (employeeAvailability.isAvailable() ? "Available" : "Unavailable"));
+                        } else if (!"no".equals(changeAvailability)) {
+                            System.out.println("Invalid input. Please enter 'yes' or 'no'.");
+                        }
+                    } else {
+                        System.out.println("Employee not found.");
                     }
                     break;
                 case 0:
