@@ -1,9 +1,11 @@
 package example.cucumber;
 
+import application.Activity;
 import application.Developer;
 import application.Employee;
 import application.ProjectLeader;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -12,12 +14,18 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
+import java.time.LocalDate;
+import java.util.Map;
+
 public class EmployeeSteps {
 
     private String employeeID;
     private String role;
     private Employee employee;
     private String errorMessage;
+    private Activity activity;
+    private double hours = 0;
+    private boolean registerResult;
 
     @Given("I have entered an employee ID {string}")
     public void iHaveEnteredAnEmployeeID(String employeeID) {
@@ -45,7 +53,7 @@ public class EmployeeSteps {
             employee = new Developer(employeeID);
         }
 
-        Employee.getEmployees().add(employee);
+        Employee.addEmployee(employeeID, role);
     }
 
     @Then("the new employee should be added with the specified ID and role")
@@ -97,5 +105,24 @@ public class EmployeeSteps {
     @Then("I should receive an error message stating that the employee ID can't be longer than {int} characters")
     public void iShouldReceiveAnErrorMessageStatingThatTheEmployeeIDCantBeLongerThanCharacters(Integer maxLength) {
         assertEquals("Invalid employee ID. Try again.", errorMessage);
+    }
+
+    @And("the employee is assigned to an activity")
+    public void thatThereIsAnEmployeeInTheSystemWithAnActivity() {
+        employee = new Developer("AVAJ");
+        activity = new Activity("Test Activity", 20, 2023, 1, 2023, 2);
+    }
+
+    @When("the employee registers time for the activity")
+    public void theEmployeeRegistersTimeForTheActivity() {
+        activity.assignEmployee(employee);
+        registerResult = employee.registerTime(activity, 10);
+    }
+
+    @Then("the time should be registered for the employee")
+    public void theTimeShouldBeRegisteredForTheEmployee() {
+        assertTrue(registerResult);
+        LocalDate currentDate = LocalDate.now();
+        assertEquals(5.0, employee.getRegisteredHours(currentDate), 0.001);
     }
 }

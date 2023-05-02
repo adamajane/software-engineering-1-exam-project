@@ -122,18 +122,9 @@ public abstract class Employee {
 
     }
 
-    public static void checkDailyHoursRegistration(Scanner scanner) {
+    public static void checkDailyHoursRegistration(String employeeID){
 
-        if (employees.isEmpty()) {
-            System.out.println("No employees have been added yet. Please add employees before assigning them to an activity.");
-            return;
-        }
-
-        System.out.print("Enter Employee ID: ");
-        String employeeId = scanner.next().toUpperCase();
-        scanner.nextLine(); // Consume newline from previous input
-
-        Employee employee = Employee.findEmployeeByID(employeeId);
+        Employee employee = Employee.findEmployeeByID(employeeID);
         if (employee == null) {
             System.out.println("Employee not found.");
             return;
