@@ -116,13 +116,13 @@ public class EmployeeSteps {
     @When("the employee registers time for the activity")
     public void theEmployeeRegistersTimeForTheActivity() {
         activity.assignEmployee(employee);
-        registerResult = employee.registerTime(activity, 10);
+        registerResult = employee.registerTime(activity, 10.0);
     }
 
     @Then("the time should be registered for the employee")
     public void theTimeShouldBeRegisteredForTheEmployee() {
         assertTrue(registerResult);
         LocalDate currentDate = LocalDate.now();
-        assertEquals(5.0, employee.getRegisteredHours(currentDate), 0.001);
+        assertEquals(10.0, employee.getRegisteredHours(currentDate), 0.001);
     }
 }
