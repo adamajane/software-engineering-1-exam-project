@@ -54,18 +54,6 @@ public class ProjectLeader extends Employee {
         }
     }
 
-    public void assignEmployees() {
-
-    }
-
-    public void checkEmployeeAvailability() {
-
-    }
-
-    public void checkEmployeeActivities() {
-
-    }
-
     public static void updateProjectName(int currProjID, String newProjName) {
 
         if (ProjectLeader.getProjects().isEmpty()) {
