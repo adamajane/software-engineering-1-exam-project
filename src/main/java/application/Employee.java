@@ -30,7 +30,7 @@ public abstract class Employee {
             employee = new Developer(employeeID);
         }
 
-        System.out.println("Employee ID: " + employee.getEmployeeID());
+        System.out.println("Created new employee. Employee ID: " + employee.getEmployeeID());
 
         employees.add(employee);
     }
@@ -296,4 +296,3 @@ public abstract class Employee {
         }
     }
 }
-

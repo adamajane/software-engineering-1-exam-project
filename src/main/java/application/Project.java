@@ -96,7 +96,6 @@ public class Project {
         return report.toString();
     }
 
-
     public static void getTimeConsumptionReport(int projectID) {
         Project project = Project.findProjectByID(projectID);
 
@@ -150,5 +149,4 @@ public class Project {
     public ProjectType getProjectType() {
         return projectType;
     }
-
 }
