@@ -97,22 +97,28 @@ public class Main {
 
             switch (choice) {
                 case 1:
-                    String employeeIDCreate;
-                    String isLeader;
-
-                    while (true) {
-                        System.out.println("Enter employee ID: ");
-                        employeeIDCreate = scanner.nextLine().toUpperCase();
-
-                        System.out.println("Is this employee a project leader? (Yes/No): ");
-                        isLeader = scanner.nextLine();
-
-                        if (Employee.isValidEmployeeID(employeeIDCreate)) {
-                            break;
-                        }
+                    if (Employee.getEmployees().isEmpty()) {
+                        System.out.println("No employees have been added yet. Please add employees before creating a project.");
+                        break;
                     }
-
-                    Employee.addEmployee(employeeIDCreate, isLeader);
+                    String projectName;
+                    while (true) {
+                        System.out.print("Enter Project Name: ");
+                        projectName = scanner.nextLine();
+                        if (projectName.isEmpty()) {
+                            System.out.println("Project name cannot be empty.");
+                            return;
+                        } else {
+                            System.out.print("Choose Project Type (INTERNAL/CUSTOMER): ");
+                            String projectTypeInput = scanner.next().toUpperCase();
+                            while (!projectTypeInput.equals("INTERNAL") && !projectTypeInput.equals("CUSTOMER")) {
+                                System.out.print("Invalid input. Choose Project Type (INTERNAL/CUSTOMER): ");
+                                projectTypeInput = scanner.next().toUpperCase();
+                            }
+                            ProjectLeader.createProject(projectName, projectTypeInput);
+                        }
+                        break;
+                    }
                     break;
                 case 2:
                     if (Employee.getEmployees().isEmpty()) {
@@ -125,7 +131,6 @@ public class Main {
                         break;
                     }
 
-
                     System.out.print("Enter the project ID: ");
                     int projectIDAssign = scanner.nextInt();
                     scanner.nextLine();
@@ -136,7 +141,7 @@ public class Main {
                     ProjectLeader.assignProjectLeader(projectIDAssign, employeeIDAssign);
                     break;
                 case 3:
-                    editProjectSubMenu();
+                    adminEditProjectSubMenu();
                     break;
                 case 4:
                     //System.out.println("Project overview");
@@ -240,7 +245,7 @@ public class Main {
                     Employee.showActivitiesAssignedToEmployee(employeeID);
                     break;
                 case 3:
-                    editActivitySubMenu();
+                    adminEditActivitySubMenu();
                     break;
                 case 4:
                     //System.out.println("Activity overview");
@@ -409,7 +414,7 @@ public class Main {
                     ProjectLeader.assignProjectLeader(projectIDAssign, employeeIDAssign);
                     break;
                 case 3:
-                    editProjectSubMenu();
+                    plEditProjectSubMenu();
                     break;
                 case 4:
                     //System.out.println("Project overview");
@@ -513,7 +518,7 @@ public class Main {
                     Employee.showActivitiesAssignedToEmployee(employeeID);
                     break;
                 case 3:
-                    editActivitySubMenu();
+                    pLEditActivitySubMenu();
                     break;
                 case 4:
                     //System.out.println("Activity overview");
@@ -752,7 +757,7 @@ public class Main {
                     Employee.showActivitiesAssignedToEmployee(employeeID);
                     break;
                 case 3:
-                    editActivitySubMenu();
+                    devEditActivitySubMenu();
                     break;
                 case 4:
                     //System.out.println("Activity overview");
@@ -827,7 +832,7 @@ public class Main {
         }
     }
 
-    private static void editProjectSubMenu() {
+    private static void adminEditProjectSubMenu() {
         Scanner scanner = new Scanner(System.in);
         int choice;
 
@@ -848,11 +853,14 @@ public class Main {
                 case 2:
                     //System.out.println("Edit project type");
                     break;
+                case 0:
+                    adminProjectMenu();
+                    return;
             }
         }
     }
 
-    private static void editActivitySubMenu() {
+    private static void plEditProjectSubMenu() {
         Scanner scanner = new Scanner(System.in);
         int choice;
 
@@ -861,6 +869,38 @@ public class Main {
             System.out.println("1) Edit project name");
             System.out.println("2) Edit project type");
             System.out.println("0) Back to project menu");
+            System.out.println("Enter choice:");
+
+            choice = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (choice) {
+                case 1:
+                    //System.out.println("Edit project name");
+                    break;
+                case 2:
+                    //System.out.println("Edit project type");
+                    break;
+                case 0:
+                    pLProjectMenu();
+                    return;
+            }
+        }
+    }
+
+    private static void adminEditActivitySubMenu() {
+        Scanner scanner = new Scanner(System.in);
+        int choice;
+
+        while (true) {
+            System.out.println("Choose option:");
+            System.out.println("1) Edit activity name");
+            System.out.println("2) Edit activity budgeted hours");
+            System.out.println("3) Edit activity start year");
+            System.out.println("4) Edit activity end year");
+            System.out.println("5) Edit activity start week");
+            System.out.println("6) Edit activity end week");
+            System.out.println("0) Back to activity menu");
             System.out.println("Enter choice:");
 
             choice = scanner.nextInt();
@@ -885,6 +925,99 @@ public class Main {
                 case 6:
                     //System.out.println("Edit activity end week");
                     break;
+                case 0:
+                    adminActivityMenu();
+                    return;
+
+            }
+        }
+    }
+
+    private static void pLEditActivitySubMenu() {
+        Scanner scanner = new Scanner(System.in);
+        int choice;
+
+        while (true) {
+            System.out.println("Choose option:");
+            System.out.println("1) Edit activity name");
+            System.out.println("2) Edit activity budgeted hours");
+            System.out.println("3) Edit activity start year");
+            System.out.println("4) Edit activity end year");
+            System.out.println("5) Edit activity start week");
+            System.out.println("6) Edit activity end week");
+            System.out.println("0) Back to activity menu");
+            System.out.println("Enter choice:");
+
+            choice = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (choice) {
+                case 1:
+                    //System.out.println("Edit activity name");
+                    break;
+                case 2:
+                    //System.out.println("Edit activity budgeted hours");
+                    break;
+                case 3:
+                    //System.out.println("Edit activity start year");
+                    break;
+                case 4:
+                    //System.out.println("Edit activity end year");
+                    break;
+                case 5:
+                    //System.out.println("Edit activity start week");
+                    break;
+                case 6:
+                    //System.out.println("Edit activity end week");
+                    break;
+                case 0:
+                    pLActivityMenu();
+                    return;
+
+            }
+        }
+    }
+
+    private static void devEditActivitySubMenu() {
+        Scanner scanner = new Scanner(System.in);
+        int choice;
+
+        while (true) {
+            System.out.println("Choose option:");
+            System.out.println("1) Edit activity name");
+            System.out.println("2) Edit activity budgeted hours");
+            System.out.println("3) Edit activity start year");
+            System.out.println("4) Edit activity end year");
+            System.out.println("5) Edit activity start week");
+            System.out.println("6) Edit activity end week");
+            System.out.println("0) Back to activity menu");
+            System.out.println("Enter choice:");
+
+            choice = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (choice) {
+                case 1:
+                    //System.out.println("Edit activity name");
+                    break;
+                case 2:
+                    //System.out.println("Edit activity budgeted hours");
+                    break;
+                case 3:
+                    //System.out.println("Edit activity start year");
+                    break;
+                case 4:
+                    //System.out.println("Edit activity end year");
+                    break;
+                case 5:
+                    //System.out.println("Edit activity start week");
+                    break;
+                case 6:
+                    //System.out.println("Edit activity end week");
+                    break;
+                case 0:
+                    devActivityMenu();
+                    return;
 
             }
         }
