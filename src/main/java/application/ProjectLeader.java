@@ -22,14 +22,14 @@ public class ProjectLeader extends Employee {
 
         Project project = new Project(projectName, projectType);
         projects.add(project);
-        System.out.println("Project created with ID: " + Project.getProjectID() + ", name: " + projectName + ", and type: " + projectType);
+        System.out.println("Project created with ID: " + project.getProjectID() + ", name: " + projectName + ", and type: " + projectType);
     }
 
 
     // Get overview of all projects
     public static void printProjects() {
         for (Project project : projects) {
-            System.out.println("Project ID: " + Project.getProjectID() + ", Project Name: " + project.getProjectName());
+            System.out.println("Project ID: " + project.getProjectID() + ", Project Name: " + project.getProjectName());
         }
     }
 

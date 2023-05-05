@@ -8,11 +8,11 @@ import java.util.Scanner;
 public class Project {
     private ProjectType projectType;
     private static int projectCounter = 0;
-    private static int projectID;
+    private int projectID;
     private String projectName;
     private Employee projectLeader;
     private List<Employee> employees;
-    private static List<Activity> activities;
+    private List<Activity> activities;
 
     public Project(String projectName, ProjectType projectType) {
         this.projectName = projectName;
@@ -50,7 +50,7 @@ public class Project {
         return null;
     }
 
-    public static int getProjectID() {
+    public int getProjectID() {
         return projectID;
     }
 
@@ -126,7 +126,7 @@ public class Project {
         return projectLeader;
     }
 
-    public static List<Activity> getActivities() {
+    public List<Activity> getActivities() {
         return activities;
     }
 

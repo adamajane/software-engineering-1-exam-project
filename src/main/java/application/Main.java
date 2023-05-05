@@ -460,22 +460,28 @@ public class Main {
 
             switch (choice) {
                 case 1:
-                    String employeeIDCreate;
-                    String isLeader;
-
-                    while (true) {
-                        System.out.println("Enter employee ID: ");
-                        employeeIDCreate = scanner.nextLine().toUpperCase();
-
-                        System.out.println("Is this employee a project leader? (Yes/No): ");
-                        isLeader = scanner.nextLine();
-
-                        if (Employee.isValidEmployeeID(employeeIDCreate)) {
-                            break;
-                        }
+                    if (Employee.getEmployees().isEmpty()) {
+                        System.out.println("No employees have been added yet. Please add employees before creating a project.");
+                        break;
                     }
-
-                    Employee.addEmployee(employeeIDCreate, isLeader);
+                    String projectName;
+                    while (true) {
+                        System.out.print("Enter Project Name: ");
+                        projectName = scanner.nextLine();
+                        if (projectName.isEmpty()) {
+                            System.out.println("Project name cannot be empty.");
+                            return;
+                        } else {
+                            System.out.print("Choose Project Type (INTERNAL/CUSTOMER): ");
+                            String projectTypeInput = scanner.next().toUpperCase();
+                            while (!projectTypeInput.equals("INTERNAL") && !projectTypeInput.equals("CUSTOMER")) {
+                                System.out.print("Invalid input. Choose Project Type (INTERNAL/CUSTOMER): ");
+                                projectTypeInput = scanner.next().toUpperCase();
+                            }
+                            ProjectLeader.createProject(projectName, projectTypeInput);
+                        }
+                        break;
+                    }
                     break;
                 case 2:
                     if (Employee.getEmployees().isEmpty()) {
@@ -503,6 +509,21 @@ public class Main {
                     break;
                 case 4:
                     //System.out.println("Project overview");
+                    if (Employee.getEmployees().isEmpty()) {
+                        System.out.println("No employees have been added yet. Please add employees before trying to get a project overview.");
+                        break;
+                    }
+
+                    if (ProjectLeader.getProjects().isEmpty()) {
+                        System.out.println("No projects have been added yet. Please add projects before trying to get a project overview.");
+                        break;
+                    }
+
+                    System.out.print("Enter the project ID: ");
+                    int projectIDReport = scanner.nextInt();
+                    scanner.nextLine();
+
+                    Project.getTimeConsumptionReport(projectIDReport);
                     break;
                 case 0:
                     projectLeaderLogin();
@@ -796,8 +817,8 @@ public class Main {
                     Project.getTimeConsumptionReport(projectIDReport);
                     break;
                 case 3:
-                    //System.out.println("Edit wh");
-                    break;
+                    //System.out.println("Edit work hours made on that day");
+
                 case 0:
                     projectLeaderLogin();
                     return;

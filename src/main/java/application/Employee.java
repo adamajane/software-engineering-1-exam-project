@@ -1,6 +1,7 @@
 package application;
 
 import java.time.LocalDate;
+import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
@@ -211,7 +212,7 @@ public abstract class Employee {
     public static void updateActivityName(String currName, String newName) {
 
         // Can't update activity name if there are no activities
-        if (Project.getActivities() == null) {
+        if (ProjectLeader.getProjects().isEmpty()) {
             System.out.println("No activities have been added yet. Please add activities before updating an activity.");
             return;
         }
@@ -251,6 +252,7 @@ public abstract class Employee {
         return null;
     }
 
+
     public void markAsAvailable() {
         setAvailable(true);
     }
@@ -270,9 +272,11 @@ public abstract class Employee {
     // Show all activities assigned to an employee
     public ArrayList<Activity> getActivities() {
         ArrayList<Activity> assignedActivities = new ArrayList<>();
-        for (Activity activity : Project.getActivities()) {
-            if (activity.getAssignedEmployees().contains(this)) {
-                assignedActivities.add(activity);
+        for (Project project : ProjectLeader.getProjects()) {
+            for (Activity activity : project.getActivities()) {
+                if (activity.getAssignedEmployees().contains(this)) {
+                    assignedActivities.add(activity);
+                }
             }
         }
         return assignedActivities;
