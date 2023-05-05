@@ -32,7 +32,7 @@ public class Project {
         this.employees.add(employee);
     }
 
-    public void assignProjectLeader(Employee projectLeader) {
+    public void setProjectLeader(Employee projectLeader) {
         this.projectLeader = projectLeader;
     }
 

@@ -1,5 +1,6 @@
 package cucumber;
 
+import application.Employee;
 import application.Project;
 import application.ProjectLeader;
 import application.ProjectType;
@@ -7,7 +8,9 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.cucumber.java.Before;
 
+import static application.ProjectLeader.assignProjectLeader;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -17,11 +20,16 @@ public class ProjectSteps {
     private Project project;
     private String projectName;
     private ProjectType projectType;
-    private int projectId;
+    private int projectID;
+
+    @Before
+    public void clearEmployees() {
+        Employee.getEmployees().clear();
+    }
 
     @Given("I am logged in as a project leader with ID {string}")
-    public void iAmLoggedInAsAProjectLeaderWithID(String employeeId) {
-        ProjectLeader projectLeader = new ProjectLeader(employeeId);
+    public void iAmLoggedInAsAProjectLeaderWithID(String employeeID) {
+        projectLeader = new ProjectLeader(employeeID);
     }
 
     @When("I create a project with name {string} and type {string}")
@@ -39,28 +47,31 @@ public class ProjectSteps {
         assertEquals(ProjectType.valueOf(projectType.toUpperCase()), project.getProjectType());
     }
 
+    @Given("that there's a project leader with employee ID {string}")
+    public void thatThereSAProjectLeaderWithEmployeeID(String employeeID) {
+        projectLeader = new ProjectLeader(employeeID);
+        Employee.getEmployees().add(projectLeader);
+    }
 
     @And("there is a project with ID {int} and name {string}")
-    public void thereIsAProjectWithIDAndName(int projectId, String projectName) {
-        this.projectId = projectId;
+    public void thereIsAProjectWithIDAndName(int projectID, String projectName) {
+        this.projectID = projectID;
         project = new Project(projectName, ProjectType.INTERNAL);
-        project.setProjectID(projectId);
+        project.setProjectID(projectID);
         ProjectLeader.getProjects().add(project);
     }
 
-
-    @When("I assign the project leader with ID {string} to the project with ID {int}")
-    public void iAssignTheProjectLeaderWithIDToTheProjectWithID(String employeeId, int projectId) {
-        ProjectLeader newProjectLeader = new ProjectLeader(employeeId);
-        Project projectToAssign = Project.findProjectByID(projectId);
-        projectToAssign.assignProjectLeader(newProjectLeader);
+    @When("the project with ID {int} is assigned to {string}")
+    public void theProjectWithIDIsAssignedTo(int projectID, String employeeID) {
+        assignProjectLeader(projectID, employeeID);
     }
 
     @Then("the project with ID {int} should have the project leader with ID {string}")
-    public void theProjectWithIDShouldHaveTheProjectLeaderWithID(Integer projectId, String employeeId) {
-        Project projectToCheck = Project.findProjectByID(projectId);
+    public void theProjectWithIDShouldHaveTheProjectLeaderWithID(int projectID, String employeeID) {
+        Project projectToCheck = Project.findProjectByID(projectID);
         assertNotNull(projectToCheck.getProjectLeader());
-        assertEquals(employeeId, projectToCheck.getProjectLeader().getEmployeeID());
+        assertEquals(employeeID, projectToCheck.getProjectLeader().getEmployeeID());
     }
+
 }
 
