@@ -764,6 +764,30 @@ public class Main {
                     break;
                 case 5:
                     //System.out.println("Request help");
+                    if (Employee.getEmployees().isEmpty()) {
+                        System.out.println("No employees have been added yet. Please add employees before requesting help.");
+                        break;
+                    }
+
+                    if (ProjectLeader.getProjects().isEmpty()) {
+                        System.out.println("No projects have been added yet. Please add projects before requesting help from a colleague.");
+                        break;
+                    }
+
+                    System.out.println("Enter the employee ID:");
+                    employeeID = scanner.nextLine().toUpperCase();
+
+                    if (Employee.findEmployeeByID(employeeID) == null) {
+                        System.out.println("Employee not found.");
+                        break;
+                    }
+
+                    System.out.println("Enter the activity name:");
+                    activityNameAdd = scanner.nextLine();
+
+                    Employee.addEmployeeToActivity(employeeID, activityNameAdd);
+                    Employee.showActivitiesAssignedToEmployee(employeeID);
+                    break;
                 case 0:
                     developerLogin();
                     return;
