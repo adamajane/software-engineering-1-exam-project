@@ -248,7 +248,43 @@ public class Main {
                     adminEditActivitySubMenu();
                     break;
                 case 4:
-                    //System.out.println("Activity overview");
+                    if (ProjectLeader.getProjects().isEmpty()) {
+                        System.out.println("No projects have been added yet. Please add projects before viewing activity overview.");
+                        break;
+                    }
+
+                    System.out.println("Enter the project ID:");
+                    int projectIdOverview;
+                    try {
+                        projectIdOverview = Integer.parseInt(scanner.nextLine());
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid input. Please enter a number.");
+                        break;
+                    }
+                    Project projectOverview = Project.findProjectByID(projectIdOverview);
+
+                    if (projectOverview != null) {
+                        System.out.println("Activity Overview:");
+                        System.out.println("Project ID: " + projectIdOverview);
+                        System.out.println("Project Name: " + projectOverview.getProjectName());
+                        System.out.println("Activities:");
+
+                        if (projectOverview.getActivities().isEmpty()) {
+                            System.out.println("No activities found for this project.");
+                        } else {
+                            for (Activity activity : projectOverview.getActivities()) {
+                                System.out.println("  Activity Name: " + activity.getActivityName());
+                                System.out.println("  Budgeted Hours: " + activity.getBudgetedHours());
+                                System.out.println("  Start Year: " + activity.getStartYear());
+                                System.out.println("  Start Week: " + activity.getStartWeek());
+                                System.out.println("  End Year: " + activity.getEndYear());
+                                System.out.println("  End Week: " + activity.getEndWeek());
+                                System.out.println();
+                            }
+                        }
+                    } else {
+                        System.out.println("Project not found.");
+                    }
                     break;
                 case 0:
                     adminLogin();
@@ -521,7 +557,43 @@ public class Main {
                     pLEditActivitySubMenu();
                     break;
                 case 4:
-                    //System.out.println("Activity overview");
+                    if (ProjectLeader.getProjects().isEmpty()) {
+                        System.out.println("No projects have been added yet. Please add projects before viewing activity overview.");
+                        break;
+                    }
+
+                    System.out.println("Enter the project ID:");
+                    int projectIdOverview;
+                    try {
+                        projectIdOverview = Integer.parseInt(scanner.nextLine());
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid input. Please enter a number.");
+                        break;
+                    }
+                    Project projectOverview = Project.findProjectByID(projectIdOverview);
+
+                    if (projectOverview != null) {
+                        System.out.println("Activity Overview:");
+                        System.out.println("Project ID: " + projectIdOverview);
+                        System.out.println("Project Name: " + projectOverview.getProjectName());
+                        System.out.println("Activities:");
+
+                        if (projectOverview.getActivities().isEmpty()) {
+                            System.out.println("No activities found for this project.");
+                        } else {
+                            for (Activity activity : projectOverview.getActivities()) {
+                                System.out.println("  Activity Name: " + activity.getActivityName());
+                                System.out.println("  Budgeted Hours: " + activity.getBudgetedHours());
+                                System.out.println("  Start Year: " + activity.getStartYear());
+                                System.out.println("  Start Week: " + activity.getStartWeek());
+                                System.out.println("  End Year: " + activity.getEndYear());
+                                System.out.println("  End Week: " + activity.getEndWeek());
+                                System.out.println();
+                            }
+                        }
+                    } else {
+                        System.out.println("Project not found.");
+                    }
                     break;
                 case 0:
                     projectLeaderLogin();
@@ -760,7 +832,43 @@ public class Main {
                     devEditActivitySubMenu();
                     break;
                 case 4:
-                    //System.out.println("Activity overview");
+                    if (ProjectLeader.getProjects().isEmpty()) {
+                        System.out.println("No projects have been added yet. Please add projects before viewing activity overview.");
+                        break;
+                    }
+
+                    System.out.println("Enter the project ID:");
+                    int projectIdOverview;
+                    try {
+                        projectIdOverview = Integer.parseInt(scanner.nextLine());
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid input. Please enter a number.");
+                        break;
+                    }
+                    Project projectOverview = Project.findProjectByID(projectIdOverview);
+
+                    if (projectOverview != null) {
+                        System.out.println("Activity Overview:");
+                        System.out.println("Project ID: " + projectIdOverview);
+                        System.out.println("Project Name: " + projectOverview.getProjectName());
+                        System.out.println("Activities:");
+
+                        if (projectOverview.getActivities().isEmpty()) {
+                            System.out.println("No activities found for this project.");
+                        } else {
+                            for (Activity activity : projectOverview.getActivities()) {
+                                System.out.println("  Activity Name: " + activity.getActivityName());
+                                System.out.println("  Budgeted Hours: " + activity.getBudgetedHours());
+                                System.out.println("  Start Year: " + activity.getStartYear());
+                                System.out.println("  Start Week: " + activity.getStartWeek());
+                                System.out.println("  End Year: " + activity.getEndYear());
+                                System.out.println("  End Week: " + activity.getEndWeek());
+                                System.out.println();
+                            }
+                        }
+                    } else {
+                        System.out.println("Project not found.");
+                    }
                     break;
                 case 5:
                     //System.out.println("Request help");
@@ -847,7 +955,7 @@ public class Main {
                     Project.getTimeConsumptionReport(projectIDReport);
                     break;
                 case 3:
-                    //System.out.println("Edit wh");
+                   //Fill please
                     break;
                 case 0:
                     developerLogin();
