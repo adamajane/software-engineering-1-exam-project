@@ -106,23 +106,4 @@ public class EmployeeSteps {
     public void iShouldReceiveAnErrorMessageStatingThatTheEmployeeIDCantBeLongerThanCharacters(Integer maxLength) {
         assertEquals("Invalid employee ID. Try again.", errorMessage);
     }
-
-    @And("the employee is assigned to an activity")
-    public void thatThereIsAnEmployeeInTheSystemWithAnActivity() {
-        employee = new Developer("AVAJ");
-        activity = new Activity("Test Activity", 20, 2023, 1, 2023, 2);
-    }
-
-    @When("the employee registers time for the activity")
-    public void theEmployeeRegistersTimeForTheActivity() {
-        activity.assignEmployee(employee);
-        registerResult = employee.registerTime(activity, 10.0);
-    }
-
-    @Then("the time should be registered for the employee")
-    public void theTimeShouldBeRegisteredForTheEmployee() {
-        assertTrue(registerResult);
-        LocalDate currentDate = LocalDate.now();
-        assertEquals(10.0, employee.getRegisteredHours(currentDate), 0.001);
-    }
 }
