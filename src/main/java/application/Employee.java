@@ -108,6 +108,10 @@ public abstract class Employee {
         return employeeID;
     }
 
+    public void setEmployeeID(String newEmployeeID) {
+        this.employeeID = newEmployeeID;
+    }
+
     public abstract String getRole();
 
     public static Activity createActivity(String activityName, int budgetedHours, int startYear, int startWeek, int endYear, int endWeek) {

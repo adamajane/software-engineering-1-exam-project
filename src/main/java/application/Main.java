@@ -373,7 +373,31 @@ public class Main {
                     Employee.showActivitiesAssignedToEmployee(employeeIDShow);
                     break;
                 case 4:
-                    //System.out.println("Edit employee data");
+                    if (Employee.getEmployees().isEmpty()) {
+                        System.out.println("No employees have been added yet. Please add employees before editing their data.");
+                        break;
+                    }
+
+                    System.out.print("Enter current Employee ID: ");
+                    String currentEmployeeID = scanner.nextLine().toUpperCase();
+
+                    Employee employeeToUpdate = Employee.findEmployeeByID(currentEmployeeID);
+
+                    if (employeeToUpdate == null) {
+                        System.out.println("Employee not found.");
+                        break;
+                    }
+
+                    System.out.print("Enter new Employee ID: ");
+                    String newEmployeeID = scanner.nextLine().toUpperCase();
+
+                    if (Employee.findEmployeeByID(newEmployeeID) != null) {
+                        System.out.println("The new Employee ID is already in use. Please choose a different ID.");
+                        break;
+                    }
+
+                    employeeToUpdate.setEmployeeID(newEmployeeID);
+                    System.out.println("Employee ID updated successfully.");
                 case 0:
                     adminLogin();
                     return;
@@ -687,7 +711,31 @@ public class Main {
                     Employee.showActivitiesAssignedToEmployee(employeeIDShow);
                     break;
                 case 3:
-                    //System.out.println("Edit employee data");
+                    if (Employee.getEmployees().isEmpty()) {
+                        System.out.println("No employees have been added yet. Please add employees before editing their data.");
+                        break;
+                    }
+
+                    System.out.print("Enter current Employee ID: ");
+                    String currentEmployeeID = scanner.nextLine().toUpperCase();
+
+                    Employee employeeToUpdate = Employee.findEmployeeByID(currentEmployeeID);
+
+                    if (employeeToUpdate == null) {
+                        System.out.println("Employee not found.");
+                        break;
+                    }
+
+                    System.out.print("Enter new Employee ID: ");
+                    String newEmployeeID = scanner.nextLine().toUpperCase();
+
+                    if (Employee.findEmployeeByID(newEmployeeID) != null) {
+                        System.out.println("The new Employee ID is already in use. Please choose a different ID.");
+                        break;
+                    }
+
+                    employeeToUpdate.setEmployeeID(newEmployeeID);
+                    System.out.println("Employee ID updated successfully.");
                     break;
                 case 0:
                     projectLeaderLogin();
