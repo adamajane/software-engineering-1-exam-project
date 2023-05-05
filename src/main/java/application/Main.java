@@ -1,6 +1,7 @@
 package application;
 
 import java.time.LocalDate;
+import java.time.temporal.IsoFields;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -330,6 +331,30 @@ public class Main {
                     break;
                 case 2:
                     //System.out.println("Employee availability");
+                    if (Employee.getEmployees().isEmpty()) {
+                        System.out.println("No employees have been added yet. Please add an employee before checking availability.");
+                        break;
+                    }
+
+                    System.out.print("Enter Employee ID: ");
+                    String employeeId = scanner.next().toUpperCase();
+                    scanner.nextLine();
+
+                    Employee employee = Employee.findEmployeeByID(employeeId);
+
+                    if (employee == null) {
+                        System.out.println("Employee not found.");
+                        break;
+                    }
+
+                    int currentYear = LocalDate.now().getYear();
+                    int currentWeek = LocalDate.now().get(IsoFields.WEEK_OF_WEEK_BASED_YEAR);
+
+                    if (employee.isAvailableAndNotOverloaded(currentYear, currentWeek)) {
+                        System.out.println(employee.getEmployeeID() + " is available.");
+                    } else {
+                        System.out.println(employee.getEmployeeID() + " is not available.");
+                    }
                     break;
                 case 3:
                     if (Employee.getEmployees().isEmpty()) {
@@ -620,6 +645,30 @@ public class Main {
             switch (choice) {
                 case 1:
                     //System.out.println("Employee availability");
+                    if (Employee.getEmployees().isEmpty()) {
+                        System.out.println("No employees have been added yet. Please add an employee before checking availability.");
+                        break;
+                    }
+
+                    System.out.print("Enter Employee ID: ");
+                    String employeeId = scanner.next().toUpperCase();
+                    scanner.nextLine();
+
+                    Employee employee = Employee.findEmployeeByID(employeeId);
+
+                    if (employee == null) {
+                        System.out.println("Employee not found.");
+                        break;
+                    }
+
+                    int currentYear = LocalDate.now().getYear();
+                    int currentWeek = LocalDate.now().get(IsoFields.WEEK_OF_WEEK_BASED_YEAR);
+
+                    if (employee.isAvailableAndNotOverloaded(currentYear, currentWeek)) {
+                        System.out.println(employee.getEmployeeID() + " is available.");
+                    } else {
+                        System.out.println(employee.getEmployeeID() + " is not available.");
+                    }
                     break;
                 case 2:
                     if (Employee.getEmployees().isEmpty()) {

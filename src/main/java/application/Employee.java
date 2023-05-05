@@ -286,4 +286,13 @@ public abstract class Employee {
             System.out.println(activity.getActivityName());
         }
     }
+
+    public boolean isAvailableAndNotOverloaded(int year, int week) {
+        if (!isAvailable()) {
+            return false;
+        }
+
+        return getActivitiesInWeek(year, week) < 20;
+    }
+
 }
