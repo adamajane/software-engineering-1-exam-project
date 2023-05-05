@@ -184,7 +184,7 @@ public abstract class Employee {
     }
 
     // TODO: Implement these method
-    public void registerFutureActivity(Activity activity, LocalDate starDate, LocalDate endDate) {
+    /*public void registerFutureActivity(Activity activity, LocalDate starDate, LocalDate endDate) {
     }
 
     public void joinVacationActivity() {
@@ -207,7 +207,7 @@ public abstract class Employee {
 
     public static void updateProjectName(Scanner scanner) {
         // Implementation here
-    }
+    }*/
 
     public static void updateActivityName(String currName, String newName) {
 

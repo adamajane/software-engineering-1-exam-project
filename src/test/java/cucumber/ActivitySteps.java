@@ -17,7 +17,6 @@ public class ActivitySteps {
     private Project project;
     private Employee employee;
     private Activity activity;
-    private Scanner scanner = new Scanner(System.in);
 
     @Before
     public void setUp() {
