@@ -1,4 +1,4 @@
-package example.cucumber;
+package cucumber;
 
 import application.Activity;
 import application.Developer;

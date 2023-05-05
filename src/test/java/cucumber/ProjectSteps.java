@@ -1,4 +1,4 @@
-package example.cucumber;
+package cucumber;
 
 import application.Project;
 import application.ProjectLeader;

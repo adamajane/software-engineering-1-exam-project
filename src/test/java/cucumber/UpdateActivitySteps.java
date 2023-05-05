@@ -1,4 +1,4 @@
-package example.cucumber;
+package cucumber;
 import application.*;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
