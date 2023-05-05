@@ -872,10 +872,68 @@ public class Main {
 
             switch (choice) {
                 case 1:
-                    //System.out.println("Edit project name");
+                    System.out.print("Enter the project ID: ");
+                    int projectID1;
+                    try {
+                        projectID1 = scanner.nextInt();
+                        scanner.nextLine();
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid project ID. Please try again.");
+                        scanner.next();
+                        break;
+                    }
+
+                    Project project = Project.findProjectByID(projectID1);
+                    if (project == null) {
+                        System.out.println("Project not found.");
+                        break;
+                    }
+
+                    // Prompt the user to enter the new name for the project
+                    System.out.print("Enter the new name for the project: ");
+                    String newProjectName = scanner.nextLine();
+
+                    // Update the project name using the updateProjectName() method in the ProjectLeader class
+                    ProjectLeader.updateProjectName(projectID1, newProjectName);
                     break;
                 case 2:
-                    //System.out.println("Edit project type");
+                    // Prompt the user to enter the project ID
+                    System.out.print("Enter the project ID: ");
+                    int projectID;
+                    try {
+                        projectID = scanner.nextInt();
+                        scanner.nextLine(); // Consume the newline character
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid project ID. Please try again.");
+                        scanner.next(); // Consume the invalid input
+                        break;
+                    }
+
+                    // Check if the project ID corresponds to an existing project
+                    Project project2 = Project.findProjectByID(projectID);
+                    if (project2 == null) {
+                        System.out.println("Project not found.");
+                        break;
+                    }
+
+                    // Prompt the user to enter the new type for the project
+                    System.out.print("Enter the new type for the project: ");
+                    String newProjectTypeStr = scanner.nextLine();
+
+                    try {
+                        ProjectType newProjectType = ProjectType.valueOf(newProjectTypeStr);
+
+                        // Check if the new project type is the same as the current project type
+                        if (project2.getProjectType() == newProjectType) {
+                            System.out.println("The new project type is the same as the current project type. No changes made.");
+                        } else {
+                            // Update the project type using the updateProjectType() method in the Project class
+                            project2.setProjectType(newProjectType);
+                            System.out.println("Project type updated successfully.");
+                        }
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("Invalid project type. Please try again.");
+                    }
                     break;
                 case 0:
                     adminProjectMenu();
@@ -900,10 +958,68 @@ public class Main {
 
             switch (choice) {
                 case 1:
-                    //System.out.println("Edit project name");
+                    System.out.print("Enter the project ID: ");
+                    int projectID1;
+                    try {
+                        projectID1 = scanner.nextInt();
+                        scanner.nextLine();
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid project ID. Please try again.");
+                        scanner.next();
+                        break;
+                    }
+
+                    Project project = Project.findProjectByID(projectID1);
+                    if (project == null) {
+                        System.out.println("Project not found.");
+                        break;
+                    }
+
+                    // Prompt the user to enter the new name for the project
+                    System.out.print("Enter the new name for the project: ");
+                    String newProjectName = scanner.nextLine();
+
+                    // Update the project name using the updateProjectName() method in the ProjectLeader class
+                    ProjectLeader.updateProjectName(projectID1, newProjectName);
                     break;
                 case 2:
-                    //System.out.println("Edit project type");
+                    // Prompt the user to enter the project ID
+                    System.out.print("Enter the project ID: ");
+                    int projectID;
+                    try {
+                        projectID = scanner.nextInt();
+                        scanner.nextLine(); // Consume the newline character
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid project ID. Please try again.");
+                        scanner.next(); // Consume the invalid input
+                        break;
+                    }
+
+                    // Check if the project ID corresponds to an existing project
+                    Project project2 = Project.findProjectByID(projectID);
+                    if (project2 == null) {
+                        System.out.println("Project not found.");
+                        break;
+                    }
+
+                    // Prompt the user to enter the new type for the project
+                    System.out.print("Enter the new type for the project: ");
+                    String newProjectTypeStr = scanner.nextLine();
+
+                    try {
+                        ProjectType newProjectType = ProjectType.valueOf(newProjectTypeStr);
+
+                        // Check if the new project type is the same as the current project type
+                        if (project2.getProjectType() == newProjectType) {
+                            System.out.println("The new project type is the same as the current project type. No changes made.");
+                        } else {
+                            // Update the project type using the updateProjectType() method in the Project class
+                            project2.setProjectType(newProjectType);
+                            System.out.println("Project type updated successfully.");
+                        }
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("Invalid project type. Please try again.");
+                    }
                     break;
                 case 0:
                     pLProjectMenu();

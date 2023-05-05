@@ -149,4 +149,8 @@ public class Project {
     public ProjectType getProjectType() {
         return projectType;
     }
+
+    public void setProjectType(ProjectType projectType) {
+        this.projectType = projectType;
+    }
 }

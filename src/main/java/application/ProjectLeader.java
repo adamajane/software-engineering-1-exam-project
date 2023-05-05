@@ -74,6 +74,4 @@ public class ProjectLeader extends Employee {
             System.out.println("Project not found.");
         }
     }
-
-
 }
