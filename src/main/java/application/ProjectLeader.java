@@ -7,8 +7,8 @@ public class ProjectLeader extends Employee {
 
     private static ArrayList<Project> projects = new ArrayList<Project>();
 
-    public ProjectLeader(String employeeId) {
-        super(employeeId);
+    public ProjectLeader(String employeeID) {
+        super(employeeID);
     }
 
     @Override
@@ -43,9 +43,9 @@ public class ProjectLeader extends Employee {
         if (project != null) {
             Employee employee = Employee.findEmployeeByID(employeeID);
 
-            if (employee instanceof ProjectLeader) {
-                project.assignProjectLeader(employee);
-                System.out.println("Project manager assigned successfully.");
+            if (employee.getRole().equals("Project Leader")) {
+                project.setProjectLeader(employee);
+                System.out.println("Project leader assigned successfully.");
             } else {
                 System.out.println("The employee is not a project leader. Try again.");
             }
