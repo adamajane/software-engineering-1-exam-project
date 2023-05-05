@@ -1048,22 +1048,123 @@ public class Main {
 
             switch (choice) {
                 case 1:
-                    //System.out.println("Edit activity name");
+                    // Prompt the user to enter the activity name
+                    System.out.print("Enter the current activity name: ");
+                    String currentActivityName = scanner.nextLine();
+
+                    // Find the activity by its name
+                    Activity activity1 = null;
+                    for (Project project : ProjectLeader.getProjects()) {
+                        activity1 = project.findActivityByName(currentActivityName);
+                        if (activity1 != null) {
+                            break;
+                        }
+                    }
+
+                    if (activity1 == null) {
+                        System.out.println("Activity not found.");
+                        break;
+                    }
+
+                    // Prompt the user to enter a new name for the activity
+                    System.out.print("Enter the new name for the activity: ");
+                    String newActivityName = scanner.nextLine();
+
+                    // Update the activity name
+                    activity1.setActivityName(newActivityName);
+                    System.out.println("Activity name updated successfully.");
                     break;
                 case 2:
-                    //System.out.println("Edit activity budgeted hours");
+                    // Prompt the user to enter the activity name
+                    System.out.print("Enter the activity name: ");
+                    String activityName = scanner.nextLine();
+
+                    // Find the activity by its name
+                    Activity activity2 = null;
+                    for (Project project : ProjectLeader.getProjects()) {
+                        activity2 = project.findActivityByName(activityName);
+                        if (activity2 != null) {
+                            break;
+                        }
+                    }
+
+                    if (activity2 == null) {
+                        System.out.println("Activity not found.");
+                        break;
+                    }
+
+                    // Prompt the user to enter new budgeted hours for the activity
+                    System.out.print("Enter new budgeted hours for the activity: ");
+                    int newBudgetedHours = scanner.nextInt();
+                    scanner.nextLine(); // Consume the newline character
+
+                    // Update the activity's budgeted hours
+                    activity2.setBudgetedHours(newBudgetedHours);
+                    System.out.println("Activity budgeted hours updated successfully.");
                     break;
                 case 3:
-                    //System.out.println("Edit activity start year");
+                    System.out.println("Enter the activity name:");
+                    String activityNameToChangeStartYear = scanner.nextLine();
+
+                    Activity activity3 = findActivityByName(activityNameToChangeStartYear);
+                    if (activity3 != null) {
+                        System.out.println("Enter new start year for the activity:");
+                        int newStartYear = scanner.nextInt();
+                        scanner.nextLine();
+
+                        activity3.setStartYear(newStartYear);
+                        System.out.println("Activity start year updated successfully.");
+                    } else {
+                        System.out.println("Activity not found.");
+                    }
                     break;
                 case 4:
-                    //System.out.println("Edit activity end year");
+                    System.out.println("Enter the activity name:");
+                    String activityNameToChangeEndYear = scanner.nextLine();
+
+                    Activity activity4 = findActivityByName(activityNameToChangeEndYear);
+                    if (activity4 != null) {
+                        System.out.println("Enter new end year for the activity:");
+                        int newEndYear = scanner.nextInt();
+                        scanner.nextLine();
+
+                        activity4.setEndYear(newEndYear);
+                        System.out.println("Activity end year updated successfully.");
+                    } else {
+                        System.out.println("Activity not found.");
+                    }
                     break;
                 case 5:
-                    //System.out.println("Edit activity start week");
+                    System.out.println("Enter the activity name:");
+                    String activityNameToChangeStartWeek = scanner.nextLine();
+
+                    Activity activity5 = findActivityByName(activityNameToChangeStartWeek);
+                    if (activity5 != null) {
+                        System.out.println("Enter new start week for the activity:");
+                        int newStartWeek = scanner.nextInt();
+                        scanner.nextLine();
+
+                        activity5.setStartWeek(newStartWeek);
+                        System.out.println("Activity start week updated successfully.");
+                    } else {
+                        System.out.println("Activity not found.");
+                    }
                     break;
                 case 6:
-                    //System.out.println("Edit activity end week");
+                    System.out.println("Enter the activity name:");
+                    String activityNameToChangeEndWeek = scanner.nextLine();
+
+                    Activity activity6 = findActivityByName(activityNameToChangeEndWeek);
+                    if (activity6 != null) {
+                        System.out.println("Enter new end week for the activity:");
+                        int newEndWeek = scanner.nextInt();
+                        scanner.nextLine();
+
+                        activity6.setEndWeek(newEndWeek);
+                        System.out.println("Activity end week updated successfully.");
+                    } else {
+                        System.out.println("Activity not found.");
+                    }
                     break;
                 case 0:
                     adminActivityMenu();
@@ -1093,22 +1194,123 @@ public class Main {
 
             switch (choice) {
                 case 1:
-                    //System.out.println("Edit activity name");
+                    // Prompt the user to enter the activity name
+                    System.out.print("Enter the current activity name: ");
+                    String currentActivityName = scanner.nextLine();
+
+                    // Find the activity by its name
+                    Activity activity1 = null;
+                    for (Project project : ProjectLeader.getProjects()) {
+                        activity1 = project.findActivityByName(currentActivityName);
+                        if (activity1 != null) {
+                            break;
+                        }
+                    }
+
+                    if (activity1 == null) {
+                        System.out.println("Activity not found.");
+                        break;
+                    }
+
+                    // Prompt the user to enter a new name for the activity
+                    System.out.print("Enter the new name for the activity: ");
+                    String newActivityName = scanner.nextLine();
+
+                    // Update the activity name
+                    activity1.setActivityName(newActivityName);
+                    System.out.println("Activity name updated successfully.");
                     break;
                 case 2:
-                    //System.out.println("Edit activity budgeted hours");
+                    // Prompt the user to enter the activity name
+                    System.out.print("Enter the activity name: ");
+                    String activityName = scanner.nextLine();
+
+                    // Find the activity by its name
+                    Activity activity2 = null;
+                    for (Project project : ProjectLeader.getProjects()) {
+                        activity2 = project.findActivityByName(activityName);
+                        if (activity2 != null) {
+                            break;
+                        }
+                    }
+
+                    if (activity2 == null) {
+                        System.out.println("Activity not found.");
+                        break;
+                    }
+
+                    // Prompt the user to enter new budgeted hours for the activity
+                    System.out.print("Enter new budgeted hours for the activity: ");
+                    int newBudgetedHours = scanner.nextInt();
+                    scanner.nextLine(); // Consume the newline character
+
+                    // Update the activity's budgeted hours
+                    activity2.setBudgetedHours(newBudgetedHours);
+                    System.out.println("Activity budgeted hours updated successfully.");
                     break;
                 case 3:
-                    //System.out.println("Edit activity start year");
+                    System.out.println("Enter the activity name:");
+                    String activityNameToChangeStartYear = scanner.nextLine();
+
+                    Activity activity3 = findActivityByName(activityNameToChangeStartYear);
+                    if (activity3 != null) {
+                        System.out.println("Enter new start year for the activity:");
+                        int newStartYear = scanner.nextInt();
+                        scanner.nextLine();
+
+                        activity3.setStartYear(newStartYear);
+                        System.out.println("Activity start year updated successfully.");
+                    } else {
+                        System.out.println("Activity not found.");
+                    }
                     break;
                 case 4:
-                    //System.out.println("Edit activity end year");
+                    System.out.println("Enter the activity name:");
+                    String activityNameToChangeEndYear = scanner.nextLine();
+
+                    Activity activity4 = findActivityByName(activityNameToChangeEndYear);
+                    if (activity4 != null) {
+                        System.out.println("Enter new end year for the activity:");
+                        int newEndYear = scanner.nextInt();
+                        scanner.nextLine();
+
+                        activity4.setEndYear(newEndYear);
+                        System.out.println("Activity end year updated successfully.");
+                    } else {
+                        System.out.println("Activity not found.");
+                    }
                     break;
                 case 5:
-                    //System.out.println("Edit activity start week");
+                    System.out.println("Enter the activity name:");
+                    String activityNameToChangeStartWeek = scanner.nextLine();
+
+                    Activity activity5 = findActivityByName(activityNameToChangeStartWeek);
+                    if (activity5 != null) {
+                        System.out.println("Enter new start week for the activity:");
+                        int newStartWeek = scanner.nextInt();
+                        scanner.nextLine();
+
+                        activity5.setStartWeek(newStartWeek);
+                        System.out.println("Activity start week updated successfully.");
+                    } else {
+                        System.out.println("Activity not found.");
+                    }
                     break;
                 case 6:
-                    //System.out.println("Edit activity end week");
+                    System.out.println("Enter the activity name:");
+                    String activityNameToChangeEndWeek = scanner.nextLine();
+
+                    Activity activity6 = findActivityByName(activityNameToChangeEndWeek);
+                    if (activity6 != null) {
+                        System.out.println("Enter new end week for the activity:");
+                        int newEndWeek = scanner.nextInt();
+                        scanner.nextLine();
+
+                        activity6.setEndWeek(newEndWeek);
+                        System.out.println("Activity end week updated successfully.");
+                    } else {
+                        System.out.println("Activity not found.");
+                    }
                     break;
                 case 0:
                     pLActivityMenu();
@@ -1138,22 +1340,123 @@ public class Main {
 
             switch (choice) {
                 case 1:
-                    //System.out.println("Edit activity name");
+                    // Prompt the user to enter the activity name
+                    System.out.print("Enter the current activity name: ");
+                    String currentActivityName = scanner.nextLine();
+
+                    // Find the activity by its name
+                    Activity activity1 = null;
+                    for (Project project : ProjectLeader.getProjects()) {
+                        activity1 = project.findActivityByName(currentActivityName);
+                        if (activity1 != null) {
+                            break;
+                        }
+                    }
+
+                    if (activity1 == null) {
+                        System.out.println("Activity not found.");
+                        break;
+                    }
+
+                    // Prompt the user to enter a new name for the activity
+                    System.out.print("Enter the new name for the activity: ");
+                    String newActivityName = scanner.nextLine();
+
+                    // Update the activity name
+                    activity1.setActivityName(newActivityName);
+                    System.out.println("Activity name updated successfully.");
                     break;
                 case 2:
-                    //System.out.println("Edit activity budgeted hours");
+                    // Prompt the user to enter the activity name
+                    System.out.print("Enter the activity name: ");
+                    String activityName = scanner.nextLine();
+
+                    // Find the activity by its name
+                    Activity activity2 = null;
+                    for (Project project : ProjectLeader.getProjects()) {
+                        activity2 = project.findActivityByName(activityName);
+                        if (activity2 != null) {
+                            break;
+                        }
+                    }
+
+                    if (activity2 == null) {
+                        System.out.println("Activity not found.");
+                        break;
+                    }
+
+                    // Prompt the user to enter new budgeted hours for the activity
+                    System.out.print("Enter new budgeted hours for the activity: ");
+                    int newBudgetedHours = scanner.nextInt();
+                    scanner.nextLine(); // Consume the newline character
+
+                    // Update the activity's budgeted hours
+                    activity2.setBudgetedHours(newBudgetedHours);
+                    System.out.println("Activity budgeted hours updated successfully.");
                     break;
                 case 3:
-                    //System.out.println("Edit activity start year");
+                    System.out.println("Enter the activity name:");
+                    String activityNameToChangeStartYear = scanner.nextLine();
+
+                    Activity activity3 = findActivityByName(activityNameToChangeStartYear);
+                    if (activity3 != null) {
+                        System.out.println("Enter new start year for the activity:");
+                        int newStartYear = scanner.nextInt();
+                        scanner.nextLine();
+
+                        activity3.setStartYear(newStartYear);
+                        System.out.println("Activity start year updated successfully.");
+                    } else {
+                        System.out.println("Activity not found.");
+                    }
                     break;
                 case 4:
-                    //System.out.println("Edit activity end year");
+                    System.out.println("Enter the activity name:");
+                    String activityNameToChangeEndYear = scanner.nextLine();
+
+                    Activity activity4 = findActivityByName(activityNameToChangeEndYear);
+                    if (activity4 != null) {
+                        System.out.println("Enter new end year for the activity:");
+                        int newEndYear = scanner.nextInt();
+                        scanner.nextLine();
+
+                        activity4.setEndYear(newEndYear);
+                        System.out.println("Activity end year updated successfully.");
+                    } else {
+                        System.out.println("Activity not found.");
+                    }
                     break;
                 case 5:
-                    //System.out.println("Edit activity start week");
+                    System.out.println("Enter the activity name:");
+                    String activityNameToChangeStartWeek = scanner.nextLine();
+
+                    Activity activity5 = findActivityByName(activityNameToChangeStartWeek);
+                    if (activity5 != null) {
+                        System.out.println("Enter new start week for the activity:");
+                        int newStartWeek = scanner.nextInt();
+                        scanner.nextLine();
+
+                        activity5.setStartWeek(newStartWeek);
+                        System.out.println("Activity start week updated successfully.");
+                    } else {
+                        System.out.println("Activity not found.");
+                    }
                     break;
                 case 6:
-                    //System.out.println("Edit activity end week");
+                    System.out.println("Enter the activity name:");
+                    String activityNameToChangeEndWeek = scanner.nextLine();
+
+                    Activity activity6 = findActivityByName(activityNameToChangeEndWeek);
+                    if (activity6 != null) {
+                        System.out.println("Enter new end week for the activity:");
+                        int newEndWeek = scanner.nextInt();
+                        scanner.nextLine();
+
+                        activity6.setEndWeek(newEndWeek);
+                        System.out.println("Activity end week updated successfully.");
+                    } else {
+                        System.out.println("Activity not found.");
+                    }
                     break;
                 case 0:
                     devActivityMenu();

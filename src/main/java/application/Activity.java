@@ -44,6 +44,10 @@ public class Activity {
         return budgetedHours;
     }
 
+    public void setBudgetedHours(int budgetedHours) {
+        this.budgetedHours = budgetedHours;
+    }
+
     public int getStartYear() {
         return startYear;
     }
