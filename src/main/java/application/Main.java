@@ -812,21 +812,9 @@ public class Main {
                     TimeRegistration.registerTimeForEmployee(employeeIDRegister, activityNameRegister, hours);
                     break;
                 case 2:
-                    if (Employee.getEmployees().isEmpty()) {
-                        System.out.println("No employees have been added yet. Please add employees before assigning them to an activity.");
-                        break;
-                    }
-
-                    if (ProjectLeader.getProjects().isEmpty()) {
-                        System.out.println("No projects have been added yet. Please add projects before assigning employees to an activity.");
-                        break;
-                    }
-
-                    System.out.print("Enter the project ID: ");
-                    int projectIDReport = scanner.nextInt();
-                    scanner.nextLine();
-
-                    Project.getTimeConsumptionReport(projectIDReport);
+                    System.out.println("Enter the Employee ID: ");
+                    String employeeID = scanner.nextLine();
+                    Employee.checkDailyHoursRegistration(employeeID);
                     break;
                 case 3:
                     //lige her oli
@@ -1088,21 +1076,9 @@ public class Main {
                     TimeRegistration.registerTimeForEmployee(employeeIDRegister, activityNameRegister, hours);
                     break;
                 case 2:
-                    if (Employee.getEmployees().isEmpty()) {
-                        System.out.println("No employees have been added yet. Please add employees before assigning them to an activity.");
-                        break;
-                    }
-
-                    if (ProjectLeader.getProjects().isEmpty()) {
-                        System.out.println("No projects have been added yet. Please add projects before assigning employees to an activity.");
-                        break;
-                    }
-
-                    System.out.print("Enter the project ID: ");
-                    int projectIDReport = scanner.nextInt();
-                    scanner.nextLine();
-
-                    Project.getTimeConsumptionReport(projectIDReport);
+                    System.out.println("Enter the Employee ID: ");
+                    String employeeID = scanner.nextLine();
+                    Employee.checkDailyHoursRegistration(employeeID);
                     break;
                 case 3:
                     //lige her oli
