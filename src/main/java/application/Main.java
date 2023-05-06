@@ -785,6 +785,7 @@ public class Main {
             System.out.println("Choose option:");
             System.out.println("1) Register work hours");
             System.out.println("2) Check registered work hours");
+            System.out.println("3) Mark employee as unavailable");
             System.out.println("0) Back project leader menu");
             System.out.println("Enter choice:");
 
@@ -826,6 +827,9 @@ public class Main {
                     scanner.nextLine();
 
                     Project.getTimeConsumptionReport(projectIDReport);
+                    break;
+                case 3:
+                    //lige her oli
                     break;
                 case 0:
                     projectLeaderLogin();
@@ -1037,6 +1041,7 @@ public class Main {
             System.out.println("Choose option:");
             System.out.println("1) Register work hours");
             System.out.println("2) Check registered work hours");
+            System.out.println("3) Mark yourself as unavailable");
             System.out.println("0) Back to developer menu");
             System.out.println("Enter choice:");
 
@@ -1078,6 +1083,9 @@ public class Main {
                     scanner.nextLine();
 
                     Project.getTimeConsumptionReport(projectIDReport);
+                    break;
+                case 3:
+                    //lige her oli
                     break;
                 case 0:
                     developerLogin();
