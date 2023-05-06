@@ -11,13 +11,11 @@ public class Project {
     private int projectID;
     private String projectName;
     private Employee projectLeader;
-    private List<Employee> employees;
     private List<Activity> activities;
 
     public Project(String projectName, ProjectType projectType) {
         this.projectName = projectName;
         this.projectID = generateProjectNumber();
-        this.employees = new ArrayList<>();
         this.activities = new ArrayList<>();
         this.projectType = projectType;
     }
@@ -26,10 +24,6 @@ public class Project {
         projectCounter++;
         int year = LocalDate.now().getYear() % 100;
         return Integer.parseInt(String.format("%d%03d", year, projectCounter));
-    }
-
-    public void addEmployee(Employee employee) {
-        this.employees.add(employee);
     }
 
     public void setProjectLeader(Employee projectLeader) {
@@ -115,11 +109,6 @@ public class Project {
             }
         }
         return null;
-    }
-
-
-    public List<Employee> getEmployees() {
-        return employees;
     }
 
     public Employee getProjectLeader() {

@@ -51,16 +51,6 @@ public abstract class Employee {
         }
     }
 
-    public static void printEmployees() {
-        if (employees.isEmpty()) {
-            System.out.println("No employees have been added yet.");
-            return;
-        }
-        for (Employee employee : employees) {
-            System.out.println("Employee ID: " + employee.getEmployeeID() + ", Role: " + employee.getRole());
-        }
-    }
-
     public static ArrayList<Employee> getEmployees() {
         return employees;
     }
@@ -123,10 +113,6 @@ public abstract class Employee {
         activities.add(activity);
     }
 
-    public void changeRegisteredData(Activity activity, int time) {
-
-    }
-
     public static void checkDailyHoursRegistration(String employeeID){
 
         Employee employee = Employee.findEmployeeByID(employeeID);
@@ -182,32 +168,6 @@ public abstract class Employee {
         }
         return count;
     }
-
-    // TODO: Implement these method
-    /*public void registerFutureActivity(Activity activity, LocalDate starDate, LocalDate endDate) {
-    }
-
-    public void joinVacationActivity() {
-
-    }
-
-    public void joinSickActivity() {
-
-    }
-
-    public void registerWorkHours() {
-    }
-
-    public void checkRegisteredWorkHours() {
-    }
-
-    public void editWorkHours() {
-    }
-
-
-    public static void updateProjectName(Scanner scanner) {
-        // Implementation here
-    }*/
 
     public static void updateActivityName(String currName, String newName) {
 

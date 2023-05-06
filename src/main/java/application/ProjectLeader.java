@@ -25,14 +25,6 @@ public class ProjectLeader extends Employee {
         System.out.println("Project created with ID: " + project.getProjectID() + ", name: " + projectName + ", and type: " + projectType);
     }
 
-
-    // Get overview of all projects
-    public static void printProjects() {
-        for (Project project : projects) {
-            System.out.println("Project ID: " + project.getProjectID() + ", Project Name: " + project.getProjectName());
-        }
-    }
-
     public static ArrayList<Project> getProjects() {
         return projects;
     }
