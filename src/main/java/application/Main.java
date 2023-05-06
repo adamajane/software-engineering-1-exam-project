@@ -830,6 +830,26 @@ public class Main {
                     break;
                 case 3:
                     //lige her oli
+                    System.out.print("Enter Employee ID: ");
+                    String employeeIDAvailability = scanner.next().toUpperCase();
+                    scanner.nextLine();
+                    Employee employeeAvailability = Employee.findEmployeeByID(employeeIDAvailability);
+                    if (employeeAvailability != null) {
+                        // Print current availability status
+                        System.out.println("Current availability status: " + (employeeAvailability.isAvailable() ? "Available" : "Unavailable"));
+
+                        // Ask the user to change the availability status
+                        System.out.print("Do you want to change the availability status? (yes/no): ");
+                        String changeAvailability = scanner.nextLine().toLowerCase();
+                        if ("yes".equals(changeAvailability)) {
+                            employeeAvailability.setAvailable(!employeeAvailability.isAvailable());
+                            System.out.println("Availability status changed to: " + (employeeAvailability.isAvailable() ? "Available" : "Unavailable"));
+                        } else if (!"no".equals(changeAvailability)) {
+                            System.out.println("Invalid input. Please enter 'yes' or 'no'.");
+                        }
+                    } else {
+                        System.out.println("Employee not found.");
+                    }
                     break;
                 case 0:
                     projectLeaderLogin();
@@ -1086,6 +1106,26 @@ public class Main {
                     break;
                 case 3:
                     //lige her oli
+                    System.out.print("Enter Employee ID: ");
+                    String employeeIDAvailability = scanner.next().toUpperCase();
+                    scanner.nextLine();
+                    Employee employeeAvailability = Employee.findEmployeeByID(employeeIDAvailability);
+                    if (employeeAvailability != null) {
+                        // Print current availability status
+                        System.out.println("Current availability status: " + (employeeAvailability.isAvailable() ? "Available" : "Unavailable"));
+
+                        // Ask the user to change the availability status
+                        System.out.print("Do you want to change the availability status? (yes/no): ");
+                        String changeAvailability = scanner.nextLine().toLowerCase();
+                        if ("yes".equals(changeAvailability)) {
+                            employeeAvailability.setAvailable(!employeeAvailability.isAvailable());
+                            System.out.println("Availability status changed to: " + (employeeAvailability.isAvailable() ? "Available" : "Unavailable"));
+                        } else if (!"no".equals(changeAvailability)) {
+                            System.out.println("Invalid input. Please enter 'yes' or 'no'.");
+                        }
+                    } else {
+                        System.out.println("Employee not found.");
+                    }
                     break;
                 case 0:
                     developerLogin();
