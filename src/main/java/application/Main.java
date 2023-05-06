@@ -132,14 +132,30 @@ public class Main {
                         break;
                     }
 
-                    System.out.print("Enter the project ID: ");
-                    int projectIDAssign = scanner.nextInt();
-                    scanner.nextLine();
+                    try {
+                        System.out.print("Enter the project ID: ");
+                        int projectIDAssign = scanner.nextInt();
+                        scanner.nextLine();
 
-                    System.out.print("Enter the Employee ID of the new project leader: ");
-                    String employeeIDAssign = scanner.nextLine().toUpperCase();
+                        System.out.print("Enter the Employee ID of the new project leader: ");
+                        String employeeIDAssign = scanner.nextLine().toUpperCase();
 
-                    ProjectLeader.assignProjectLeader(projectIDAssign, employeeIDAssign);
+                        // Check if the project exists
+                        Project project = Project.findProjectByID(projectIDAssign);
+                        if (project != null) {
+                            // Check if the employee exists before assigning them as a project leader
+                            if (Employee.findEmployeeByID(employeeIDAssign) != null) {
+                                ProjectLeader.assignProjectLeader(projectIDAssign, employeeIDAssign);
+                            } else {
+                                System.out.println("Employee not found. Please enter a valid Employee ID.");
+                            }
+                        } else {
+                            System.out.println("Project not found. Please enter a valid Project ID.");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid input. Please enter a valid project ID.");
+                        scanner.nextLine(); // Clear the scanner buffer
+                    }
                     break;
                 case 3:
                     adminEditProjectSubMenu();
@@ -1081,7 +1097,6 @@ public class Main {
                     Employee.checkDailyHoursRegistration(employeeID);
                     break;
                 case 3:
-                    //lige her oli
                     System.out.print("Enter Employee ID: ");
                     String employeeIDAvailability = scanner.next().toUpperCase();
                     scanner.nextLine();
