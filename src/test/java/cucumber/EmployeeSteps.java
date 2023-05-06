@@ -5,14 +5,12 @@ import application.Developer;
 import application.Employee;
 import application.ProjectLeader;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class EmployeeSteps {
 
@@ -102,5 +100,35 @@ public class EmployeeSteps {
     @Then("I should receive an error message stating that the employee ID can't be longer than {int} characters")
     public void iShouldReceiveAnErrorMessageStatingThatTheEmployeeIDCantBeLongerThanCharacters(int maxLength) {
         assertEquals("Invalid employee ID. Try again.", errorMessage);
+    }
+
+    @Given("an employee with ID {string} and role {string} exists")
+    public void anEmployeeWithIDAndRoleExists(String employeeID, String role) {
+        if ("Project Leader".equalsIgnoreCase(role)) {
+            employee = new ProjectLeader(employeeID);
+        } else {
+            employee = new Developer(employeeID);
+        }
+        Employee.getEmployees().add(employee);
+    }
+
+    @When("they set themselves as available")
+    public void theySetThemselvesAsAvailable() {
+        employee.markAsAvailable();
+    }
+
+    @Then("they are available")
+    public void theyAreAvailable() {
+        assertTrue(employee.isAvailable());
+    }
+
+    @When("they set themselves as unavailable")
+    public void theySetThemselvesAsUnavailable() {
+        employee.markAsUnavailable();
+    }
+
+    @Then("they are unavailable")
+    public void theyAreUnavailable() {
+        assertFalse(employee.isAvailable());
     }
 }

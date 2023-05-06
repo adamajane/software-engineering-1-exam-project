@@ -29,15 +29,10 @@ public class Activity {
         return assignedEmployees;
     }
 
-    // Skal projekt ledere kunne tildele sig selv til en aktivitet?
+    // TODO: Skal projekt ledere kunne tildele sig selv til en aktivitet?
     public void assignEmployee(Employee employee) {
         assignedEmployees.add(employee);
         employee.addActivity(this);
-    }
-
-    public void removeEmployee(Employee employee) {
-        assignedEmployees.remove(employee);
-        //employee.removeActivity(this);
     }
 
     public int getBudgetedHours() {
@@ -84,7 +79,8 @@ public class Activity {
         timeRegistrations.add(timeRegistration);
     }
 
-    public int getSpentHours() {
+    // TODO: Skal de ikke slettes????
+    /*public int getSpentHours() {
         int totalSpentHours = 0;
         for (TimeRegistration timeEntry : timeRegistrations) {
             totalSpentHours += timeEntry.getHours();
@@ -102,7 +98,7 @@ public class Activity {
             totalActualHours += timeEntry.getHours();
         }
         return totalActualHours;
-    }
+    }*/
 
     public String getActivityName() {
         return activityName;

@@ -42,25 +42,12 @@ public class TimeRegistration {
         }
     }
 
-
-    public void updateHours(double newHours) {
-        this.hours = newHours;
-    }
-
-    public void updateDate(LocalDate newDate) {
-        this.date = newDate;
-    }
-
     public Employee getEmployee() {
         return this.employee;
     }
 
     public Activity getActivity() {
         return this.activity;
-    }
-
-    public LocalDate getDate() {
-        return this.date;
     }
 
     public double getHours() {
