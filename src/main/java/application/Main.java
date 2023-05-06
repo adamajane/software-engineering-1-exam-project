@@ -3,6 +3,7 @@ package application;
 import java.time.LocalDate;
 import java.time.temporal.IsoFields;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 //import static application.Employee.employees;
@@ -152,7 +153,7 @@ public class Main {
                         } else {
                             System.out.println("Project not found. Please enter a valid Project ID.");
                         }
-                    } catch (NumberFormatException e) {
+                    } catch (InputMismatchException e) {
                         System.out.println("Invalid input. Please enter a valid project ID.");
                         scanner.nextLine(); // Clear the scanner buffer
                     }
