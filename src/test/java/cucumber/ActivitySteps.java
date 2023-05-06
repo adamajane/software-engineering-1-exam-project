@@ -7,10 +7,8 @@ import io.cucumber.java.en.When;
 import io.cucumber.java.Before;
 
 
-import java.util.Scanner;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ActivitySteps {
 
@@ -100,6 +98,21 @@ public class ActivitySteps {
     @Then("the employee is added to the activity")
     public void theEmployeeIsAddedToTheActivity() {
         assertTrue(activity.getAssignedEmployees().contains(employee));
+    }
+
+    @Given("that the employee is assigned to the activity")
+    public void thatTheEmployeeIsAssignedToTheActivity() {
+        Employee.addEmployeeToActivity(employee.getEmployeeID(), activity.getActivityName());
+    }
+    @When("the admin prints the activities assigned to the employee")
+    public void theAdminPrintsTheActivitiesAssignedToTheEmployee() {
+        Employee.showActivitiesAssignedToEmployee(employee.getEmployeeID());
+    }
+    @Then("the activities assigned to the employee are printed")
+    public void theActivitiesAssignedToTheEmployeeArePrinted() {
+        for (Activity activity : employee.getActivities()) {
+            assertEquals("Test Activity", activity.getActivityName());
+        }
     }
 
 }

@@ -14,9 +14,6 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
-import java.time.LocalDate;
-import java.util.Map;
-
 public class EmployeeSteps {
 
     private String employeeID;
@@ -103,7 +100,7 @@ public class EmployeeSteps {
     }
 
     @Then("I should receive an error message stating that the employee ID can't be longer than {int} characters")
-    public void iShouldReceiveAnErrorMessageStatingThatTheEmployeeIDCantBeLongerThanCharacters(Integer maxLength) {
+    public void iShouldReceiveAnErrorMessageStatingThatTheEmployeeIDCantBeLongerThanCharacters(int maxLength) {
         assertEquals("Invalid employee ID. Try again.", errorMessage);
     }
 }
