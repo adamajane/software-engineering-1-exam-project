@@ -123,12 +123,12 @@ public class Main {
                     break;
                 case 2:
                     if (Employee.getEmployees().isEmpty()) {
-                        System.out.println("No employees have been added yet. Please add employees before assigning them to an activity.");
+                        System.out.println("No employees have been added yet. Please add employees before assigning them to a project.");
                         break;
                     }
 
                     if (ProjectLeader.getProjects().isEmpty()) {
-                        System.out.println("No projects have been added yet. Please add projects before assigning employees to an activity.");
+                        System.out.println("No projects have been added yet. Please add projects before assigning employees to a project.");
                         break;
                     }
 
@@ -499,12 +499,12 @@ public class Main {
                     break;
                 case 2:
                     if (Employee.getEmployees().isEmpty()) {
-                        System.out.println("No employees have been added yet. Please add employees before assigning them to an activity.");
+                        System.out.println("No employees have been added yet. Please add employees before assigning them to a project.");
                         break;
                     }
 
                     if (ProjectLeader.getProjects().isEmpty()) {
-                        System.out.println("No projects have been added yet. Please add projects before assigning employees to an activity.");
+                        System.out.println("No projects have been added yet. Please add projects before assigning employees to a project.");
                         break;
                     }
 
