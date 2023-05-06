@@ -525,14 +525,30 @@ public class Main {
                         break;
                     }
 
-                    System.out.print("Enter the project ID: ");
-                    int projectIDAssign = scanner.nextInt();
-                    scanner.nextLine();
+                    try {
+                        System.out.print("Enter the project ID: ");
+                        int projectIDAssign = scanner.nextInt();
+                        scanner.nextLine();
 
-                    System.out.print("Enter the Employee ID of the new project leader: ");
-                    String employeeIDAssign = scanner.nextLine().toUpperCase();
+                        System.out.print("Enter the Employee ID of the new project leader: ");
+                        String employeeIDAssign = scanner.nextLine().toUpperCase();
 
-                    ProjectLeader.assignProjectLeader(projectIDAssign, employeeIDAssign);
+                        // Check if the project exists
+                        Project project = Project.findProjectByID(projectIDAssign);
+                        if (project != null) {
+                            // Check if the employee exists before assigning them as a project leader
+                            if (Employee.findEmployeeByID(employeeIDAssign) != null) {
+                                ProjectLeader.assignProjectLeader(projectIDAssign, employeeIDAssign);
+                            } else {
+                                System.out.println("Employee not found. Please enter a valid Employee ID.");
+                            }
+                        } else {
+                            System.out.println("Project not found. Please enter a valid Project ID.");
+                        }
+                    } catch (InputMismatchException e) {
+                        System.out.println("Invalid input. Please enter a valid project ID.");
+                        scanner.nextLine(); // Clear the scanner buffer
+                    }
                     break;
                 case 3:
                     plEditProjectSubMenu();
@@ -1147,7 +1163,7 @@ public class Main {
                     try {
                         projectID1 = scanner.nextInt();
                         scanner.nextLine();
-                    } catch (NumberFormatException e) {
+                    } catch (InputMismatchException e) {
                         System.out.println("Invalid project ID. Please try again.");
                         scanner.next();
                         break;
@@ -1159,45 +1175,38 @@ public class Main {
                         break;
                     }
 
-                    // Prompt the user to enter the new name for the project
                     System.out.print("Enter the new name for the project: ");
                     String newProjectName = scanner.nextLine();
 
-                    // Update the project name using the updateProjectName() method in the ProjectLeader class
                     ProjectLeader.updateProjectName(projectID1, newProjectName);
                     break;
                 case 2:
-                    // Prompt the user to enter the project ID
                     System.out.print("Enter the project ID: ");
                     int projectID;
                     try {
                         projectID = scanner.nextInt();
-                        scanner.nextLine(); // Consume the newline character
-                    } catch (NumberFormatException e) {
+                        scanner.nextLine();
+                    } catch (InputMismatchException e) {
                         System.out.println("Invalid project ID. Please try again.");
-                        scanner.next(); // Consume the invalid input
+                        scanner.next();
                         break;
                     }
 
-                    // Check if the project ID corresponds to an existing project
                     Project project2 = Project.findProjectByID(projectID);
                     if (project2 == null) {
                         System.out.println("Project not found.");
                         break;
                     }
 
-                    // Prompt the user to enter the new type for the project
                     System.out.print("Enter the new type for the project: ");
                     String newProjectTypeStr = scanner.nextLine();
 
                     try {
                         ProjectType newProjectType = ProjectType.valueOf(newProjectTypeStr);
 
-                        // Check if the new project type is the same as the current project type
                         if (project2.getProjectType() == newProjectType) {
                             System.out.println("The new project type is the same as the current project type. No changes made.");
                         } else {
-                            // Update the project type using the updateProjectType() method in the Project class
                             project2.setProjectType(newProjectType);
                             System.out.println("Project type updated successfully.");
                         }
@@ -1233,7 +1242,7 @@ public class Main {
                     try {
                         projectID1 = scanner.nextInt();
                         scanner.nextLine();
-                    } catch (NumberFormatException e) {
+                    } catch (InputMismatchException e) {
                         System.out.println("Invalid project ID. Please try again.");
                         scanner.next();
                         break;
@@ -1245,45 +1254,38 @@ public class Main {
                         break;
                     }
 
-                    // Prompt the user to enter the new name for the project
                     System.out.print("Enter the new name for the project: ");
                     String newProjectName = scanner.nextLine();
 
-                    // Update the project name using the updateProjectName() method in the ProjectLeader class
                     ProjectLeader.updateProjectName(projectID1, newProjectName);
                     break;
                 case 2:
-                    // Prompt the user to enter the project ID
                     System.out.print("Enter the project ID: ");
                     int projectID;
                     try {
                         projectID = scanner.nextInt();
-                        scanner.nextLine(); // Consume the newline character
-                    } catch (NumberFormatException e) {
+                        scanner.nextLine();
+                    } catch (InputMismatchException e) {
                         System.out.println("Invalid project ID. Please try again.");
-                        scanner.next(); // Consume the invalid input
+                        scanner.next();
                         break;
                     }
 
-                    // Check if the project ID corresponds to an existing project
                     Project project2 = Project.findProjectByID(projectID);
                     if (project2 == null) {
                         System.out.println("Project not found.");
                         break;
                     }
 
-                    // Prompt the user to enter the new type for the project
                     System.out.print("Enter the new type for the project: ");
                     String newProjectTypeStr = scanner.nextLine();
 
                     try {
                         ProjectType newProjectType = ProjectType.valueOf(newProjectTypeStr);
 
-                        // Check if the new project type is the same as the current project type
                         if (project2.getProjectType() == newProjectType) {
                             System.out.println("The new project type is the same as the current project type. No changes made.");
                         } else {
-                            // Update the project type using the updateProjectType() method in the Project class
                             project2.setProjectType(newProjectType);
                             System.out.println("Project type updated successfully.");
                         }
@@ -1411,8 +1413,15 @@ public class Main {
                     Activity activity5 = findActivityByName(activityNameToChangeStartWeek);
                     if (activity5 != null) {
                         System.out.println("Enter new start week for the activity:");
-                        int newStartWeek = scanner.nextInt();
-                        scanner.nextLine();
+                        int newStartWeek;
+                        try {
+                            newStartWeek = scanner.nextInt();
+                            scanner.nextLine();
+                        } catch (InputMismatchException e) {
+                            System.out.println("Invalid input for start week. Please try again.");
+                            scanner.next();
+                            break;
+                        }
 
                         activity5.setStartWeek(newStartWeek);
                         System.out.println("Activity start week updated successfully.");
@@ -1427,8 +1436,15 @@ public class Main {
                     Activity activity6 = findActivityByName(activityNameToChangeEndWeek);
                     if (activity6 != null) {
                         System.out.println("Enter new end week for the activity:");
-                        int newEndWeek = scanner.nextInt();
-                        scanner.nextLine();
+                        int newEndWeek;
+                        try {
+                            newEndWeek = scanner.nextInt();
+                            scanner.nextLine();
+                        } catch (InputMismatchException e) {
+                            System.out.println("Invalid input for end week. Please try again.");
+                            scanner.next();
+                            break;
+                        }
 
                         activity6.setEndWeek(newEndWeek);
                         System.out.println("Activity end week updated successfully.");
@@ -1557,8 +1573,15 @@ public class Main {
                     Activity activity5 = findActivityByName(activityNameToChangeStartWeek);
                     if (activity5 != null) {
                         System.out.println("Enter new start week for the activity:");
-                        int newStartWeek = scanner.nextInt();
-                        scanner.nextLine();
+                        int newStartWeek;
+                        try {
+                            newStartWeek = scanner.nextInt();
+                            scanner.nextLine();
+                        } catch (InputMismatchException e) {
+                            System.out.println("Invalid input for start week. Please try again.");
+                            scanner.next();
+                            break;
+                        }
 
                         activity5.setStartWeek(newStartWeek);
                         System.out.println("Activity start week updated successfully.");
@@ -1573,8 +1596,15 @@ public class Main {
                     Activity activity6 = findActivityByName(activityNameToChangeEndWeek);
                     if (activity6 != null) {
                         System.out.println("Enter new end week for the activity:");
-                        int newEndWeek = scanner.nextInt();
-                        scanner.nextLine();
+                        int newEndWeek;
+                        try {
+                            newEndWeek = scanner.nextInt();
+                            scanner.nextLine();
+                        } catch (InputMismatchException e) {
+                            System.out.println("Invalid input for end week. Please try again.");
+                            scanner.next();
+                            break;
+                        }
 
                         activity6.setEndWeek(newEndWeek);
                         System.out.println("Activity end week updated successfully.");
@@ -1703,8 +1733,15 @@ public class Main {
                     Activity activity5 = findActivityByName(activityNameToChangeStartWeek);
                     if (activity5 != null) {
                         System.out.println("Enter new start week for the activity:");
-                        int newStartWeek = scanner.nextInt();
-                        scanner.nextLine();
+                        int newStartWeek;
+                        try {
+                            newStartWeek = scanner.nextInt();
+                            scanner.nextLine();
+                        } catch (InputMismatchException e) {
+                            System.out.println("Invalid input for start week. Please try again.");
+                            scanner.next();
+                            break;
+                        }
 
                         activity5.setStartWeek(newStartWeek);
                         System.out.println("Activity start week updated successfully.");
@@ -1719,8 +1756,15 @@ public class Main {
                     Activity activity6 = findActivityByName(activityNameToChangeEndWeek);
                     if (activity6 != null) {
                         System.out.println("Enter new end week for the activity:");
-                        int newEndWeek = scanner.nextInt();
-                        scanner.nextLine();
+                        int newEndWeek;
+                        try {
+                            newEndWeek = scanner.nextInt();
+                            scanner.nextLine();
+                        } catch (InputMismatchException e) {
+                            System.out.println("Invalid input for end week. Please try again.");
+                            scanner.next();
+                            break;
+                        }
 
                         activity6.setEndWeek(newEndWeek);
                         System.out.println("Activity end week updated successfully.");
