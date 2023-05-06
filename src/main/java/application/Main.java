@@ -145,7 +145,21 @@ public class Main {
                     adminEditProjectSubMenu();
                     break;
                 case 4:
-                    //System.out.println("Project overview");
+                    if (Employee.getEmployees().isEmpty()) {
+                        System.out.println("No employees have been added yet. Please add employees before trying to get a project overview.");
+                        break;
+                    }
+
+                    if (ProjectLeader.getProjects().isEmpty()) {
+                        System.out.println("No projects have been added yet. Please add projects before trying to get a project overview.");
+                        break;
+                    }
+
+                    System.out.print("Enter the project ID: ");
+                    int projectIDReport = scanner.nextInt();
+                    scanner.nextLine();
+
+                    Project.getTimeConsumptionReport(projectIDReport);
                     break;
                 case 0:
                     adminLogin();
@@ -494,7 +508,6 @@ public class Main {
                         break;
                     }
 
-
                     System.out.print("Enter the project ID: ");
                     int projectIDAssign = scanner.nextInt();
                     scanner.nextLine();
@@ -508,7 +521,6 @@ public class Main {
                     plEditProjectSubMenu();
                     break;
                 case 4:
-                    //System.out.println("Project overview");
                     if (Employee.getEmployees().isEmpty()) {
                         System.out.println("No employees have been added yet. Please add employees before trying to get a project overview.");
                         break;
@@ -773,7 +785,6 @@ public class Main {
             System.out.println("Choose option:");
             System.out.println("1) Register work hours");
             System.out.println("2) Check registered work hours");
-            System.out.println("3) Edit work hours");
             System.out.println("0) Back project leader menu");
             System.out.println("Enter choice:");
 
@@ -816,9 +827,6 @@ public class Main {
 
                     Project.getTimeConsumptionReport(projectIDReport);
                     break;
-                case 3:
-                    //System.out.println("Edit work hours made on that day");
-
                 case 0:
                     projectLeaderLogin();
                     return;
@@ -1029,7 +1037,6 @@ public class Main {
             System.out.println("Choose option:");
             System.out.println("1) Register work hours");
             System.out.println("2) Check registered work hours");
-            System.out.println("3) Edit work hours");
             System.out.println("0) Back to developer menu");
             System.out.println("Enter choice:");
 
@@ -1071,9 +1078,6 @@ public class Main {
                     scanner.nextLine();
 
                     Project.getTimeConsumptionReport(projectIDReport);
-                    break;
-                case 3:
-                   //Fill please
                     break;
                 case 0:
                     developerLogin();
