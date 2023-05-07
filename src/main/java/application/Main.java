@@ -94,8 +94,14 @@ public class Main {
             System.out.println("4) Project overview");
             System.out.println("0) Back to admin menu");
 
-            choice = scanner.nextInt();
-            scanner.nextLine();
+            try {
+                choice = scanner.nextInt();
+                scanner.nextLine();
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a valid choice.");
+                scanner.next();
+                continue;
+            }
 
             switch (choice) {
                 case 1:
@@ -198,8 +204,14 @@ public class Main {
             System.out.println("0) Back admin menu");
             System.out.println("Enter choice:");
 
-            choice = scanner.nextInt();
-            scanner.nextLine();
+            try {
+                choice = scanner.nextInt();
+                scanner.nextLine();
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a valid choice.");
+                scanner.next();
+                continue;
+            }
 
             switch (choice) {
                 case 1:
@@ -280,47 +292,32 @@ public class Main {
                     adminEditActivitySubMenu();
                     break;
                 case 4:
+                    if (Employee.getEmployees().isEmpty()) {
+                        System.out.println("No employees have been added yet. Please add employees before trying to get a project overview.");
+                        break;
+                    }
+
                     if (ProjectLeader.getProjects().isEmpty()) {
-                        System.out.println("No projects have been added yet. Please add projects before viewing activity overview.");
+                        System.out.println("No projects have been added yet. Please add projects before trying to get a project overview.");
                         break;
                     }
 
-                    System.out.println("Enter the project ID:");
-                    int projectIdOverview;
                     try {
-                        projectIdOverview = Integer.parseInt(scanner.nextLine());
-                    } catch (NumberFormatException e) {
-                        System.out.println("Invalid input. Please enter a number.");
-                        break;
-                    }
-                    Project projectOverview = Project.findProjectByID(projectIdOverview);
+                        System.out.print("Enter the project ID: ");
+                        int projectIDReport = scanner.nextInt();
+                        scanner.nextLine();
 
-                    if (projectOverview != null) {
-                        System.out.println("Activity Overview:");
-                        System.out.println("Project ID: " + projectIdOverview);
-                        System.out.println("Project Name: " + projectOverview.getProjectName());
-                        System.out.println("Activities:");
-
-                        if (projectOverview.getActivities().isEmpty()) {
-                            System.out.println("No activities found for this project.");
-                        } else {
-                            for (Activity activity : projectOverview.getActivities()) {
-                                System.out.println("  Activity Name: " + activity.getActivityName());
-                                System.out.println("  Budgeted Hours: " + activity.getBudgetedHours());
-                                System.out.println("  Start Year: " + activity.getStartYear());
-                                System.out.println("  Start Week: " + activity.getStartWeek());
-                                System.out.println("  End Year: " + activity.getEndYear());
-                                System.out.println("  End Week: " + activity.getEndWeek());
-                                System.out.println();
-                            }
-                        }
-                    } else {
-                        System.out.println("Project not found.");
+                        Project.getTimeConsumptionReport(projectIDReport);
+                    } catch (InputMismatchException e) {
+                        System.out.println("Invalid input. Please enter a valid project ID.");
+                        scanner.next(); // Clear the scanner buffer
                     }
                     break;
                 case 0:
                     adminLogin();
                     return;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
             }
         }
     }
@@ -338,8 +335,14 @@ public class Main {
             System.out.println("0) Back to admin menu");
             System.out.println("Enter choice:");
 
-            choice = scanner.nextInt();
-            scanner.nextLine();
+            try {
+                choice = scanner.nextInt();
+                scanner.nextLine();
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a valid choice.");
+                scanner.next();
+                continue;
+            }
 
             switch (choice) {
                 case 1:
@@ -409,29 +412,36 @@ public class Main {
                         break;
                     }
 
-                    System.out.print("Enter current Employee ID: ");
-                    String currentEmployeeID = scanner.nextLine().toUpperCase();
+                    try {
+                        System.out.print("Enter current Employee ID: ");
+                        String currentEmployeeID = scanner.nextLine().toUpperCase();
 
-                    Employee employeeToUpdate = Employee.findEmployeeByID(currentEmployeeID);
+                        Employee employeeToUpdate = Employee.findEmployeeByID(currentEmployeeID);
 
-                    if (employeeToUpdate == null) {
-                        System.out.println("Employee not found.");
-                        break;
+                        if (employeeToUpdate == null) {
+                            System.out.println("Employee not found.");
+                            break;
+                        }
+
+                        System.out.print("Enter new Employee ID: ");
+                        String newEmployeeID = scanner.nextLine().toUpperCase();
+
+                        if (Employee.findEmployeeByID(newEmployeeID) != null) {
+                            System.out.println("The new Employee ID is already in use. Please choose a different ID.");
+                            break;
+                        }
+
+                        employeeToUpdate.setEmployeeID(newEmployeeID);
+                        System.out.println("Employee ID updated successfully.");
+                    } catch (InputMismatchException e) {
+                        System.out.println("Invalid input. Please enter a valid Employee ID.");
+                        scanner.next(); // Clear the scanner buffer
                     }
-
-                    System.out.print("Enter new Employee ID: ");
-                    String newEmployeeID = scanner.nextLine().toUpperCase();
-
-                    if (Employee.findEmployeeByID(newEmployeeID) != null) {
-                        System.out.println("The new Employee ID is already in use. Please choose a different ID.");
-                        break;
-                    }
-
-                    employeeToUpdate.setEmployeeID(newEmployeeID);
-                    System.out.println("Employee ID updated successfully.");
                 case 0:
                     adminLogin();
                     return;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
             }
         }
     }
@@ -450,8 +460,14 @@ public class Main {
             System.out.println("0) Back login menu");
             System.out.println("Enter choice:");
 
-            choice = scanner.nextInt();
-            scanner.nextLine();
+            try {
+                choice = scanner.nextInt();
+                scanner.nextLine();
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a valid choice.");
+                scanner.next();
+                continue;
+            }
 
             switch (choice) {
                 case 1:
@@ -469,6 +485,8 @@ public class Main {
                 case 0:
                     startMenu();
                     return;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
             }
         }
     }
@@ -590,8 +608,14 @@ public class Main {
             System.out.println("0) Back to project leader menu");
             System.out.println("Enter choice:");
 
-            choice = scanner.nextInt();
-            scanner.nextLine();
+            try {
+                choice = scanner.nextInt();
+                scanner.nextLine();
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a valid choice.");
+                scanner.next();
+                continue;
+            }
 
             switch (choice) {
                 case 1:
@@ -713,6 +737,8 @@ public class Main {
                 case 0:
                     projectLeaderLogin();
                     return;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
             }
         }
     }
@@ -822,8 +848,14 @@ public class Main {
             System.out.println("0) Back project leader menu");
             System.out.println("Enter choice:");
 
-            choice = scanner.nextInt();
-            scanner.nextLine();
+            try {
+                choice = scanner.nextInt();
+                scanner.nextLine();
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a valid choice.");
+                scanner.next();
+                continue;
+            }
 
             switch (choice) {
                 case 1:
@@ -850,7 +882,6 @@ public class Main {
                     Employee.checkDailyHoursRegistration(employeeID);
                     break;
                 case 3:
-                    //lige her oli
                     System.out.print("Enter Employee ID: ");
                     String employeeIDAvailability = scanner.next().toUpperCase();
                     scanner.nextLine();
@@ -875,6 +906,8 @@ public class Main {
                 case 0:
                     projectLeaderLogin();
                     return;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
             }
         }
     }
@@ -891,8 +924,14 @@ public class Main {
             System.out.println("0) Back to login menu");
             System.out.println("Enter choice:");
 
-            choice = scanner.nextInt();
-            scanner.nextLine();
+            try {
+                choice = scanner.nextInt();
+                scanner.nextLine();
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a valid choice.");
+                scanner.next();
+                continue;
+            }
 
             switch (choice) {
                 case 1:
@@ -903,6 +942,8 @@ public class Main {
                     break;
                 case 0:
                     return;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
             }
         }
     }
@@ -921,8 +962,14 @@ public class Main {
             System.out.println("0) Back to developer menu");
             System.out.println("Enter choice:");
 
-            choice = scanner.nextInt();
-            scanner.nextLine();
+            try {
+                choice = scanner.nextInt();
+                scanner.nextLine();
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a valid choice.");
+                scanner.next();
+                continue;
+            }
 
             switch (choice) {
                 case 1:
@@ -1070,6 +1117,8 @@ public class Main {
                 case 0:
                     developerLogin();
                     return;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
             }
         }
     }
@@ -1153,8 +1202,14 @@ public class Main {
             System.out.println("0) Back to project menu");
             System.out.println("Enter choice:");
 
-            choice = scanner.nextInt();
-            scanner.nextLine();
+            try {
+                choice = scanner.nextInt();
+                scanner.nextLine();
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a valid choice.");
+                scanner.next();
+                continue;
+            }
 
             switch (choice) {
                 case 1:
@@ -1217,6 +1272,8 @@ public class Main {
                 case 0:
                     adminProjectMenu();
                     return;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
             }
         }
     }
@@ -1232,8 +1289,14 @@ public class Main {
             System.out.println("0) Back to project menu");
             System.out.println("Enter choice:");
 
-            choice = scanner.nextInt();
-            scanner.nextLine();
+            try {
+                choice = scanner.nextInt();
+                scanner.nextLine();
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a valid choice.");
+                scanner.next();
+                continue;
+            }
 
             switch (choice) {
                 case 1:
@@ -1296,6 +1359,8 @@ public class Main {
                 case 0:
                     pLProjectMenu();
                     return;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
             }
         }
     }
@@ -1315,8 +1380,14 @@ public class Main {
             System.out.println("0) Back to activity menu");
             System.out.println("Enter choice:");
 
-            choice = scanner.nextInt();
-            scanner.nextLine();
+            try {
+                choice = scanner.nextInt();
+                scanner.nextLine();
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a valid choice.");
+                scanner.next();
+                continue;
+            }
 
             switch (choice) {
                 case 1:
@@ -1455,7 +1526,8 @@ public class Main {
                 case 0:
                     adminActivityMenu();
                     return;
-
+                default:
+                    System.out.println("Invalid choice. Please try again.");
             }
         }
     }
@@ -1475,8 +1547,14 @@ public class Main {
             System.out.println("0) Back to activity menu");
             System.out.println("Enter choice:");
 
-            choice = scanner.nextInt();
-            scanner.nextLine();
+            try {
+                choice = scanner.nextInt();
+                scanner.nextLine();
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a valid choice.");
+                scanner.next();
+                continue;
+            }
 
             switch (choice) {
                 case 1:
@@ -1615,7 +1693,8 @@ public class Main {
                 case 0:
                     pLActivityMenu();
                     return;
-
+                default:
+                    System.out.println("Invalid choice. Please try again.");
             }
         }
     }
@@ -1635,8 +1714,14 @@ public class Main {
             System.out.println("0) Back to activity menu");
             System.out.println("Enter choice:");
 
-            choice = scanner.nextInt();
-            scanner.nextLine();
+            try {
+                choice = scanner.nextInt();
+                scanner.nextLine();
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a valid choice.");
+                scanner.next();
+                continue;
+            }
 
             switch (choice) {
                 case 1:
@@ -1775,7 +1860,8 @@ public class Main {
                 case 0:
                     devActivityMenu();
                     return;
-
+                default:
+                    System.out.println("Invalid choice. Please try again.");
             }
         }
     }
