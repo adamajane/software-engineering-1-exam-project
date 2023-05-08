@@ -5,6 +5,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import static org.junit.Assert.assertEquals;
 
+// Author: Oliver Brandt
 public class UpdateActivitySteps {
 
     private Employee employee;

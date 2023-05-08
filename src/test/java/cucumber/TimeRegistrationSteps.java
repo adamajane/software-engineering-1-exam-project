@@ -6,10 +6,10 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+// Author: Adam Ajane
 public class TimeRegistrationSteps {
 
     private Employee employee;

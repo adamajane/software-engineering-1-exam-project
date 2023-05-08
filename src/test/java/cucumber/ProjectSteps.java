@@ -7,15 +7,13 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.cucumber.java.Before;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-
 import static application.Project.getTimeConsumptionReport;
 import static application.ProjectLeader.assignProjectLeader;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+// Author: Adam Ajane
 public class ProjectSteps {
 
     private ProjectLeader projectLeader;

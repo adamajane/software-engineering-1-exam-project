@@ -12,15 +12,13 @@ import io.cucumber.java.en.When;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+// Author: Adam Ajane
 public class EmployeeSteps {
 
     private String employeeID;
     private String role;
     private Employee employee;
     private String errorMessage;
-    private Activity activity;
-    private double hours = 0;
-    private boolean registerResult;
 
     @Given("I have entered an employee ID {string}")
     public void iHaveEnteredAnEmployeeID(String employeeID) {
