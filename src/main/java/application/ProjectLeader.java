@@ -49,7 +49,7 @@ public class ProjectLeader extends Employee {
         }
     }
 
-    // Updaets the name of an exisiting project
+    // Updates the name of an exisiting project
     public static void updateProjectName(int currProjID, String newProjName) {
 
         if (ProjectLeader.getProjects().isEmpty()) {
