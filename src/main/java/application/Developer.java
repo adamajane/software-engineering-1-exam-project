@@ -7,6 +7,7 @@ public class Developer extends Employee {
 
     }
 
+    // Overrides the getRole() method in Employee
     @Override
     public String getRole() {
         return "Developer";

@@ -11,11 +11,13 @@ public class ProjectLeader extends Employee {
         super(employeeID);
     }
 
+    // Overrides the getRole() method in Employee
     @Override
     public String getRole() {
         return "Project Leader";
     }
 
+    // Creates and adds a project to the projects list
     public static void createProject(String projectName, String projectTypeInput) {
 
         ProjectType projectType = ProjectType.valueOf(projectTypeInput);
@@ -29,6 +31,7 @@ public class ProjectLeader extends Employee {
         return projects;
     }
 
+    // Assigns a project leader to an exisiting project
     public static void assignProjectLeader(int projectID, String employeeID) {
         Project project = Project.findProjectByID(projectID);
 
@@ -46,6 +49,7 @@ public class ProjectLeader extends Employee {
         }
     }
 
+    // Updaets the name of an exisiting project
     public static void updateProjectName(int currProjID, String newProjName) {
 
         if (ProjectLeader.getProjects().isEmpty()) {

@@ -1,11 +1,9 @@
 package application;
 
 import java.time.LocalDate;
-import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
-import java.util.Scanner;
 
 public abstract class Employee {
 
@@ -22,6 +20,7 @@ public abstract class Employee {
         this.available = true;
     }
 
+    // Creates and adds an employee to the employees list (i.e., the system)
     public static void addEmployee(String employeeID, String isLeader) {
         Employee employee;
 
@@ -36,6 +35,7 @@ public abstract class Employee {
         employees.add(employee);
     }
 
+    // Checks if the employee ID is valid
     public static boolean isValidEmployeeID(String employeeID) {
         if (findEmployeeByID(employeeID) != null) {
             System.out.println("Employee with ID " + employeeID + " already exists. Try again.");
@@ -55,6 +55,7 @@ public abstract class Employee {
         return employees;
     }
 
+    // Finds an employee by their ID in the employees list
     public static Employee findEmployeeByID(String employeeId) {
         ArrayList<Employee> employees = Employee.getEmployees();
         for (Employee employee : employees) {
@@ -65,6 +66,7 @@ public abstract class Employee {
         return null;
     }
 
+    // Adds an employee to an activity
     public static void addEmployeeToActivity(String employeeId, String activityName) {
         Employee employee = Employee.findEmployeeByID(employeeId);
         Activity activity = null;
@@ -103,8 +105,10 @@ public abstract class Employee {
         this.employeeID = newEmployeeID;
     }
 
+    // An abstract method that is implemented by the child classes
     public abstract String getRole();
 
+    // Creates an activity using the Activity constructor
     public static Activity createActivity(String activityName, int budgetedHours, int startYear, int startWeek, int endYear, int endWeek) {
         return new Activity(activityName, budgetedHours, startYear, startWeek, endYear, endWeek);
     }
@@ -113,6 +117,7 @@ public abstract class Employee {
         activities.add(activity);
     }
 
+    // Checks the daily hours registered for an employee
     public static void checkDailyHoursRegistration(String employeeID){
 
         Employee employee = Employee.findEmployeeByID(employeeID);
@@ -126,6 +131,7 @@ public abstract class Employee {
         System.out.println("Total Registered Hours for Today: " + dailyHours);
     }
 
+    // Registers time for an employee
     public boolean registerTime(Activity activity, double hours) {
         // If the employee is unavailable, they cannot register time for any activity
         if (!isAvailable()) {
@@ -169,6 +175,7 @@ public abstract class Employee {
         return count;
     }
 
+    // Updates the name of an existing activity
     public static void updateActivityName(String currName, String newName) {
 
         // Can't update activity name if there are no activities
@@ -189,6 +196,7 @@ public abstract class Employee {
         }
     }
 
+    // Updates the dates of an existing activity
     public static void updateActivityDate(String activityName, int newStartYear, int newStartWeek, int newEndYear, int newEndWeek) {
 
         Activity activity = findActivityByName(activityName);
@@ -202,6 +210,7 @@ public abstract class Employee {
         }
     }
 
+    // Finds an activity by name
     public static Activity findActivityByName(String activityName) {
         for (Project project : ProjectLeader.getProjects()) {
             Activity activity = project.findActivityByName(activityName);
@@ -229,7 +238,6 @@ public abstract class Employee {
         this.available = available;
     }
 
-    // Show all activities assigned to an employee
     public ArrayList<Activity> getActivities() {
         ArrayList<Activity> assignedActivities = new ArrayList<>();
         for (Project project : ProjectLeader.getProjects()) {
@@ -242,6 +250,7 @@ public abstract class Employee {
         return assignedActivities;
     }
 
+    // Show all activities assigned to an employee
     public static void showActivitiesAssignedToEmployee(String employeeID) {
         Employee employee = Employee.findEmployeeByID(employeeID);
         if (employee == null) {
