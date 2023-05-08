@@ -2,11 +2,9 @@ package application;
 
 import java.time.LocalDate;
 import java.time.temporal.IsoFields;
-import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-//import static application.Employee.employees;
 import static application.Employee.findActivityByName;
 
 public class Main {
@@ -15,6 +13,7 @@ public class Main {
         startMenu();
     }
 
+    //Method for printing the start menu and letting user navigate into further methods
     private static void startMenu() {
         Scanner scanner = new Scanner(System.in);
         int choice;
@@ -37,15 +36,19 @@ public class Main {
             }
 
             switch (choice) {
+                //Case for accessing admin menu
                 case 1:
                     adminLogin();
                     break;
+                //Case for accessing project leader menu
                 case 2:
                     projectLeaderLogin();
                     break;
+                //Case for accessing developer menu
                 case 3:
                     developerLogin();
                     break;
+                //Case for exiting program
                 case 0:
                     System.out.println("Exiting the Time Management App...");
                     scanner.close();
@@ -57,6 +60,7 @@ public class Main {
         }
     }
 
+    //Method for printing admin menu options
     private static void adminLogin() {
         Scanner scanner = new Scanner(System.in);
         int choice;
@@ -80,15 +84,19 @@ public class Main {
             }
 
             switch (choice) {
+                //Case for accessing project menu for admin
                 case 1:
                     adminProjectMenu();
                     break;
+                //Case for accessing activity menu for admin
                 case 2:
                     adminActivityMenu();
                     break;
+                //Case for accessing employee menu for admin
                 case 3:
                     adminEmployeeMenu();
                     break;
+                //Case for returning to log in menu
                 case 0:
                     startMenu();
                     return;
@@ -98,6 +106,7 @@ public class Main {
         }
     }
 
+    //Method for printing the project menu for admin
     private static void adminProjectMenu() {
         Scanner scanner = new Scanner(System.in);
         int choice;
@@ -120,6 +129,7 @@ public class Main {
             }
 
             switch (choice) {
+                //Case for creating a project with error handling
                 case 1:
                     if (Employee.getEmployees().isEmpty()) {
                         System.out.println("No employees have been added yet. Please add employees before creating a project.");
@@ -144,6 +154,7 @@ public class Main {
                         }
                     }
                     break;
+                //Case for assigning project leader to project with error handling
                 case 2:
                     if (Employee.getEmployees().isEmpty()) {
                         System.out.println("No employees have been added yet. Please add employees before assigning them to a project.");
@@ -163,10 +174,8 @@ public class Main {
                         System.out.print("Enter the Employee ID of the new project leader: ");
                         String employeeIDAssign = scanner.nextLine().toUpperCase();
 
-                        // Check if the project exists
                         Project project = Project.findProjectByID(projectIDAssign);
                         if (project != null) {
-                            // Check if the employee exists before assigning them as a project leader
                             if (Employee.findEmployeeByID(employeeIDAssign) != null) {
                                 ProjectLeader.assignProjectLeader(projectIDAssign, employeeIDAssign);
                             } else {
@@ -177,12 +186,14 @@ public class Main {
                         }
                     } catch (InputMismatchException e) {
                         System.out.println("Invalid input. Please enter a valid project ID.");
-                        scanner.nextLine(); // Clear the scanner buffer
+                        scanner.nextLine();
                     }
                     break;
+                //Case for accessing edit project submenu as project leader
                 case 3:
                     adminEditProjectSubMenu();
                     break;
+                //Case for getting project overview with error handling
                 case 4:
                     if (Employee.getEmployees().isEmpty()) {
                         System.out.println("No employees have been added yet. Please add employees before trying to get a project overview.");
@@ -200,6 +211,7 @@ public class Main {
 
                     Project.getTimeConsumptionReport(projectIDReport);
                     break;
+                //Case for returning to admin menu
                 case 0:
                     adminLogin();
                     return;
@@ -209,6 +221,7 @@ public class Main {
         }
     }
 
+    //Method for printing activity menu for admin
     private static void adminActivityMenu() {
         Scanner scanner = new Scanner(System.in);
         int choice;
@@ -232,6 +245,7 @@ public class Main {
             }
 
             switch (choice) {
+                //Case for creating activity with error handling
                 case 1:
                     if (Employee.getEmployees().isEmpty()) {
                         System.out.println("No employees have been added yet. Please add employees before creating an activity.");
@@ -324,6 +338,7 @@ public class Main {
                         System.out.println("Project not found.");
                     }
                     break;
+                //Case for adding employee to activity with error handling
                 case 2:
                     if (Employee.getEmployees().isEmpty()) {
                         System.out.println("No employees have been added yet. Please add employees before assigning them to an activity.");
@@ -349,9 +364,11 @@ public class Main {
                     Employee.addEmployeeToActivity(employeeID, activityNameAdd);
                     Employee.showActivitiesAssignedToEmployee(employeeID);
                     break;
+                //Case accessing edit activity submenu as admin
                 case 3:
                     adminEditActivitySubMenu();
                     break;
+                //Case for printing activity overview with error handling
                 case 4:
                     if (Employee.getEmployees().isEmpty()) {
                         System.out.println("No employees have been added yet. Please add employees before trying to get a project overview.");
@@ -371,9 +388,10 @@ public class Main {
                         Project.getTimeConsumptionReport(projectIDReport);
                     } catch (InputMismatchException e) {
                         System.out.println("Invalid input. Please enter a valid project ID.");
-                        scanner.next(); // Clear the scanner buffer
+                        scanner.next();
                     }
                     break;
+                //Case for returning to admin menu
                 case 0:
                     adminLogin();
                     return;
@@ -383,6 +401,7 @@ public class Main {
         }
     }
 
+    //Method for printing employee menu for admin
     private static void adminEmployeeMenu() {
         Scanner scanner = new Scanner(System.in);
         int choice;
@@ -406,6 +425,7 @@ public class Main {
             }
 
             switch (choice) {
+                //Case for creating employee with error handling
                 case 1:
                     String employeeIDCreate;
                     String isLeader;
@@ -424,6 +444,7 @@ public class Main {
 
                     Employee.addEmployee(employeeIDCreate, isLeader);
                     break;
+                //Case for printing employee availability
                 case 2:
                     if (Employee.getEmployees().isEmpty()) {
                         System.out.println("No employees have been added yet. Please add employees before assigning them to an activity.");
@@ -469,6 +490,7 @@ public class Main {
                     Employee.addEmployeeToActivity(employeeID, activityNameAdd);
                     Employee.showActivitiesAssignedToEmployee(employeeID);
                     break;
+                //Case for printing employee activities with error handling
                 case 3:
                     if (Employee.getEmployees().isEmpty()) {
                         System.out.println("No employees have been added yet. Please add employees before trying to get a project overview.");
@@ -496,6 +518,7 @@ public class Main {
 
                     Project.getTimeConsumptionReport(projectIDReport);
                     break;
+                //Case for editing employee data with error handling
                 case 4:
                     if (Employee.getEmployees().isEmpty()) {
                         System.out.println("No employees have been added yet. Please add employees before editing their data.");
@@ -527,6 +550,8 @@ public class Main {
                         System.out.println("Invalid input. Please enter a valid Employee ID.");
                         scanner.next(); // Clear the scanner buffer
                     }
+                    break;
+                //Case for returning to admin menu
                 case 0:
                     adminLogin();
                     return;
@@ -536,6 +561,7 @@ public class Main {
         }
     }
 
+    //Method for printing project leader menu options
     private static void projectLeaderLogin() {
         Scanner scanner = new Scanner(System.in);
         int choice;
@@ -581,6 +607,7 @@ public class Main {
         }
     }
 
+    //Method for printing project menu for project leader
     private static void pLProjectMenu() {
         Scanner scanner = new Scanner(System.in);
         int choice;
@@ -604,6 +631,7 @@ public class Main {
             }
 
             switch (choice) {
+                //Case for creating a project with error handling
                 case 1:
                     if (Employee.getEmployees().isEmpty()) {
                         System.out.println("No employees have been added yet. Please add employees before creating a project.");
@@ -628,6 +656,7 @@ public class Main {
                         break;
                     }
                     break;
+                //Case for assigning a project leader with error handling
                 case 2:
                     if (Employee.getEmployees().isEmpty()) {
                         System.out.println("No employees have been added yet. Please add employees before assigning them to a project.");
@@ -664,9 +693,15 @@ public class Main {
                         scanner.nextLine(); // Clear the scanner buffer
                     }
                     break;
+                //Case for accessing the edit project sub menu as a project leader
                 case 3:
+                    if (ProjectLeader.getProjects().isEmpty()) {
+                        System.out.println("No projects have been added yet. Please add projects before trying to edit a project.");
+                        break;
+                    }
                     plEditProjectSubMenu();
                     break;
+                //Case for getting a project overview
                 case 4:
                     if (Employee.getEmployees().isEmpty()) {
                         System.out.println("No employees have been added yet. Please add employees before trying to get a project overview.");
@@ -684,6 +719,7 @@ public class Main {
 
                     Project.getTimeConsumptionReport(projectIDReport);
                     break;
+                //Case for returning to the project leader menu
                 case 0:
                     projectLeaderLogin();
                     return;
@@ -693,6 +729,7 @@ public class Main {
         }
     }
 
+    //Method for printing activity menu for project leader
     private static void pLActivityMenu() {
         Scanner scanner = new Scanner(System.in);
         int choice;
@@ -716,6 +753,7 @@ public class Main {
             }
 
             switch (choice) {
+                //Case for creating an activity with error handling
                 case 1:
                     if (Employee.getEmployees().isEmpty()) {
                         System.out.println("No employees have been added yet. Please add employees before creating an activity.");
@@ -800,6 +838,7 @@ public class Main {
                         System.out.println("Project not found.");
                     }
                     break;
+                //Case for adding an employee to an activity with error handling
                 case 2:
                     if (Employee.getEmployees().isEmpty()) {
                         System.out.println("No employees have been added yet. Please add employees before assigning them to an activity.");
@@ -825,9 +864,11 @@ public class Main {
                     Employee.addEmployeeToActivity(employeeID, activityNameAdd);
                     Employee.showActivitiesAssignedToEmployee(employeeID);
                     break;
+                //Case for accessing the edit activity submenu as project leader
                 case 3:
                     pLEditActivitySubMenu();
                     break;
+                //Case for printing activity overview with error handling
                 case 4:
                     if (ProjectLeader.getProjects().isEmpty()) {
                         System.out.println("No projects have been added yet. Please add projects before viewing activity overview.");
@@ -867,6 +908,7 @@ public class Main {
                         System.out.println("Project not found.");
                     }
                     break;
+                //Case returning to project leader menu
                 case 0:
                     projectLeaderLogin();
                     return;
@@ -876,6 +918,7 @@ public class Main {
         }
     }
 
+    //Method for printing employee menu for project leader
     private static void pLEmployeeMenu() {
         Scanner scanner = new Scanner(System.in);
         int choice;
@@ -892,8 +935,8 @@ public class Main {
             scanner.nextLine();
 
             switch (choice) {
+                //Case for checking employee availability with error handling
                 case 1:
-                    //System.out.println("Employee availability");
                     if (Employee.getEmployees().isEmpty()) {
                         System.out.println("No employees have been added yet. Please add an employee before checking availability.");
                         break;
@@ -919,6 +962,7 @@ public class Main {
                         System.out.println(employee.getEmployeeID() + " is not available.");
                     }
                     break;
+                //Case for printing employee activities with error handling
                 case 2:
                     if (Employee.getEmployees().isEmpty()) {
                         System.out.println("No employees have been added yet. Please add employees before assigning them to an activity.");
@@ -935,6 +979,7 @@ public class Main {
 
                     Employee.showActivitiesAssignedToEmployee(employeeIDShow);
                     break;
+                //Case for editing employee data with error handling
                 case 3:
                     if (Employee.getEmployees().isEmpty()) {
                         System.out.println("No employees have been added yet. Please add employees before editing their data.");
@@ -962,6 +1007,7 @@ public class Main {
                     employeeToUpdate.setEmployeeID(newEmployeeID);
                     System.out.println("Employee ID updated successfully.");
                     break;
+                //Case returning to project leader menu
                 case 0:
                     projectLeaderLogin();
                     return;
@@ -969,6 +1015,7 @@ public class Main {
         }
     }
 
+    //Method for printing time registration menu for project leader
     private static void pLTimeRegistrationMenu() {
         Scanner scanner = new Scanner(System.in);
         int choice;
@@ -991,8 +1038,8 @@ public class Main {
             }
 
             switch (choice) {
+                //Case for registering work hours with error handling
                 case 1:
-                    //System.out.println("Employee availability");
                     if (Employee.getEmployees().isEmpty()) {
                         System.out.println("No employees have been added yet. Please add an employee before checking availability.");
                         break;
@@ -1018,6 +1065,7 @@ public class Main {
                         System.out.println(employee.getEmployeeID() + " is not available.");
                     }
                     break;
+                //Case for checking registered work hours with error handling
                 case 2:
                     if (Employee.getEmployees().isEmpty()) {
                         System.out.println("No employees have been added yet. Please add employees before assigning them to an activity.");
@@ -1034,6 +1082,7 @@ public class Main {
 
                     Employee.showActivitiesAssignedToEmployee(employeeIDShow);
                     break;
+                //Case for marking employee as unavailable with error handling
                 case 3:
                     if (Employee.getEmployees().isEmpty()) {
                         System.out.println("No employees have been added yet. Please add employees before editing their data.");
@@ -1061,6 +1110,7 @@ public class Main {
                     employeeToUpdate.setEmployeeID(newEmployeeID);
                     System.out.println("Employee ID updated successfully.");
                     break;
+                //Case returning to project leader menu
                 case 0:
                     projectLeaderLogin();
                     return;
@@ -1070,6 +1120,7 @@ public class Main {
         }
     }
 
+    //Method for printing developer menu options
     private static void developerLogin() {
         Scanner scanner = new Scanner(System.in);
         int choice;
@@ -1106,6 +1157,7 @@ public class Main {
         }
     }
 
+    //Method for printing activity menu for developer
     private static void devActivityMenu() {
         Scanner scanner = new Scanner(System.in);
         int choice;
@@ -1130,6 +1182,7 @@ public class Main {
             }
 
             switch (choice) {
+                //Case for creating activity with error handling
                 case 1:
                     if (Employee.getEmployees().isEmpty()) {
                         System.out.println("No employees have been added yet. Please add employees before creating an activity.");
@@ -1209,6 +1262,7 @@ public class Main {
                         System.out.println("Project not found.");
                     }
                     break;
+                //Case for joining activity with error handling
                 case 2:
                     if (Employee.getEmployees().isEmpty()) {
                         System.out.println("No employees have been added yet. Please add employees before assigning them to an activity.");
@@ -1234,9 +1288,11 @@ public class Main {
                     Employee.addEmployeeToActivity(employeeID, activityNameAdd);
                     Employee.showActivitiesAssignedToEmployee(employeeID);
                     break;
+                //Case for accessing edit activity submenu as developer
                 case 3:
                     devEditActivitySubMenu();
                     break;
+                //Case getting activity overview with error handling
                 case 4:
                     if (ProjectLeader.getProjects().isEmpty()) {
                         System.out.println("No projects have been added yet. Please add projects before viewing activity overview.");
@@ -1276,6 +1332,7 @@ public class Main {
                         System.out.println("Project not found.");
                     }
                     break;
+                //Case for requesting help with error handling
                 case 5:
                     //System.out.println("Request help");
                     if (Employee.getEmployees().isEmpty()) {
@@ -1302,6 +1359,7 @@ public class Main {
                     Employee.addEmployeeToActivity(employeeID, activityNameAdd);
                     Employee.showActivitiesAssignedToEmployee(employeeID);
                     break;
+                //Case for returning to developer menu
                 case 0:
                     developerLogin();
                     return;
@@ -1311,6 +1369,7 @@ public class Main {
         }
     }
 
+    //Method for time registration menu for developer
     private static void devTimeRegistrationMenu() {
         Scanner scanner = new Scanner(System.in);
         int choice;
@@ -1319,7 +1378,7 @@ public class Main {
             System.out.println("Choose option:");
             System.out.println("1) Register work hours");
             System.out.println("2) Check registered work hours");
-            System.out.println("3) Mark yourself as unavailable");
+            System.out.println("3) Change availability");
             System.out.println("0) Back to developer menu");
             System.out.println("Enter choice:");
 
@@ -1327,6 +1386,7 @@ public class Main {
             scanner.nextLine();
 
             switch (choice) {
+                //Case for registering time with error handling
                 case 1:
                     if (Employee.getEmployees().isEmpty()) {
                         System.out.println("No employees have been added yet. Please add an employee before registering time.");
@@ -1358,6 +1418,7 @@ public class Main {
 
                     TimeRegistration.registerTimeForEmployee(employeeIDRegister, activityNameRegister, hours);
                     break;
+                //Case for checking registered hours with error handling
                 case 2:
                     System.out.println("Enter the Employee ID: ");
                     String employeeID = scanner.nextLine().toUpperCase();
@@ -1370,6 +1431,7 @@ public class Main {
 
                     Employee.checkDailyHoursRegistration(employeeID);
                     break;
+                //Case for marking yourself as unavailable with error handling
                 case 3:
                     System.out.print("Enter Employee ID: ");
                     String employeeIDAvailability = scanner.nextLine().toUpperCase();
@@ -1392,6 +1454,7 @@ public class Main {
                         System.out.println("Employee not found.");
                     }
                     break;
+                //Case for returning to developer menu
                 case 0:
                     developerLogin();
                     return;
@@ -1399,6 +1462,7 @@ public class Main {
         }
     }
 
+    //Method for printing the edit project sub menu for admin
     private static void adminEditProjectSubMenu() {
         Scanner scanner = new Scanner(System.in);
         int choice;
@@ -1420,6 +1484,7 @@ public class Main {
             }
 
             switch (choice) {
+                //Case for editing project name with error handling
                 case 1:
                     System.out.print("Enter the project ID: ");
                     int projectID1;
@@ -1443,6 +1508,7 @@ public class Main {
 
                     ProjectLeader.updateProjectName(projectID1, newProjectName);
                     break;
+                //Case for editing project type with error handling
                 case 2:
                     System.out.print("Enter the project ID: ");
                     int projectID;
@@ -1477,6 +1543,7 @@ public class Main {
                         System.out.println("Invalid project type. Please try again.");
                     }
                     break;
+                //Case for returning to admin project menu
                 case 0:
                     adminProjectMenu();
                     return;
@@ -1486,6 +1553,7 @@ public class Main {
         }
     }
 
+    //Method for printing the edit project sub menu for project leader
     private static void plEditProjectSubMenu() {
         Scanner scanner = new Scanner(System.in);
         int choice;
@@ -1507,6 +1575,7 @@ public class Main {
             }
 
             switch (choice) {
+                //Case for editing project name with error handling
                 case 1:
                     System.out.print("Enter the project ID: ");
                     int projectID1;
@@ -1533,6 +1602,7 @@ public class Main {
                     ProjectLeader.updateProjectName(projectID1, newProjectName);
 
                     break;
+                //Case for editing project type with error handling
                 case 2:
                     System.out.print("Enter the project ID: ");
                     int projectID;
@@ -1565,6 +1635,7 @@ public class Main {
                         System.out.println("Invalid project type. Please try again.");
                     }
                     break;
+                //Case for returning to project leader project menu
                 case 0:
                     pLProjectMenu();
                     return;
@@ -1574,6 +1645,7 @@ public class Main {
         }
     }
 
+    //Method for printing the edit activity sub menu for admin
     private static void adminEditActivitySubMenu() {
         Scanner scanner = new Scanner(System.in);
         int choice;
@@ -1599,12 +1671,11 @@ public class Main {
             }
 
             switch (choice) {
+                //Case for editing activity name with error handling
                 case 1:
-                    // Prompt the user to enter the activity name
                     System.out.print("Enter the current activity name: ");
                     String currentActivityName = scanner.nextLine();
 
-                    // Find the activity by its name
                     Activity activity1 = null;
                     for (Project project : ProjectLeader.getProjects()) {
                         activity1 = project.findActivityByName(currentActivityName);
@@ -1618,20 +1689,17 @@ public class Main {
                         break;
                     }
 
-                    // Prompt the user to enter a new name for the activity
                     System.out.print("Enter the new name for the activity: ");
                     String newActivityName = scanner.nextLine();
 
-                    // Update the activity name
                     activity1.setActivityName(newActivityName);
                     System.out.println("Activity name updated successfully.");
                     break;
+                //Case for editing activity budgeted hours with error handling
                 case 2:
-                    // Prompt the user to enter the activity name
                     System.out.print("Enter the activity name: ");
                     String activityName = scanner.nextLine();
 
-                    // Find the activity by its name
                     Activity activity2 = null;
                     for (Project project : ProjectLeader.getProjects()) {
                         activity2 = project.findActivityByName(activityName);
@@ -1645,15 +1713,14 @@ public class Main {
                         break;
                     }
 
-                    // Prompt the user to enter new budgeted hours for the activity
                     System.out.print("Enter new budgeted hours for the activity: ");
                     int newBudgetedHours = scanner.nextInt();
-                    scanner.nextLine(); // Consume the newline character
+                    scanner.nextLine();
 
-                    // Update the activity's budgeted hours
                     activity2.setBudgetedHours(newBudgetedHours);
                     System.out.println("Activity budgeted hours updated successfully.");
                     break;
+                //Case for editing activity start year with error handling
                 case 3:
                     System.out.println("Enter the activity name:");
                     String activityNameToChangeStartYear = scanner.nextLine();
@@ -1670,6 +1737,7 @@ public class Main {
                         System.out.println("Activity not found.");
                     }
                     break;
+                //Case for editing activity end year with error handling
                 case 4:
                     System.out.println("Enter the activity name:");
                     String activityNameToChangeEndYear = scanner.nextLine();
@@ -1686,6 +1754,7 @@ public class Main {
                         System.out.println("Activity not found.");
                     }
                     break;
+                //Case for editing activity start week with error handling
                 case 5:
                     System.out.println("Enter the activity name:");
                     String activityNameToChangeStartWeek = scanner.nextLine();
@@ -1709,6 +1778,7 @@ public class Main {
                         System.out.println("Activity not found.");
                     }
                     break;
+                //Case for editing activity end week with error handling
                 case 6:
                     System.out.println("Enter the activity name:");
                     String activityNameToChangeEndWeek = scanner.nextLine();
@@ -1732,6 +1802,7 @@ public class Main {
                         System.out.println("Activity not found.");
                     }
                     break;
+                //Case for going back to the admin activity menu
                 case 0:
                     adminActivityMenu();
                     return;
@@ -1741,6 +1812,7 @@ public class Main {
         }
     }
 
+    //Method for printing the edit activity sub menu for project leader
     private static void pLEditActivitySubMenu() {
         Scanner scanner = new Scanner(System.in);
         int choice;
@@ -1766,8 +1838,8 @@ public class Main {
             }
 
             switch (choice) {
+                //Case for editing activity name with error handling
                 case 1:
-                    // Prompt the user to enter the activity name
                     System.out.print("Enter the current activity name: ");
                     String currentActivityName = scanner.nextLine();
 
@@ -1787,8 +1859,8 @@ public class Main {
                     activity1.setActivityName(newActivityName);
                     System.out.println("Activity name updated successfully.");
                     break;
+                //Case for editing activity budgeted hours with error handling
                 case 2:
-                    // Prompt the user to enter the activity name
                     System.out.print("Enter the activity name: ");
                     String activityName = scanner.nextLine();
 
@@ -1810,6 +1882,7 @@ public class Main {
                     activity2.setBudgetedHours(newBudgetedHours);
                     System.out.println("Activity budgeted hours updated successfully.");
                     break;
+                //Case for editing activity start year with error handling
                 case 3:
                     System.out.println("Enter the activity name:");
                     String activityNameToChangeStartYear = scanner.nextLine();
@@ -1831,6 +1904,7 @@ public class Main {
                         System.out.println("Activity not found.");
                     }
                     break;
+                //Case for editing activity end year with error handling
                 case 4:
                     System.out.println("Enter the activity name:");
                     String activityNameToChangeEndYear = scanner.nextLine();
@@ -1852,6 +1926,7 @@ public class Main {
                         System.out.println("Activity not found.");
                     }
                     break;
+                //Case for editing activity start week with error handling
                 case 5:
                     System.out.println("Enter the activity name:");
                     String activityNameToChangeStartWeek = scanner.nextLine();
@@ -1873,7 +1948,7 @@ public class Main {
                         System.out.println("Activity not found.");
                     }
                     break;
-
+                //Case for editing activity end week with error handling
                 case 6:
                     System.out.println("Enter the activity name:");
                     String activityNameToChangeEndWeek = scanner.nextLine();
@@ -1895,6 +1970,7 @@ public class Main {
                         System.out.println("Activity not found.");
                     }
                     break;
+                //Case for returning to activity menu
                 case 0:
                     pLActivityMenu();
                     return;
@@ -1904,6 +1980,7 @@ public class Main {
         }
     }
 
+    //Method for printing the edit activity sub menu for developer
     private static void devEditActivitySubMenu() {
         Scanner scanner = new Scanner(System.in);
         int choice;
@@ -1929,12 +2006,11 @@ public class Main {
             }
 
             switch (choice) {
+                //Case for editing activity name with error handling
                 case 1:
-                    // Prompt the user to enter the activity name
                     System.out.print("Enter the current activity name: ");
                     String currentActivityName = scanner.nextLine();
 
-                    // Find the activity by its name
                     Activity activity1 = null;
                     for (Project project : ProjectLeader.getProjects()) {
                         activity1 = project.findActivityByName(currentActivityName);
@@ -1948,20 +2024,17 @@ public class Main {
                         break;
                     }
 
-                    // Prompt the user to enter a new name for the activity
                     System.out.print("Enter the new name for the activity: ");
                     String newActivityName = scanner.nextLine();
 
-                    // Update the activity name
                     activity1.setActivityName(newActivityName);
                     System.out.println("Activity name updated successfully.");
                     break;
+                //Case for editing activity budgeted hours with error handling
                 case 2:
-                    // Prompt the user to enter the activity name
                     System.out.print("Enter the activity name: ");
                     String activityName = scanner.nextLine();
 
-                    // Find the activity by its name
                     Activity activity2 = null;
                     for (Project project : ProjectLeader.getProjects()) {
                         activity2 = project.findActivityByName(activityName);
@@ -1975,7 +2048,6 @@ public class Main {
                         break;
                     }
 
-                    // Prompt the user to enter new budgeted hours for the activity
                     System.out.print("Enter new budgeted hours for the activity: ");
                     int newBudgetedHours;
                     try {
@@ -1985,10 +2057,10 @@ public class Main {
                         break;
                     }
 
-                    // Update the activity's budgeted hours
                     activity2.setBudgetedHours(newBudgetedHours);
                     System.out.println("Activity budgeted hours updated successfully.");
                     break;
+                //Case for editing activity start year with error handling
                 case 3:
                     System.out.println("Enter the activity name:");
                     String activityNameToChangeStartYear = scanner.nextLine();
@@ -2010,6 +2082,7 @@ public class Main {
                         System.out.println("Activity not found.");
                     }
                     break;
+                //Case for editing activity end year with error handling
                 case 4:
                     System.out.println("Enter the activity name:");
                     String activityNameToChangeEndYear = scanner.nextLine();
@@ -2031,6 +2104,7 @@ public class Main {
                         System.out.println("Activity not found.");
                     }
                     break;
+                //Case for editing activity start week with error handling
                 case 5:
                     System.out.println("Enter the activity name:");
                     String activityNameToChangeStartWeek = scanner.nextLine();
@@ -2054,6 +2128,7 @@ public class Main {
                         System.out.println("Activity not found.");
                     }
                     break;
+                //Case for editing activity end week with error handling
                 case 6:
                     System.out.println("Enter the activity name:");
                     String activityNameToChangeEndWeek = scanner.nextLine();
@@ -2077,6 +2152,7 @@ public class Main {
                         System.out.println("Activity not found.");
                     }
                     break;
+                //Case for returning to the developer activity menu
                 case 0:
                     devActivityMenu();
                     return;
