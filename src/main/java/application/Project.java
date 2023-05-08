@@ -21,6 +21,12 @@ public class Project {
     }
 
     private int generateProjectNumber() {
+
+        /*
+        * generateProjectNumber generates a number for the project and starts at 23001 if the
+        * year is 2023 and counts up
+         */
+
         projectCounter++;
         int year = LocalDate.now().getYear() % 100;
         return Integer.parseInt(String.format("%d%03d", year, projectCounter));
@@ -49,6 +55,11 @@ public class Project {
     }
 
     public String makeTimeConsumptionReport() {
+
+        /*
+         * makeTimeConsumptionReport makes a report of the total time spent on a activity
+         */
+
         StringBuilder report = new StringBuilder();
         double totalTime = 0;
         double totalExpectedWorkingHours = 0;
@@ -91,6 +102,12 @@ public class Project {
     }
 
     public static void getTimeConsumptionReport(int projectID) {
+
+        /*
+         * getTimeConsumptionReport checks if the project is valid and prints the time consumption
+         * report if it is
+         */
+
         Project project = Project.findProjectByID(projectID);
 
         if (project != null) {
@@ -102,6 +119,11 @@ public class Project {
     }
 
     public static Project findProjectByID(int projectID) {
+
+        /*
+         * findProjectByID searches list of projects and checks if there is one with the given ID
+         */
+
         ArrayList<Project> projects = ProjectLeader.getProjects();
         for (Project project : projects) {
             if (project.getProjectID() == projectID) {
