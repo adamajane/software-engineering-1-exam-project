@@ -119,7 +119,7 @@ public abstract class Employee {
     }
 
     // Checks the daily hours registered for an employee
-    public static void checkDailyHoursRegistration(String employeeID){
+    public static void checkDailyHoursRegistration(String employeeID) {
 
         Employee employee = Employee.findEmployeeByID(employeeID);
         if (employee == null) {
