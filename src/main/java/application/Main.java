@@ -27,8 +27,14 @@ public class Main {
             System.out.println("0) Exit application");
             System.out.println("Enter choice:");
 
-            choice = scanner.nextInt();
-            scanner.nextLine();
+            try {
+                choice = scanner.nextInt();
+                scanner.nextLine();
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a valid choice.");
+                scanner.next();
+                continue;
+            }
 
             switch (choice) {
                 case 1:
@@ -45,6 +51,8 @@ public class Main {
                     scanner.close();
                     System.exit(0);
                     break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
             }
         }
     }
@@ -62,8 +70,14 @@ public class Main {
             System.out.println("0) Back to login menu");
             System.out.println("Enter choice:");
 
-            choice = scanner.nextInt();
-            scanner.nextLine();
+            try {
+                choice = scanner.nextInt();
+                scanner.nextLine();
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a valid choice.");
+                scanner.next();
+                continue;
+            }
 
             switch (choice) {
                 case 1:
@@ -78,6 +92,8 @@ public class Main {
                 case 0:
                     startMenu();
                     return;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
             }
         }
     }
@@ -115,7 +131,7 @@ public class Main {
                         projectName = scanner.nextLine();
                         if (projectName.isEmpty()) {
                             System.out.println("Project name cannot be empty.");
-                            return;
+                            continue;
                         } else {
                             System.out.print("Choose Project Type (INTERNAL/CUSTOMER): ");
                             String projectTypeInput = scanner.next().toUpperCase();
@@ -124,8 +140,8 @@ public class Main {
                                 projectTypeInput = scanner.next().toUpperCase();
                             }
                             ProjectLeader.createProject(projectName, projectTypeInput);
+                            break;
                         }
-                        break;
                     }
                     break;
                 case 2:
@@ -187,6 +203,8 @@ public class Main {
                 case 0:
                     adminLogin();
                     return;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
             }
         }
     }
@@ -238,16 +256,59 @@ public class Main {
                     if (project != null) {
                         System.out.println("Enter the activity name:");
                         String activityNameCreate = scanner.nextLine();
+
                         System.out.println("Enter the budgeted hours:");
-                        int budgetedHours = Integer.parseInt(scanner.nextLine());
+                        int budgetedHours;
+                        try {
+                            budgetedHours = Integer.parseInt(scanner.nextLine());
+                        } catch (NumberFormatException e) {
+                            System.out.println("Invalid input. Please enter a number.");
+                            break;
+                        }
+
                         System.out.println("Enter the start year:");
-                        int startYear = Integer.parseInt(scanner.nextLine());
+                        int startYear;
+                        try {
+                            startYear = Integer.parseInt(scanner.nextLine());
+                        } catch (NumberFormatException e) {
+                            System.out.println("Invalid input. Please enter a number.");
+                            break;
+                        }
+
                         System.out.println("Enter the start week:");
-                        int startWeek = Integer.parseInt(scanner.nextLine());
+                        int startWeek;
+                        try {
+                            startWeek = Integer.parseInt(scanner.nextLine());
+                            if (startWeek < 1 || startWeek > 52) {
+                                System.out.println("Invalid input. Please enter a week number between 1 and 52.");
+                                break;
+                            }
+                        } catch (NumberFormatException e) {
+                            System.out.println("Invalid input. Please enter a number.");
+                            break;
+                        }
+
                         System.out.println("Enter the end year:");
-                        int endYear = Integer.parseInt(scanner.nextLine());
+                        int endYear;
+                        try {
+                            endYear = Integer.parseInt(scanner.nextLine());
+                        } catch (NumberFormatException e) {
+                            System.out.println("Invalid input. Please enter a number.");
+                            break;
+                        }
+
                         System.out.println("Enter the end week:");
-                        int endWeek = Integer.parseInt(scanner.nextLine());
+                        int endWeek;
+                        try {
+                            endWeek = Integer.parseInt(scanner.nextLine());
+                            if (endWeek < 1 || endWeek > 52) {
+                                System.out.println("Invalid input. Please enter a week number between 1 and 52.");
+                                break;
+                            }
+                        } catch (NumberFormatException e) {
+                            System.out.println("Invalid input. Please enter a number.");
+                            break;
+                        }
 
                         Activity activity = new Activity(activityNameCreate, budgetedHours, startYear, startWeek, endYear, endWeek);
                         project.getActivities().add(activity);
@@ -364,33 +425,6 @@ public class Main {
                     Employee.addEmployee(employeeIDCreate, isLeader);
                     break;
                 case 2:
-                    //System.out.println("Employee availability");
-                    if (Employee.getEmployees().isEmpty()) {
-                        System.out.println("No employees have been added yet. Please add an employee before checking availability.");
-                        break;
-                    }
-
-                    System.out.print("Enter Employee ID: ");
-                    String employeeId = scanner.next().toUpperCase();
-                    scanner.nextLine();
-
-                    Employee employee = Employee.findEmployeeByID(employeeId);
-
-                    if (employee == null) {
-                        System.out.println("Employee not found.");
-                        break;
-                    }
-
-                    int currentYear = LocalDate.now().getYear();
-                    int currentWeek = LocalDate.now().get(IsoFields.WEEK_OF_WEEK_BASED_YEAR);
-
-                    if (employee.isAvailableAndNotOverloaded(currentYear, currentWeek)) {
-                        System.out.println(employee.getEmployeeID() + " is available.");
-                    } else {
-                        System.out.println(employee.getEmployeeID() + " is not available.");
-                    }
-                    break;
-                case 3:
                     if (Employee.getEmployees().isEmpty()) {
                         System.out.println("No employees have been added yet. Please add employees before assigning them to an activity.");
                         break;
@@ -402,9 +436,65 @@ public class Main {
                     }
 
                     System.out.println("Enter the employee ID:");
-                    String employeeIDShow = scanner.nextLine().toUpperCase();
+                    String employeeID = scanner.nextLine().toUpperCase();
 
-                    Employee.showActivitiesAssignedToEmployee(employeeIDShow);
+                    if (Employee.findEmployeeByID(employeeID) == null) {
+                        System.out.println("Employee not found.");
+                        break;
+                    }
+
+                    System.out.println("Enter the project ID:");
+                    int projectIDAssign;
+                    try {
+                        projectIDAssign = Integer.parseInt(scanner.nextLine());
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid input. Please enter a number.");
+                        break;
+                    }
+
+                    Project projectAssign = Project.findProjectByID(projectIDAssign);
+                    if (projectAssign == null) {
+                        System.out.println("Project not found.");
+                        break;
+                    }
+
+                    System.out.println("Enter the activity name:");
+                    String activityNameAdd = scanner.nextLine();
+
+                    if (projectAssign.findActivityByName(activityNameAdd) == null) {
+                        System.out.println("Activity not found.");
+                        break;
+                    }
+
+                    Employee.addEmployeeToActivity(employeeID, activityNameAdd);
+                    Employee.showActivitiesAssignedToEmployee(employeeID);
+                    break;
+                case 3:
+                    if (Employee.getEmployees().isEmpty()) {
+                        System.out.println("No employees have been added yet. Please add employees before trying to get a project overview.");
+                        break;
+                    }
+
+                    if (ProjectLeader.getProjects().isEmpty()) {
+                        System.out.println("No projects have been added yet. Please add projects before trying to get a project overview.");
+                        break;
+                    }
+
+                    System.out.print("Enter the project ID: ");
+                    int projectIDReport;
+                    try {
+                        projectIDReport = Integer.parseInt(scanner.nextLine());
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid input. Please enter a number.");
+                        break;
+                    }
+
+                    if (Project.findProjectByID(projectIDReport) == null) {
+                        System.out.println("Project not found. Please enter a valid Project ID.");
+                        break;
+                    }
+
+                    Project.getTimeConsumptionReport(projectIDReport);
                     break;
                 case 4:
                     if (Employee.getEmployees().isEmpty()) {
@@ -504,8 +594,14 @@ public class Main {
             System.out.println("0) Back to project leader menu");
             System.out.println("Enter choice:");
 
-            choice = scanner.nextInt();
-            scanner.nextLine();
+            try {
+                choice = scanner.nextInt();
+                scanner.nextLine();
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a valid choice.");
+                scanner.next();
+                continue;
+            }
 
             switch (choice) {
                 case 1:
@@ -591,6 +687,8 @@ public class Main {
                 case 0:
                     projectLeaderLogin();
                     return;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
             }
         }
     }
@@ -642,16 +740,51 @@ public class Main {
                     if (project != null) {
                         System.out.println("Enter the activity name:");
                         String activityNameCreate = scanner.nextLine();
+
                         System.out.println("Enter the budgeted hours:");
-                        int budgetedHours = Integer.parseInt(scanner.nextLine());
+                        int budgetedHours;
+                        try {
+                            budgetedHours = Integer.parseInt(scanner.nextLine());
+                        } catch (NumberFormatException e) {
+                            System.out.println("Invalid input. Please enter a number.");
+                            break;
+                        }
+
                         System.out.println("Enter the start year:");
-                        int startYear = Integer.parseInt(scanner.nextLine());
+                        int startYear;
+                        try {
+                            startYear = Integer.parseInt(scanner.nextLine());
+                        } catch (NumberFormatException e) {
+                            System.out.println("Invalid input. Please enter a number.");
+                            break;
+                        }
+
                         System.out.println("Enter the start week:");
-                        int startWeek = Integer.parseInt(scanner.nextLine());
+                        int startWeek;
+                        try {
+                            startWeek = Integer.parseInt(scanner.nextLine());
+                        } catch (NumberFormatException e) {
+                            System.out.println("Invalid input. Please enter a number.");
+                            break;
+                        }
+
                         System.out.println("Enter the end year:");
-                        int endYear = Integer.parseInt(scanner.nextLine());
+                        int endYear;
+                        try {
+                            endYear = Integer.parseInt(scanner.nextLine());
+                        } catch (NumberFormatException e) {
+                            System.out.println("Invalid input. Please enter a number.");
+                            break;
+                        }
+
                         System.out.println("Enter the end week:");
-                        int endWeek = Integer.parseInt(scanner.nextLine());
+                        int endWeek;
+                        try {
+                            endWeek = Integer.parseInt(scanner.nextLine());
+                        } catch (NumberFormatException e) {
+                            System.out.println("Invalid input. Please enter a number.");
+                            break;
+                        }
 
                         Activity activity = new Activity(activityNameCreate, budgetedHours, startYear, startWeek, endYear, endWeek);
                         project.getActivities().add(activity);
@@ -859,49 +992,74 @@ public class Main {
 
             switch (choice) {
                 case 1:
+                    //System.out.println("Employee availability");
                     if (Employee.getEmployees().isEmpty()) {
-                        System.out.println("No employees have been added yet. Please add an employee before registering time.");
+                        System.out.println("No employees have been added yet. Please add an employee before checking availability.");
                         break;
                     }
 
                     System.out.print("Enter Employee ID: ");
-                    String employeeIDRegister = scanner.next().toUpperCase();
+                    String employeeId = scanner.next().toUpperCase();
                     scanner.nextLine();
 
-                    System.out.print("Enter Activity Name: ");
-                    String activityNameRegister = scanner.next();
+                    Employee employee = Employee.findEmployeeByID(employeeId);
 
-                    System.out.print("Enter Hours: ");
-                    double hours = scanner.nextDouble();
+                    if (employee == null) {
+                        System.out.println("Employee not found.");
+                        break;
+                    }
 
-                    TimeRegistration.registerTimeForEmployee(employeeIDRegister, activityNameRegister, hours);
+                    int currentYear = LocalDate.now().getYear();
+                    int currentWeek = LocalDate.now().get(IsoFields.WEEK_OF_WEEK_BASED_YEAR);
+
+                    if (employee.isAvailableAndNotOverloaded(currentYear, currentWeek)) {
+                        System.out.println(employee.getEmployeeID() + " is available.");
+                    } else {
+                        System.out.println(employee.getEmployeeID() + " is not available.");
+                    }
                     break;
                 case 2:
-                    System.out.println("Enter the Employee ID: ");
-                    String employeeID = scanner.nextLine();
-                    Employee.checkDailyHoursRegistration(employeeID);
+                    if (Employee.getEmployees().isEmpty()) {
+                        System.out.println("No employees have been added yet. Please add employees before assigning them to an activity.");
+                        break;
+                    }
+
+                    if (ProjectLeader.getProjects().isEmpty()) {
+                        System.out.println("No projects have been added yet. Please add projects before assigning employees to an activity.");
+                        break;
+                    }
+
+                    System.out.println("Enter the employee ID:");
+                    String employeeIDShow = scanner.nextLine().toUpperCase();
+
+                    Employee.showActivitiesAssignedToEmployee(employeeIDShow);
                     break;
                 case 3:
-                    System.out.print("Enter Employee ID: ");
-                    String employeeIDAvailability = scanner.next().toUpperCase();
-                    scanner.nextLine();
-                    Employee employeeAvailability = Employee.findEmployeeByID(employeeIDAvailability);
-                    if (employeeAvailability != null) {
-                        // Print current availability status
-                        System.out.println("Current availability status: " + (employeeAvailability.isAvailable() ? "Available" : "Unavailable"));
-
-                        // Ask the user to change the availability status
-                        System.out.print("Do you want to change the availability status? (yes/no): ");
-                        String changeAvailability = scanner.nextLine().toLowerCase();
-                        if ("yes".equals(changeAvailability)) {
-                            employeeAvailability.setAvailable(!employeeAvailability.isAvailable());
-                            System.out.println("Availability status changed to: " + (employeeAvailability.isAvailable() ? "Available" : "Unavailable"));
-                        } else if (!"no".equals(changeAvailability)) {
-                            System.out.println("Invalid input. Please enter 'yes' or 'no'.");
-                        }
-                    } else {
-                        System.out.println("Employee not found.");
+                    if (Employee.getEmployees().isEmpty()) {
+                        System.out.println("No employees have been added yet. Please add employees before editing their data.");
+                        break;
                     }
+
+                    System.out.print("Enter current Employee ID: ");
+                    String currentEmployeeID = scanner.nextLine().toUpperCase();
+
+                    Employee employeeToUpdate = Employee.findEmployeeByID(currentEmployeeID);
+
+                    if (employeeToUpdate == null) {
+                        System.out.println("Employee not found.");
+                        break;
+                    }
+
+                    System.out.print("Enter new Employee ID: ");
+                    String newEmployeeID = scanner.nextLine().toUpperCase();
+
+                    if (Employee.findEmployeeByID(newEmployeeID) != null) {
+                        System.out.println("The new Employee ID is already in use. Please choose a different ID.");
+                        break;
+                    }
+
+                    employeeToUpdate.setEmployeeID(newEmployeeID);
+                    System.out.println("Employee ID updated successfully.");
                     break;
                 case 0:
                     projectLeaderLogin();
@@ -997,15 +1155,45 @@ public class Main {
                         System.out.println("Enter the activity name:");
                         String activityNameCreate = scanner.nextLine();
                         System.out.println("Enter the budgeted hours:");
-                        int budgetedHours = Integer.parseInt(scanner.nextLine());
+                        int budgetedHours;
+                        try {
+                            budgetedHours = Integer.parseInt(scanner.nextLine());
+                        } catch (NumberFormatException e) {
+                            System.out.println("Invalid input. Please enter a number.");
+                            break;
+                        }
                         System.out.println("Enter the start year:");
-                        int startYear = Integer.parseInt(scanner.nextLine());
+                        int startYear;
+                        try {
+                            startYear = Integer.parseInt(scanner.nextLine());
+                        } catch (NumberFormatException e) {
+                            System.out.println("Invalid input. Please enter a number.");
+                            break;
+                        }
                         System.out.println("Enter the start week:");
-                        int startWeek = Integer.parseInt(scanner.nextLine());
+                        int startWeek;
+                        try {
+                            startWeek = Integer.parseInt(scanner.nextLine());
+                        } catch (NumberFormatException e) {
+                            System.out.println("Invalid input. Please enter a number.");
+                            break;
+                        }
                         System.out.println("Enter the end year:");
-                        int endYear = Integer.parseInt(scanner.nextLine());
+                        int endYear;
+                        try {
+                            endYear = Integer.parseInt(scanner.nextLine());
+                        } catch (NumberFormatException e) {
+                            System.out.println("Invalid input. Please enter a number.");
+                            break;
+                        }
                         System.out.println("Enter the end week:");
-                        int endWeek = Integer.parseInt(scanner.nextLine());
+                        int endWeek;
+                        try {
+                            endWeek = Integer.parseInt(scanner.nextLine());
+                        } catch (NumberFormatException e) {
+                            System.out.println("Invalid input. Please enter a number.");
+                            break;
+                        }
 
                         Activity activity = new Activity(activityNameCreate, budgetedHours, startYear, startWeek, endYear, endWeek);
                         project.getActivities().add(activity);
@@ -1146,26 +1334,46 @@ public class Main {
                     }
 
                     System.out.print("Enter Employee ID: ");
-                    String employeeIDRegister = scanner.next().toUpperCase();
-                    scanner.nextLine();
+                    String employeeIDRegister = scanner.nextLine().toUpperCase();
+
+                    Employee employee = Employee.findEmployeeByID(employeeIDRegister);
+                    if (employee == null) {
+                        System.out.println("Employee not found.");
+                        break;
+                    }
 
                     System.out.print("Enter Activity Name: ");
-                    String activityNameRegister = scanner.next();
+                    String activityNameRegister = scanner.nextLine();
 
                     System.out.print("Enter Hours: ");
-                    double hours = scanner.nextDouble();
+                    double hours;
+                    try {
+                        hours = scanner.nextDouble();
+                        scanner.nextLine();
+                    } catch (InputMismatchException e) {
+                        System.out.println("Invalid input. Please enter a valid number.");
+                        scanner.next();
+                        break;
+                    }
 
                     TimeRegistration.registerTimeForEmployee(employeeIDRegister, activityNameRegister, hours);
                     break;
                 case 2:
                     System.out.println("Enter the Employee ID: ");
-                    String employeeID = scanner.nextLine();
+                    String employeeID = scanner.nextLine().toUpperCase();
+
+                    Employee employeeToCheck = Employee.findEmployeeByID(employeeID);
+                    if (employeeToCheck == null) {
+                        System.out.println("Employee not found.");
+                        break;
+                    }
+
                     Employee.checkDailyHoursRegistration(employeeID);
                     break;
                 case 3:
                     System.out.print("Enter Employee ID: ");
-                    String employeeIDAvailability = scanner.next().toUpperCase();
-                    scanner.nextLine();
+                    String employeeIDAvailability = scanner.nextLine().toUpperCase();
+
                     Employee employeeAvailability = Employee.findEmployeeByID(employeeIDAvailability);
                     if (employeeAvailability != null) {
                         // Print current availability status
@@ -1303,11 +1511,9 @@ public class Main {
                     System.out.print("Enter the project ID: ");
                     int projectID1;
                     try {
-                        projectID1 = scanner.nextInt();
-                        scanner.nextLine();
-                    } catch (InputMismatchException e) {
+                        projectID1 = Integer.parseInt(scanner.nextLine());
+                    } catch (NumberFormatException e) {
                         System.out.println("Invalid project ID. Please try again.");
-                        scanner.next();
                         break;
                     }
 
@@ -1319,18 +1525,21 @@ public class Main {
 
                     System.out.print("Enter the new name for the project: ");
                     String newProjectName = scanner.nextLine();
+                    if (newProjectName.trim().isEmpty()) {
+                        System.out.println("Project name cannot be empty. Please try again.");
+                        break;
+                    }
 
                     ProjectLeader.updateProjectName(projectID1, newProjectName);
+
                     break;
                 case 2:
                     System.out.print("Enter the project ID: ");
                     int projectID;
                     try {
-                        projectID = scanner.nextInt();
-                        scanner.nextLine();
-                    } catch (InputMismatchException e) {
+                        projectID = Integer.parseInt(scanner.nextLine());
+                    } catch (NumberFormatException e) {
                         System.out.println("Invalid project ID. Please try again.");
-                        scanner.next();
                         break;
                     }
 
@@ -1341,7 +1550,7 @@ public class Main {
                     }
 
                     System.out.print("Enter the new type for the project: ");
-                    String newProjectTypeStr = scanner.nextLine();
+                    String newProjectTypeStr = scanner.nextLine().toUpperCase();
 
                     try {
                         ProjectType newProjectType = ProjectType.valueOf(newProjectTypeStr);
@@ -1562,25 +1771,19 @@ public class Main {
                     System.out.print("Enter the current activity name: ");
                     String currentActivityName = scanner.nextLine();
 
-                    // Find the activity by its name
-                    Activity activity1 = null;
-                    for (Project project : ProjectLeader.getProjects()) {
-                        activity1 = project.findActivityByName(currentActivityName);
-                        if (activity1 != null) {
-                            break;
-                        }
-                    }
-
+                    Activity activity1 = findActivityByName(currentActivityName);
                     if (activity1 == null) {
                         System.out.println("Activity not found.");
                         break;
                     }
 
-                    // Prompt the user to enter a new name for the activity
                     System.out.print("Enter the new name for the activity: ");
                     String newActivityName = scanner.nextLine();
+                    if (newActivityName.trim().isEmpty()) {
+                        System.out.println("Activity name cannot be empty. Please try again.");
+                        break;
+                    }
 
-                    // Update the activity name
                     activity1.setActivityName(newActivityName);
                     System.out.println("Activity name updated successfully.");
                     break;
@@ -1589,26 +1792,21 @@ public class Main {
                     System.out.print("Enter the activity name: ");
                     String activityName = scanner.nextLine();
 
-                    // Find the activity by its name
-                    Activity activity2 = null;
-                    for (Project project : ProjectLeader.getProjects()) {
-                        activity2 = project.findActivityByName(activityName);
-                        if (activity2 != null) {
-                            break;
-                        }
-                    }
-
+                    Activity activity2 = findActivityByName(activityName);
                     if (activity2 == null) {
                         System.out.println("Activity not found.");
                         break;
                     }
 
-                    // Prompt the user to enter new budgeted hours for the activity
                     System.out.print("Enter new budgeted hours for the activity: ");
-                    int newBudgetedHours = scanner.nextInt();
-                    scanner.nextLine(); // Consume the newline character
+                    int newBudgetedHours;
+                    try {
+                        newBudgetedHours = Integer.parseInt(scanner.nextLine());
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid input for budgeted hours. Please try again.");
+                        break;
+                    }
 
-                    // Update the activity's budgeted hours
                     activity2.setBudgetedHours(newBudgetedHours);
                     System.out.println("Activity budgeted hours updated successfully.");
                     break;
@@ -1619,8 +1817,13 @@ public class Main {
                     Activity activity3 = findActivityByName(activityNameToChangeStartYear);
                     if (activity3 != null) {
                         System.out.println("Enter new start year for the activity:");
-                        int newStartYear = scanner.nextInt();
-                        scanner.nextLine();
+                        int newStartYear;
+                        try {
+                            newStartYear = Integer.parseInt(scanner.nextLine());
+                        } catch (NumberFormatException e) {
+                            System.out.println("Invalid input for start year. Please try again.");
+                            break;
+                        }
 
                         activity3.setStartYear(newStartYear);
                         System.out.println("Activity start year updated successfully.");
@@ -1635,8 +1838,13 @@ public class Main {
                     Activity activity4 = findActivityByName(activityNameToChangeEndYear);
                     if (activity4 != null) {
                         System.out.println("Enter new end year for the activity:");
-                        int newEndYear = scanner.nextInt();
-                        scanner.nextLine();
+                        int newEndYear;
+                        try {
+                            newEndYear = Integer.parseInt(scanner.nextLine());
+                        } catch (NumberFormatException e) {
+                            System.out.println("Invalid input for end year. Please try again.");
+                            break;
+                        }
 
                         activity4.setEndYear(newEndYear);
                         System.out.println("Activity end year updated successfully.");
@@ -1653,11 +1861,9 @@ public class Main {
                         System.out.println("Enter new start week for the activity:");
                         int newStartWeek;
                         try {
-                            newStartWeek = scanner.nextInt();
-                            scanner.nextLine();
-                        } catch (InputMismatchException e) {
+                            newStartWeek = Integer.parseInt(scanner.nextLine());
+                        } catch (NumberFormatException e) {
                             System.out.println("Invalid input for start week. Please try again.");
-                            scanner.next();
                             break;
                         }
 
@@ -1667,6 +1873,7 @@ public class Main {
                         System.out.println("Activity not found.");
                     }
                     break;
+
                 case 6:
                     System.out.println("Enter the activity name:");
                     String activityNameToChangeEndWeek = scanner.nextLine();
@@ -1676,11 +1883,9 @@ public class Main {
                         System.out.println("Enter new end week for the activity:");
                         int newEndWeek;
                         try {
-                            newEndWeek = scanner.nextInt();
-                            scanner.nextLine();
-                        } catch (InputMismatchException e) {
+                            newEndWeek = Integer.parseInt(scanner.nextLine());
+                        } catch (NumberFormatException e) {
                             System.out.println("Invalid input for end week. Please try again.");
-                            scanner.next();
                             break;
                         }
 
@@ -1772,8 +1977,13 @@ public class Main {
 
                     // Prompt the user to enter new budgeted hours for the activity
                     System.out.print("Enter new budgeted hours for the activity: ");
-                    int newBudgetedHours = scanner.nextInt();
-                    scanner.nextLine(); // Consume the newline character
+                    int newBudgetedHours;
+                    try {
+                        newBudgetedHours = Integer.parseInt(scanner.nextLine());
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid input for budgeted hours. Please try again.");
+                        break;
+                    }
 
                     // Update the activity's budgeted hours
                     activity2.setBudgetedHours(newBudgetedHours);
@@ -1786,8 +1996,13 @@ public class Main {
                     Activity activity3 = findActivityByName(activityNameToChangeStartYear);
                     if (activity3 != null) {
                         System.out.println("Enter new start year for the activity:");
-                        int newStartYear = scanner.nextInt();
-                        scanner.nextLine();
+                        int newStartYear;
+                        try {
+                            newStartYear = Integer.parseInt(scanner.nextLine());
+                        } catch (NumberFormatException e) {
+                            System.out.println("Invalid input for start year. Please try again.");
+                            break;
+                        }
 
                         activity3.setStartYear(newStartYear);
                         System.out.println("Activity start year updated successfully.");
@@ -1802,8 +2017,13 @@ public class Main {
                     Activity activity4 = findActivityByName(activityNameToChangeEndYear);
                     if (activity4 != null) {
                         System.out.println("Enter new end year for the activity:");
-                        int newEndYear = scanner.nextInt();
-                        scanner.nextLine();
+                        int newEndYear;
+                        try {
+                            newEndYear = Integer.parseInt(scanner.nextLine());
+                        } catch (NumberFormatException e) {
+                            System.out.println("Invalid input for end year. Please try again.");
+                            break;
+                        }
 
                         activity4.setEndYear(newEndYear);
                         System.out.println("Activity end year updated successfully.");
