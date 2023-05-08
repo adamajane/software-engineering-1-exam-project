@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+//Author: Adam Ajane (Contributors: Oliver Brandt)
 public class Project {
     private ProjectType projectType;
     private static int projectCounter = 0;

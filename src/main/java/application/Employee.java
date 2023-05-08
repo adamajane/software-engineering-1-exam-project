@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 
+// Author: Adam Ajane (contributors: Oliver Brandt + Alexander Vaaben)
 public abstract class Employee {
 
     private boolean available;

@@ -3,6 +3,7 @@ package application;
 import java.time.LocalDate;
 import java.util.Scanner;
 
+//Author: Adam Ajane (Contributors: Oliver Brandt)
 public class TimeRegistration {
     private Employee employee;
     private Activity activity;

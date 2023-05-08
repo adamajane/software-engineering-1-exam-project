@@ -1,5 +1,6 @@
 package application;
 
+//Author: Adam Ajane
 public class Developer extends Employee {
 
     public Developer(String employeeId) {

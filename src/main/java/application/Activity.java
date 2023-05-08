@@ -3,6 +3,7 @@ package application;
 import java.util.ArrayList;
 import java.util.List;
 
+//Author: Alexander Vaaben (Contributors: Adam Ajane + Oliver Brandt)
 public class Activity {
     private String activityName;
     private List<Employee> assignedEmployees;

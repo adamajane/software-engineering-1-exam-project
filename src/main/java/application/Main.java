@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 import static application.Employee.findActivityByName;
 
+//Author: Alexander Vaaben (Contributors: Oliver Brandt)
 public class Main {
 
     public static void main(String[] args) {

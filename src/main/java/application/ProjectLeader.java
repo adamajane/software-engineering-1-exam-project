@@ -3,6 +3,7 @@ package application;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+//Author: Adam Ajane (Contributors: Oliver Brandt)
 public class ProjectLeader extends Employee {
 
     private static ArrayList<Project> projects = new ArrayList<Project>();
@@ -49,7 +50,7 @@ public class ProjectLeader extends Employee {
         }
     }
 
-    // Updates the name of an exisiting project
+    // Updates the name of an existing project
     public static void updateProjectName(int currProjID, String newProjName) {
 
         if (ProjectLeader.getProjects().isEmpty()) {
