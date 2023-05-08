@@ -1,5 +1,6 @@
 # Software Engineering 1 (02161) Exam Project
 Exam project for the course Software Engineering 1 (02161). The project is a time management app for software projects.
+The app is designed to be used by project leaders and developers to projects, activities, time, and availability.
 # Authors
 Adam Ajane - s211048@student.dtu.dk\
 Oliver Brandt-Olsen - s216162@student.dtu.dk\
@@ -24,8 +25,6 @@ The run configuration for the testing is located at
     .idea/runConfigurations/All_in_software_engineering_1_exam_project.xml
 
 The run configuration has been tested and works on Windows and macOS.
-
-Note: When opening the ZIP with IntelliJ, the run configuration is set to the testing configuration by default
 ## Running the program
 There are two ways to run the program:
 1. Go to the `Main` class and click on the green `Run` icon next to the main method.
