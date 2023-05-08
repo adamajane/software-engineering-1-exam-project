@@ -3,7 +3,7 @@ package application;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-//Author: Adam Ajane (Contributors: Oliver Brandt)
+//Author: Adam Ajane (Contributors: Oliver Brandt + Andreas Bardram)
 public class ProjectLeader extends Employee {
 
     private static ArrayList<Project> projects = new ArrayList<Project>();

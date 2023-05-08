@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-//Author: Adam Ajane (Contributors: Oliver Brandt)
+//Author: Adam Ajane (Contributors: Oliver Brandt + Andreas Bardram)
 public class Project {
     private ProjectType projectType;
     private static int projectCounter = 0;
